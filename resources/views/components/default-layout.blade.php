@@ -34,8 +34,11 @@
                         <a href="{{ route('users.index') }}" class="hover:text-blue-200">Users</a>
                         <a href="{{ route('categories.index') }}" class="hover:text-blue-200">Category</a>
                         <a href="{{ route('gudangs.index') }}" class="hover:text-blue-200">Gudang</a>
+                        <a href="{{ route('suppliers.index') }}" class="hover:text-blue-200">Supplier</a>
                         <a href="{{ route('barangs.index') }}" class="hover:text-blue-200">Barang</a>
                         <a href="{{ route('penerimaan-barang.index') }}" class="hover:text-blue-200">Penerimaan Barang</a>
+                        <a href="{{ route('pengiriman-barang.index') }}" class="hover:text-blue-200">Pengiriman Barang</a>
+                        <a href="{{ route('retur-barang.index') }}" class="hover:text-blue-200">Retur Barang</a>
                         <!-- Tambahkan menu lain di sini -->
                     </div>
                 </div>

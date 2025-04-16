@@ -126,11 +126,6 @@
                     <label class="block mb-2 text-sm font-medium text-gray-700">Jumlah</label>
                     <input type="number" name="jumlah[]" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" min="1" required>
                 </div>
-                
-                {{-- <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-700">Satuan</label>
-                    <input type="text" name="satuan[]" class="satuan-display bg-gray-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" readonly>
-                </div> --}}
 
                 <div>
                     <label class="block mb-2 text-sm font-medium text-gray-700">Harga Beli</label>

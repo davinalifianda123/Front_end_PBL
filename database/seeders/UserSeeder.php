@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
 
         $roles = [$adminRole, $supervisorRole, $staffRole];
 
-        $faker = Faker::create();
+        $faker = Faker::create('id_ID');
 
         for ($i = 0; $i < 10; ++$i) {
             $role = $roles[$i % 3];

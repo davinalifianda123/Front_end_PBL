@@ -1,8 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Role;
+use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Role\StoreRoleRequest;
 use App\Http\Requests\Role\UpdateRoleRequest;
 
@@ -13,7 +12,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::paginate(10);
+        // Mengambil data yang flag-nya 1
+        $roles = Role::where('flag', 1)->paginate(10);
         return view('roles.index', compact('roles'));
     }
 
@@ -28,11 +28,18 @@ class RoleController extends Controller
     /**
      * Store a newly created role in storage.
      */
-    public function store(StoreRoleRequest $request) 
+    public function store(StoreRoleRequest $request)
     {
-        Role::create($request->validated());
-
-        return redirect()->route('roles.index')->with('success', 'Role berhasil dibuat!');
+        // Menggunakan database transaction dengan try-catch
+        try {
+            return DB::transaction(function () use ($request) {
+                Role::create($request->validated());
+                return redirect()->route('roles.index')->with('success', 'Role berhasil dibuat!');
+            }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+        } catch (\Throwable $th) {
+            return redirect()->route('roles.index')
+                ->with('error', 'Gagal membuat role. Silakan coba lagi.');
+        }
     }
 
     /**
@@ -40,6 +47,11 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
+        // Memastikan hanya role dengan flag=1 yang dapat ditampilkan
+        if ($role->flag != 1) {
+            return redirect()->route('roles.index')
+                ->with('error', 'Role tidak ditemukan.');
+        }
         return view('roles.show', compact('role'));
     }
 
@@ -48,6 +60,11 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
+        // Memastikan hanya role dengan flag=1 yang dapat diedit
+        if ($role->flag != 1) {
+            return redirect()->route('roles.index')
+                ->with('error', 'Role tidak ditemukan.');
+        }
         return view('roles.edit', compact('role'));
     }
 
@@ -56,9 +73,22 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleRequest $request, Role $role)
     {
-        $role->update($request->validated());
-
-        return redirect()->route('roles.index')->with('success', 'Role berhasil diperbarui!');
+        // Memastikan hanya role dengan flag=1 yang dapat diupdate
+        if ($role->flag != 1) {
+            return redirect()->route('roles.index')
+                ->with('error', 'Role tidak ditemukan.');
+        }
+        
+        // Menggunakan database transaction dengan try-catch
+        try {
+            return DB::transaction(function () use ($request, $role) {
+                $role->update($request->validated());
+                return redirect()->route('roles.index')->with('success', 'Role berhasil diperbarui!');
+            }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+        } catch (\Throwable $th) {
+            return redirect()->route('roles.index')
+                ->with('error', 'Gagal memperbarui role. Silakan coba lagi.');
+        }
     }
 
     /**
@@ -66,8 +96,24 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        $role->delete();
-
-        return redirect()->route('roles.index')->with('success', 'Role berhasil dihapus!');
+        // Memastikan hanya role dengan flag=1 yang dapat dihapus
+        if ($role->flag != 1) {
+            return redirect()->route('roles.index')
+                ->with('error', 'Role tidak ditemukan.');
+        }
+        
+        // Menggunakan database transaction dengan try-catch untuk soft delete
+        try {
+            return DB::transaction(function () use ($role) {
+                // Melakukan soft delete dengan mengubah flag menjadi 0
+                $role->flag = 0;
+                $role->save();
+                
+                return redirect()->route('roles.index')->with('success', 'Role berhasil dihapus!');
+            }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+        } catch (\Throwable $th) {
+            return redirect()->route('roles.index')
+                ->with('error', 'Gagal menghapus role. Role mungkin sedang digunakan.');
+        }
     }
 }

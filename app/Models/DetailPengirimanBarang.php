@@ -21,4 +21,9 @@ class DetailPengirimanBarang extends Model
         'jumlah',
         'harga_jual_satuan',
     ];
+
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'id_barang');
+    }
 }

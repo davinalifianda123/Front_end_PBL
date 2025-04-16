@@ -19,7 +19,7 @@ class PenerimaanBarangSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create();
+        $faker = Faker::create('id_ID');
         $suppliers = Supplier::all();
         $gudangs = Gudang::all();
 

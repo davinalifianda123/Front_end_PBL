@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama_toko');
             $table->string('alamat');
+            $table->integer('flag')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

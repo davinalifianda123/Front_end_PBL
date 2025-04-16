@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Toko extends Model
 {
     /** @use HasFactory<\Database\Factories\TokoFactory> */
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -18,5 +19,6 @@ class Toko extends Model
     protected $fillable = [
         'nama_toko',
         'alamat',
+        'flag'
     ];
 }

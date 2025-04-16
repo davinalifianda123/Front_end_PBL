@@ -20,7 +20,7 @@ class PengirimanBarangSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create();
+        $faker = Faker::create('id_ID');
         $gudangs = Gudang::all();
         $kurirs = Kurir::all();
         $tokos = Toko::all();

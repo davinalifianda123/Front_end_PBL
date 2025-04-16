@@ -32,8 +32,10 @@ return new class extends Migration
             $table->bigInteger('jumlah_stok')->default(0);
             $table->bigInteger('berat');
             $table->bigInteger('harga_jual');
+            $table->integer('flag')->default(1);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

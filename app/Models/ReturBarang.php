@@ -21,6 +21,26 @@ class ReturBarang extends Model
         'id_user',
         'tanggal_retur',
         'alasan_retur',
-        'status_retur'
+        'id_status_retur'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+    
+    public function statusRetur()
+    {
+        return $this->belongsTo(StatusRetur::class, 'id_status_retur');
+    }
+    
+    public function pengirimanBarang()
+    {
+        return $this->belongsTo(PengirimanBarang::class, 'id_pengiriman_barang');
+    }
+    
+    public function detailReturBarangs()
+    {
+        return $this->hasMany(DetailReturBarang::class, 'id_retur');
+    }
 }

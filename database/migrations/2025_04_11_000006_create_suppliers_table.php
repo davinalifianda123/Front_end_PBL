@@ -18,7 +18,9 @@ return new class extends Migration
             $table->string('no_telepon');
             $table->string('email');
             $table->string('contact_person');
+            $table->integer('flag')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

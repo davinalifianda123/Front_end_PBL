@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('kurirs', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kurir');
+            $table->integer('flag')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

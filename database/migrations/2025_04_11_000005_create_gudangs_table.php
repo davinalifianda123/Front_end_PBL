@@ -15,7 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('nama_gudang');
             $table->string('lokasi');
+            $table->integer('flag')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

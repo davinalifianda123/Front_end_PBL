@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('status_returs', function (Blueprint $table) {
             $table->id();
             $table->string('nama_status');
+            $table->integer('flag')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

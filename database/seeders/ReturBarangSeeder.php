@@ -19,7 +19,7 @@ class ReturBarangSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create();
+        $faker = Faker::create('id_ID');
         $users = User::all();
         $statusRetur = StatusRetur::all();
         $pengirimanBarangs = PengirimanBarang::where('id_status_pengiriman', 3)->get();
