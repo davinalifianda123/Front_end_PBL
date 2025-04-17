@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Toko;
-use Faker\Factory as Faker;
+use App\Imports\TokoImport;
 use Illuminate\Database\Seeder;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class TokoSeeder extends Seeder
 {
@@ -13,13 +14,12 @@ class TokoSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create('id_ID');
+        $this->command->info('Importing toko from Excel...');
 
-        for ($i = 0; $i < 5; $i++) {
-            Toko::create([
-                'nama_toko' => 'Toko ' . $faker->word,
-                'alamat' => $faker->address,
-            ]);
-        }
+        $disk = 'local';
+        $fileName = 'Toko.xlsx';
+        $filePath = Storage::disk($disk)->path($fileName);
+
+        Excel::import(new TokoImport, $filePath);
     }
 }

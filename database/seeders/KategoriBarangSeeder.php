@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\KategoriBarang;
+use App\Imports\KategoriBarangImport;
 use Illuminate\Database\Seeder;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class KategoriBarangSeeder extends Seeder
 {
@@ -12,10 +14,12 @@ class KategoriBarangSeeder extends Seeder
      */
     public function run(): void
     {
-        KategoriBarang::create(['nama_kategori' => 'Beras']);
-        KategoriBarang::create(['nama_kategori' => 'Minyak Goreng']);
-        KategoriBarang::create(['nama_kategori' => 'Gula Pasir']);
-        KategoriBarang::create(['nama_kategori' => 'Telur']);
-        KategoriBarang::create(['nama_kategori' => 'Tepung Terigu']);
+        $this->command->info('Importing kategori barang from Excel...');
+
+        $disk = 'local';
+        $fileName = 'KategoriBarang.xlsx';
+        $filePath = Storage::disk($disk)->path($fileName);
+
+        Excel::import(new KategoriBarangImport, $filePath);
     }
 }

@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Gudang;
+use App\Imports\GudangImport;
 use Illuminate\Database\Seeder;
-use Faker\Factory as Faker;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class GudangSeeder extends Seeder
 {
@@ -13,13 +14,12 @@ class GudangSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create('id_ID');
+        $this->command->info('Importing gudang from Excel...');
 
-        for ($i = 0; $i < 5; $i++) {
-            Gudang::create([
-                'nama_gudang' => 'Gudang ' . $faker->word,
-                'lokasi' => $faker->address,
-            ]);
-        }
+        $disk = 'local';
+        $fileName = 'Gudang.xlsx';
+        $filePath = Storage::disk($disk)->path($fileName);
+
+        Excel::import(new GudangImport, $filePath);
     }
 }

@@ -35,7 +35,7 @@
                             <tr class="border-t hover:bg-gray-50">
                                 <td class="py-3 px-4">{{ $gudang->id }}</td>
                                 <td class="py-3 px-4">{{ $gudang->nama_gudang }}</td>
-                                <td class="py-3 px-4">{{ $gudang->lokasi }}</td>
+                                <td class="py-3 px-4">{{ $gudang->alamat }}</td>
                                 <td class="py-3 px-4 text-center">
                                     <div class="flex justify-center space-x-2">
                                         <a href="{{ route('gudangs.show', $gudang->id) }}" class="bg-green-500 hover:bg-green-600 text-white text-sm py-1 px-3 rounded transition duration-300">

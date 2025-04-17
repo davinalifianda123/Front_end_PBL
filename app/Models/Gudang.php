@@ -19,7 +19,7 @@ class Gudang extends Model
      */
     protected $fillable = [
         'nama_gudang',
-        'lokasi',
+        'alamat',
         'flag'
     ];
 

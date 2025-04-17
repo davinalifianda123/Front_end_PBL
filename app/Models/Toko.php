@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Toko extends Model
@@ -18,7 +19,14 @@ class Toko extends Model
      */
     protected $fillable = [
         'nama_toko',
+        'id_jenis_toko',
         'alamat',
+        'no_telepon',
         'flag'
     ];
+
+    public function jenisToko(): HasOne
+    {
+        return $this->hasOne(JenisToko::class, 'id_jenis_toko');
+    }
 }

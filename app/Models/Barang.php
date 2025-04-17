@@ -22,6 +22,7 @@ class Barang extends Model
         'nama_barang',
         'id_kategori',
         'id_gudang',
+        'id_toko',
         'jumlah_stok',
         'berat',
         'harga_jual',
@@ -32,10 +33,15 @@ class Barang extends Model
     {
         return $this->belongsTo(KategoriBarang::class, 'id_kategori');
     }
-
+    
     public function gudang(): BelongsTo
     {
         return $this->belongsTo(Gudang::class, 'id_gudang');
+    }
+
+    public function toko(): BelongsTo
+    {
+        return $this->belongsTo(Toko::class, 'id_toko');
     }
 
     public function detailPengirimanBarang(): HasMany

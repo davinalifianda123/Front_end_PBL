@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
+use App\Imports\RolesImport;
 use Illuminate\Database\Seeder;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class RoleSeeder extends Seeder
 {
@@ -12,8 +14,12 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(['nama_role' => 'admin']);
-        Role::create(['nama_role' => 'supervisor']);
-        Role::create(['nama_role' => 'staff']);
+        $this->command->info('Importing roles from Excel...');
+
+        $disk = 'local';
+        $fileName = 'Roles.xlsx';
+        $filePath = Storage::disk($disk)->path($fileName);
+
+        Excel::import(new RolesImport, $filePath);
     }
 }

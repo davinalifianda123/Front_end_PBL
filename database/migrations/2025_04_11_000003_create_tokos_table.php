@@ -14,7 +14,16 @@ return new class extends Migration
         Schema::create('tokos', function (Blueprint $table) {
             $table->id();
             $table->string('nama_toko');
+
+            $table->unsignedBigInteger('id_jenis_toko');
+            $table->foreign('id_jenis_toko')
+                ->references('id')
+                ->on('jenis_tokos')
+                ->restrictOnDelete()
+                ->cascadeOnUpdate();
+
             $table->string('alamat');
+            $table->string('no_telepon');
             $table->integer('flag')->default(1);
             $table->timestamps();
             $table->softDeletes();

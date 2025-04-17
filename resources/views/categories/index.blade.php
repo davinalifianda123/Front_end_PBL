@@ -33,7 +33,7 @@
                     @foreach($categories as $category)
                     <tr>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $category->id }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $category->nama_kategori }}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $category->nama_kategori_barang }}</td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm space-x-2">
                             <a href="{{ route('categories.show', $category->id) }}" class="text-blue-600 hover:text-blue-900">Detail</a>
                             <a href="{{ route('categories.edit', $category->id) }}" class="text-amber-600 hover:text-amber-900">Edit</a>

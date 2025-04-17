@@ -72,10 +72,9 @@ class ReturBarangController extends Controller
 
                 if ($detailPengirimanBarangs) {
                     foreach ($detailPengirimanBarangs as $detail) {
-                        $barang = $detail->barang;
-                        if ($barang) {
-                            $namaBarang = $barang->nama_barang;
-                            $jumlahStok = $barang->jumlah_stok;
+                        if ($detail) {
+                            $namaBarang = $detail->nama_barang;
+                            $jumlahStok = $detail->jumlah;
                 
                             if ($jumlahStok < $request->jumlah_barang_retur[$index]) {
                                 DB::rollBack();

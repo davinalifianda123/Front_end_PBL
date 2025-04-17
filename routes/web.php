@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 Route::resource('roles', RoleController::class);
+
 Route::resource('users', UserController::class);
 Route::resource('categories', KategoriBarangController::class);
 Route::resource('gudangs', GudangController::class);

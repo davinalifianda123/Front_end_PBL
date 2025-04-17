@@ -2,8 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\StatusRetur;
 use Illuminate\Database\Seeder;
+use App\Imports\StatusReturImport;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class StatusReturSeeder extends Seeder
 {
@@ -12,8 +14,12 @@ class StatusReturSeeder extends Seeder
      */
     public function run(): void
     {
-        StatusRetur::create(['nama_status' => 'Pending']);
-        StatusRetur::create(['nama_status' => 'Diproses']);
-        StatusRetur::create(['nama_status' => 'Selesai']);
+        $this->command->info('Importing status retur from Excel...');
+
+        $disk = 'local';
+        $fileName = 'StatusRetur.xlsx';
+        $filePath = Storage::disk($disk)->path($fileName);
+
+        Excel::import(new StatusReturImport, $filePath);
     }
 }

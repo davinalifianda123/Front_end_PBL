@@ -24,10 +24,10 @@ class PenerimaanBarangController extends Controller
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->whereHas('supplier', function ($subQuery) use ($search) {
-                    $subQuery->where('nama', 'like', '%' . $search . '%')->where('flag', 1);
+                    $subQuery->where('nama_toko_supplier', 'like', '%' . $search . '%')->where('flag', 1);
                 })
                     ->orWhereHas('gudang', function ($subQuery) use ($search) {
-                        $subQuery->where('nama', 'like', '%' . $search . '%')->where('flag', 1);
+                        $subQuery->where('nama_gudang', 'like', '%' . $search . '%')->where('flag', 1);
                     })
                     ->orWhere('tanggal_penerimaan', 'like', '%' . $search . '%');
             });

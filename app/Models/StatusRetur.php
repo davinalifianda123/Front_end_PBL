@@ -17,7 +17,7 @@ class StatusRetur extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'nama_role',
+        'nama_status',
         'flag'
     ];
 }

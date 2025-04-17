@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Role;
-use App\Models\User;
+use App\Imports\UsersImport;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use Faker\Factory as Faker;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class UserSeeder extends Seeder
 {
@@ -15,22 +15,12 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $adminRole = Role::where('nama_role', 'admin')->first();
-        $supervisorRole = Role::where('nama_role', 'supervisor')->first();
-        $staffRole = Role::where('nama_role', 'staff')->first();
+        $this->command->info('Importing users from Excel...');
 
-        $roles = [$adminRole, $supervisorRole, $staffRole];
+        $disk = 'local';
+        $fileName = 'Users.xlsx';
+        $filePath = Storage::disk($disk)->path($fileName);
 
-        $faker = Faker::create('id_ID');
-
-        for ($i = 0; $i < 10; ++$i) {
-            $role = $roles[$i % 3];
-            User::create([
-                'nama' => $faker->name,
-                'email' => $faker->unique()->safeEmail,
-                'password' => Hash::make('password'),
-                'role_id' => $role->id,
-            ]);
-        }
+        Excel::import(new UsersImport, $filePath);
     }
 }

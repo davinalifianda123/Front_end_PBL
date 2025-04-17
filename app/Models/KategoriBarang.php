@@ -18,7 +18,7 @@ class KategoriBarang extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'nama_kategori',
+        'nama_kategori_barang',
         'flag'
     ];
 
