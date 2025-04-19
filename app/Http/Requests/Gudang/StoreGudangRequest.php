@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Role;
+namespace App\Http\Requests\Gudang;
 
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRoleRequest extends FormRequest
+class StoreGudangRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,16 +21,18 @@ class StoreRoleRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
-            'nama_role' => [
+        return [
+            'nama_gudang' => [
                 'required',
-                'unique:roles',
                 'string',
                 'max:255',
+                'unique:gudangs', 
             ],
+            'alamat' => [
+                'required',
+                'string',
+            ]
         ];
-
-        return $rules;
     }
 
     /**
@@ -42,9 +43,10 @@ class StoreRoleRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nama_role.required' => 'Nama role harus diisi.',
-            'nama_role.unique' => 'Nama role ini sudah digunakan.',
-            'nama_role.max' => 'Nama role maksimal 255 karakter.',
+            'nama_gudang.required' => 'Nama gudang harus diisi.',
+            'nama_gudang.unique' => 'Nama gudang ini sudah digunakan.',
+            'nama_gudang.max' => 'Nama gudang maksimal 255 karakter.',
+            'alamat.required' => 'Alamat harus diisi.',
         ];
     }
 }

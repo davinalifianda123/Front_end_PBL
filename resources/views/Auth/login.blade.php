@@ -22,29 +22,48 @@
         <!-- Alpinejs -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js" defer></script>
     </head>
-    <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex items-center lg:justify-center min-h-screen flex-col">
-        @switch(Auth::user()->role->nama_role)
-            @case("Admin")
-                <x-headers.header-admin />
-                @break
-            @case("Supervisor")
-                <x-headers.header-supervisor />
-                @break
-            @case("Staff")
-                <x-headers.header-staff />
-                @break
-            @case("Supplier")
-                <x-headers.header-supplier />
-                @break
-            @case("Buyer")
-                <x-headers.header-buyer />
-                @break
-        @endswitch
-        <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
-            <main class="flex justify-center items-center max-w-[335px] w-full flex-col-reverse lg:max-w-4xl lg:flex-row">
-                {{ $slot }}
-            </main>
+    <body class="dark:bg-[#0a0a0a] text-[#1b1b18] flex items-center lg:justify-center min-h-screen flex-col">
+        <div class="w-full max-w-md">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                <div class="px-6 py-4 text-black">
+                    <h2 class="text-3xl font-black">Login</h2>
+                </div>
+                <div class="p-6">
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="email" name="email" value="{{ old('email') }}" required
+                                class="w-full px-3 py-2 outline rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') border-red-500 @enderror">
+                            @error('email')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+    
+                        <div class="mb-4">
+                            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" id="password" name="password" required
+                                class="w-full px-3 py-2 outline rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password') border-red-500 @enderror">
+                            @error('password')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+    
+                        <div class="mb-6 flex items-center">
+                            <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}
+                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                            <label for="remember" class="ml-2 block text-sm text-gray-700">Remember Me</label>
+                        </div>
+    
+                        <div>
+                            <button type="submit" 
+                                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                Login
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <x-footer />
     </body>
 </html>

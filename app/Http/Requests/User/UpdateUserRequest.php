@@ -44,7 +44,6 @@ class UpdateUserRequest extends FormRequest
                     ->symbols()
                     ->uncompromised()
             ],
-            'role_id' => ['sometimes', 'required', 'numeric', 'exists:roles,id'],
         ];
     }
 

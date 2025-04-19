@@ -47,21 +47,6 @@
                             <input type="password" name="password_confirmation" id="password_confirmation" class="p-2 block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                         </div>
 
-                        <!-- Role -->
-                        <div class="mb-4">
-                            <label for="role_id" class="block text-sm font-medium text-gray-700">Role</label>
-                            <select name="role_id" id="role_id" class="p-2 block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                @foreach($roles as $role)
-                                    <option value="{{ $role->id }}" {{ old('role_id', $user->role_id) == $role->id ? 'selected' : '' }}>
-                                        {{ ucfirst($role->nama_role) }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('role_id')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-
                         <div class="flex items-center justify-between mt-6 gap-12">
                             <a href="{{ route('users.index') }}" class="text-sm text-gray-600 underline">Kembali ke Daftar Pengguna</a>
                             <button type="submit" class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 cursor-pointer">

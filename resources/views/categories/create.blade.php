@@ -9,16 +9,16 @@
             @csrf
             
             <div class="mb-4">
-                <label for="nama_kategori" class="block text-sm font-medium text-gray-700 mb-1">Nama Kategori</label>
+                <label for="nama_kategori_barang" class="block text-sm font-medium text-gray-700 mb-1">Nama Kategori</label>
                 <input 
                     type="text" 
-                    name="nama_kategori" 
-                    id="nama_kategori" 
-                    value="{{ old('nama_kategori') }}" 
+                    name="nama_kategori_barang" 
+                    id="nama_kategori_barang" 
+                    value="{{ old('nama_kategori_barang') }}" 
                     class="p-2 w-full rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50 {{ $errors->has('nama_role') ? 'border-red-500' : 'border-gray-300' }}"
                     required
                 >
-                @error('nama_kategori')
+                @error('nama_kategori_barang')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>

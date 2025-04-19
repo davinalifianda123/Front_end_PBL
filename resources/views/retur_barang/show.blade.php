@@ -5,18 +5,6 @@
                 <div>
                     <h3 class="text-lg leading-6 font-medium text-gray-900">Informasi Retur Barang</h3>
                 </div>
-                <div class="flex space-x-2">
-                    <a href="{{ route('retur-barang.edit', $returBarang->id) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                        Edit Retur
-                    </a>
-                    <form action="{{ route('retur-barang.destroy', $returBarang->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus retur barang ini?');">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-red-300 rounded-md shadow-sm text-sm font-medium text-red-700 bg-white hover:bg-red-50">
-                            Hapus Retur
-                        </button>
-                    </form>
-                </div>
             </div>
             <div class="border-t border-gray-200">
                 <dl class="px-4 py-5">

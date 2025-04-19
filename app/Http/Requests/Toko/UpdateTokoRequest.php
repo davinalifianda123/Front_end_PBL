@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Role;
+namespace App\Http\Requests\Toko;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRoleRequest extends FormRequest
+class UpdateTokoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,16 +22,26 @@ class StoreRoleRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
-            'nama_role' => [
+        return [
+            'nama_toko' => [
                 'required',
-                'unique:roles',
                 'string',
                 'max:255',
             ],
+            'id_jenis_toko' => [ 
+                'nullable',
+                'exists:jenis_tokos,id',
+            ],
+            'alamat' => [
+                'required', 
+                'string', 
+                Rule::unique('tokos')->ignore($this->toko),
+            ],
+            'no_telepon' => [
+                'required', 
+                'string'
+            ]
         ];
-
-        return $rules;
     }
 
     /**
@@ -42,9 +52,10 @@ class StoreRoleRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nama_role.required' => 'Nama role harus diisi.',
-            'nama_role.unique' => 'Nama role ini sudah digunakan.',
-            'nama_role.max' => 'Nama role maksimal 255 karakter.',
+            'nama_toko.required' => 'Nama toko harus diisi.',
+            'nama_toko.max' => 'Nama toko maksimal 255 karakter.',
+            'alamat.required' => 'Nama alamat harus diisi.',
+            'no_telepon.required' => 'No telepon harus diisi.',
         ];
     }
 }

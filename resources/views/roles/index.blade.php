@@ -1,6 +1,6 @@
 <x-default-layout>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="w-2xl max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex justify-between items-center mb-6">
@@ -38,13 +38,13 @@
                                                 <a href="{{ route('roles.edit', $role->id) }}" class="text-yellow-500 hover:text-amber-900">
                                                     Edit
                                                 </a>
-                                                <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="inline-block">
+                                                {{-- <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="inline-block">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="text-red-500 hover:text-red-900 cursor-pointer" onclick="return confirm('Apakah Anda yakin ingin menghapus role ini?')">
                                                         Delete
                                                     </button>
-                                                </form>
+                                                </form> --}}
                                             </div>
                                         </td>
                                     </tr>

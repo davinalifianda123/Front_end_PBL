@@ -3,9 +3,6 @@
         <div class="flex justify-between items-center p-4 border-b">
             <h1 class="text-2xl font-bold text-gray-800">Detail Supplier</h1>
             <div class="space-x-2">
-                <a href="{{ route('suppliers.edit', $supplier->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white font-medium px-4 py-2 rounded">
-                    Edit
-                </a>
                 <a href="{{ route('suppliers.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium px-4 py-2 rounded">
                     Kembali
                 </a>

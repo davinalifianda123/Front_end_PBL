@@ -1,5 +1,7 @@
 <?php
 namespace App\Http\Controllers;
+use App\Http\Requests\Kategori\StoreKategoriRequest;
+use App\Http\Requests\Kategori\UpdateKategoriRequest;
 use Illuminate\Http\Request;
 use App\Models\KategoriBarang;
 use Illuminate\Support\Facades\DB;
@@ -11,8 +13,7 @@ class KategoriBarangController extends Controller
      */
     public function index()
     {
-        // Mengambil data yang flag-nya 1
-        $categories = KategoriBarang::where('flag', 1)->orderBy('id')->paginate(10);
+        $categories = KategoriBarang::orderBy('id')->paginate(10);
         return view('categories.index', compact('categories'));
     }
 
@@ -27,18 +28,12 @@ class KategoriBarangController extends Controller
     /**
      * Store a newly created category in storage.
      */
-    public function store(Request $request)
+    public function store(StoreKategoriRequest $request)
     {
-        $request->validate([
-            'nama_kategori' => 'required|string|max:255|unique:kategori_barangs',
-        ]);
-
         try {
             return DB::transaction(function () use ($request) {
-                KategoriBarang::create([
-                    'nama_kategori' => $request->nama_kategori,
-                ]);
-                
+                KategoriBarang::create($request->validated());
+
                 return redirect()->route('categories.index')
                     ->with('success', 'Kategori barang berhasil ditambahkan.');
             }, 3); // Maksimal 3 percobaan jika terjadi deadlock
@@ -53,11 +48,6 @@ class KategoriBarangController extends Controller
      */
     public function show(KategoriBarang $category)
     {
-        // Memastikan hanya kategori dengan flag=1 yang dapat ditampilkan
-        if ($category->flag != 1) {
-            return redirect()->route('categories.index')
-                ->with('error', 'Kategori tidak ditemukan.');
-        }
         return view('categories.show', compact('category'));
     }
 
@@ -66,34 +56,17 @@ class KategoriBarangController extends Controller
      */
     public function edit(KategoriBarang $category)
     {
-        // Memastikan hanya kategori dengan flag=1 yang dapat diedit
-        if ($category->flag != 1) {
-            return redirect()->route('categories.index')
-                ->with('error', 'Kategori tidak ditemukan.');
-        }
         return view('categories.edit', compact('category'));
     }
 
     /**
      * Update the specified category in storage.
      */
-    public function update(Request $request, KategoriBarang $category)
+    public function update(UpdateKategoriRequest $request, KategoriBarang $category)
     {
-        // Memastikan hanya kategori dengan flag=1 yang dapat diupdate
-        if ($category->flag != 1) {
-            return redirect()->route('categories.index')
-                ->with('error', 'Kategori tidak ditemukan.');
-        }
-        
-        $request->validate([
-            'nama_kategori' => 'required|string|max:255|unique:kategori_barangs,nama_kategori,' . $category->id,
-        ]);
-
         try {
             return DB::transaction(function () use ($request, $category) {
-                $category->update([
-                    'nama_kategori' => $request->nama_kategori,
-                ]);
+                $category->update($request->validated());
                 
                 return redirect()->route('categories.index')
                     ->with('success', 'Kategori barang berhasil diperbarui.');
@@ -105,28 +78,38 @@ class KategoriBarangController extends Controller
     }
 
     /**
-     * Remove the specified category from storage.
+     * Deactivate the specified category from storage.
      */
-    public function destroy(KategoriBarang $category)
-    {
-        // Memastikan hanya kategori dengan flag=1 yang dapat dihapus
-        if ($category->flag != 1) {
-            return redirect()->route('categories.index')
-                ->with('error', 'Kategori tidak ditemukan.');
-        }
-        
+    public function deactivate(KategoriBarang $category)
+    {   
         try {
             return DB::transaction(function () use ($category) {
-                // Melakukan soft delete dengan mengubah flag menjadi 0
-                $category->flag = 0;
-                $category->save();
+                $category->update(['flag' => 0]);
                 
-                return redirect()->route('categories.index')
-                    ->with('success', 'Kategori barang berhasil dihapus.');
+                return redirect()->back()
+                    ->with('success', "Kategori barang {$category->nama_kategori_barang} berhasil dinonaktifkan.");
             }, 3); // Maksimal 3 percobaan jika terjadi deadlock
         } catch (\Throwable $th) {
-            return redirect()->route('categories.index')
-                ->with('error', 'Gagal menghapus kategori. Kategori mungkin sedang digunakan.');
+            return redirect()->back()
+                ->with('error', "Gagal menonaktifkan kategori barang {$category->nama_kategori_barang}.");
+        }
+    }
+
+    /**
+     * Activate the specified category from storage.
+     */
+    public function activate(KategoriBarang $category)
+    {
+        try {
+            return DB::transaction(function () use ($category) {
+                $category->update(['flag' => 1]);
+                
+                return redirect()->back()
+                    ->with('success', "Kategori barang {$category->nama_kategori_barang} berhasil diaktifkan.");
+            }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+        } catch (\Throwable $th) {
+            return redirect()->back()
+                ->with('error', "Gagal mengaktifkan kategori barang {$category->nama_kategori_barang}.");
         }
     }
 }

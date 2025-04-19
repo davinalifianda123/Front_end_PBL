@@ -23,6 +23,11 @@ class Gudang extends Model
         'flag'
     ];
 
+    public function users(): HasMany
+    {
+        return $this->hasMany(User::class, 'id_gudang');
+    }
+
     public function barangs(): HasMany
     {
         return $this->hasMany(Barang::class, 'id_gudang');

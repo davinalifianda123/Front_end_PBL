@@ -23,8 +23,8 @@
             </div>
 
             <div class="mb-6">
-                <label for="lokasi" class="block text-gray-700 font-medium mb-2">Lokasi</label>
-                <input type="text" name="lokasi" id="lokasi" value="{{ old('lokasi', $gudang->lokasi) }}" 
+                <label for="alamat" class="block text-gray-700 font-medium mb-2">Alamat</label>
+                <input type="text" name="alamat" id="alamat" value="{{ old('alamat', $gudang->alamat) }}" 
                     class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
                     required>
             </div>

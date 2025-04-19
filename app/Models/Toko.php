@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -25,8 +26,13 @@ class Toko extends Model
         'flag'
     ];
 
-    public function jenisToko(): HasOne
+    public function jenisToko(): BelongsTo
     {
-        return $this->hasOne(JenisToko::class, 'id_jenis_toko');
+        return $this->belongsTo(JenisToko::class, 'id_jenis_toko');
+    }
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, 'id_toko');
     }
 }

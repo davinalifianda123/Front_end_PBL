@@ -24,7 +24,6 @@ class UpdateRoleRequest extends FormRequest
     {
         $rules = [
             'nama_role' => [
-                'sometimes',
                 'required',
                 'string',
                 'max:255',
@@ -44,7 +43,6 @@ class UpdateRoleRequest extends FormRequest
     {
         return [
             'nama_role.required' => 'Nama role harus diisi.',
-            'nama_role.unique' => 'Nama role sudah digunakan.',
             'nama_role.max' => 'Nama role maksimal 255 karakter.',
         ];
     }
