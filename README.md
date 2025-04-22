@@ -84,7 +84,7 @@ composer run dev
 
 ## 📁 Tambahan File Excel
 
-Beberapa file Excel dibutuhkan untuk sistem berjalan. Silakan hubungi saya untuk mendapatkan **file Excel** tersebut, kemudian **letakkan di direktori** berikut:
+Beberapa file Excel dibutuhkan untuk sistem berjalan. Silakan hubungi Daniel untuk mendapatkan **file Excel** tersebut, kemudian **letakkan di direktori** berikut:
 
 ```
 storage/app/private/
