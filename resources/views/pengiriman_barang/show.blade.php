@@ -36,18 +36,18 @@
                     </div>
                     
                     <div>
-                        <p class="text-sm text-gray-500">Gudang</p>
-                        <p class="text-lg font-medium">{{ $pengirimanBarang->gudang?->nama_gudang ?? 'Tidak ada' }}</p>
+                        <p class="text-sm text-gray-500">Asal Barang</p>
+                        <p class="text-lg font-medium">{{ $pengirimanBarang->lokasiAsal->toko->nama_toko ?? $pengirimanBarang->lokasiAsal->gudang->nama_gudang ?? 'Tidak ada' }}</p>
+                    </div>
+
+                    <div>
+                        <p class="text-sm text-gray-500">Tujuan Pengiriman</p>
+                        <p class="text-lg font-medium">{{ $pengirimanBarang->lokasiTujuan->toko->nama_toko ?? $pengirimanBarang->lokasiTujuan->gudang->nama_gudang ?? 'Tidak ada' }}</p>
                     </div>
                     
                     <div>
                         <p class="text-sm text-gray-500">Kurir</p>
-                        <p class="text-lg font-medium">{{ $pengirimanBarang->kurir?->nama_kurir ?? 'Tidak ada' }}</p>
-                    </div>
-                    
-                    <div>
-                        <p class="text-sm text-gray-500">Toko Tujuan</p>
-                        <p class="text-lg font-medium">{{ $pengirimanBarang->toko?->nama_toko ?? 'Tidak ada' }}</p>
+                        <p class="text-lg font-medium">{{ $pengirimanBarang->kurir->nama_kurir ?? 'Tidak ada' }}</p>
                     </div>
                     
                     <div>
@@ -62,9 +62,6 @@
             <div class="mb-6">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-lg font-medium text-gray-900">Detail Barang</h3>
-                    <a href="{{ route('pengiriman-barang.detail.create', $pengirimanBarang->id) }}" class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700">
-                        + Tambah Barang
-                    </a>
                 </div>
                 
                 @if($pengirimanBarang->detailPengirimanBarangs->isEmpty())
@@ -96,13 +93,7 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <div class="flex space-x-2">
-                                                <a href="{{ route('pengiriman-barang.detail.show', $detail->id) }}" class="text-indigo-600 hover:text-indigo-900">Detail</a>
-                                                <a href="{{ route('pengiriman-barang.detail.edit', $detail->id) }}" class="text-green-600 hover:text-green-900">Edit</a>
-                                                <form action="{{ route('pengiriman-barang.detail.destroy', $detail->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus item ini?');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-red-600 hover:text-red-900">Hapus</button>
-                                                </form>
+                                                <a href="{{ route('pengiriman-barang.detail.show', [$pengirimanBarang->id, $detail->id]) }}" class="text-indigo-600 hover:text-indigo-900">Detail</a>
                                             </div>
                                         </td>
                                     </tr>

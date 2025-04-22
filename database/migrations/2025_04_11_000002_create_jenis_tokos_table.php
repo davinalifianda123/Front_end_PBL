@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('jenis_tokos', function (Blueprint $table) {
             $table->id();
             $table->string('nama_jenis_toko');
+            $table->integer('flag')->default(1);
             $table->timestamps();
         });
     }

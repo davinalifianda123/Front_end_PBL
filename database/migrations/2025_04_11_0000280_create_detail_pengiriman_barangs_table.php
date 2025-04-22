@@ -29,6 +29,7 @@ return new class extends Migration
                 ->cascadeOnUpdate();
 
             $table->bigInteger('jumlah');
+            $table->integer('flag')->default(1);
             $table->timestamps();
         });
     }

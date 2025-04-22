@@ -29,7 +29,6 @@ return new class extends Migration
                 ->cascadeOnUpdate();
             
             $table->bigInteger('jumlah');
-            $table->bigInteger('harga_beli');
             $table->timestamps();
         });
     }

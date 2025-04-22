@@ -6,6 +6,7 @@
             </div>
             <div class="flex justify-center items-center gap-2 space-x-4">
                 <a href="{{ route('barangs.index') }}" class="hover:text-blue-200">Barang</a>
+                <a href="{{ route('orders.index') }}" class="hover:text-blue-200">Orderan Saya</a>
                 <a href="{{ route('retur-barang.index') }}" class="hover:text-blue-200">Retur Barang</a>
                 <form action="{{ route('logout') }}" method="post">
                     @csrf 

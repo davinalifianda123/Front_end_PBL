@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Barang;
-use App\Models\Gudang;
 use App\Models\Kurir;
+use App\Models\Barang;
+use App\Models\Lokasi;
 use App\Models\PengirimanBarang;
+use Illuminate\Support\Facades\DB;
 use App\Models\DetailPengirimanBarang;
 use App\Models\StatusPengirimanBarang;
-use App\Models\Toko;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
+use App\Http\Requests\PengirimanBarang\StorePengirimanBarangRequest;
+use App\Http\Requests\PengirimanBarang\UpdatePengirimanBarangRequest;
 
 class PengirimanBarangController extends Controller
 {
@@ -21,13 +20,13 @@ class PengirimanBarangController extends Controller
     public function index()
     {
         $pengirimanBarangs = PengirimanBarang::with([
-            'gudang',
+            'lokasiAsal',
+            'lokasiTujuan',
             'kurir',
-            'toko',
             'statusPengiriman',
             'detailPengirimanBarangs'
-        ])->latest()->paginate(10);
-        
+        ])->latest()->where('flag', 1)->paginate(10);
+
         return view('pengiriman_barang.index', compact('pengirimanBarangs'));
     }
 
@@ -36,12 +35,24 @@ class PengirimanBarangController extends Controller
      */
     public function create()
     {
-        $gudangs = Gudang::where('flag', 1)->get();
         $kurirs = Kurir::where('flag', 1)->get();
-        $tokos = Toko::where('flag', 1)->get();
+        $gudangs = Lokasi::with('gudang')
+            ->whereNotNull('id_gudang')
+            ->where('flag', 1)
+            ->get();
+        $tokos = Lokasi::with(['toko.jenisToko'])
+            ->whereNotNull('id_toko')
+            ->where('flag', 1)
+            ->get();
         $statusPengirimanBarangs = StatusPengirimanBarang::where('flag', 1)->get();
-        $barangs = Barang::where('flag', 1)->get();
-        
+        $barangs = Barang::whereHas('toko', function ($query) {
+            $query->whereHas('jenisToko', function ($query) {
+                $query->where('nama_jenis_toko', 'Toko Perusahaan');
+            });
+        })
+        ->orWhereHas('gudang')
+        ->get();
+
         return view('pengiriman_barang.create', compact(
             'gudangs',
             'kurirs',
@@ -54,60 +65,58 @@ class PengirimanBarangController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePengirimanBarangRequest $request)
     {
-        $request->validate([
-            'id_gudang' => 'required|exists:gudangs,id',
-            'tanggal_pengiriman' => 'required|date',
-            'id_kurir' => 'required|exists:kurirs,id',
-            'id_toko' => 'required|exists:tokos,id',
-            'barang_id' => 'required|array',
-            'barang_id.*' => 'exists:barangs,id',
-            'jumlah' => 'required|array',
-            'jumlah.*' => 'required|numeric|min:1',
-        ]);
-
         try {
             DB::beginTransaction();
-            
-            // Buat pengiriman barang baru
-            $pengirimanBarang = PengirimanBarang::create([
-                'id_gudang' => $request->id_gudang,
-                'tanggal_pengiriman' => $request->tanggal_pengiriman,
-                'id_kurir' => $request->id_kurir,
-                'id_toko' => $request->id_toko,
-                'id_status_pengiriman' => 1,
-            ]);
-            
+
+            $validated = $request->validated();
+
+            $pengirimanBarang = PengirimanBarang::create($validated);
+
             // Buat detail pengiriman barang
-            for ($i = 0; $i < count($request->barang_id); $i++) {
-                if (isset($request->barang_id[$i]) && isset($request->jumlah[$i])) {
-                    $barangData = Barang::where('id', $request->barang_id[$i])->first();
+            for ($i = 0; $i < count($validated['barang_id']); ++$i) {
+                if (isset($validated['barang_id'][$i]) && isset($validated['jumlah'][$i])) {
+                    $lokasiAsal = Lokasi::with(['gudang', 'toko.jenisToko'])->where('id', $validated['id_asal_barang'])->first();
 
-                    if ($barangData->jumlah_stok < $request->jumlah[$i]) {
-                        DB::rollBack();
+                    if ($lokasiAsal->gudang || ($lokasiAsal->toko && $lokasiAsal->toko->jenisToko->nama_jenis_toko == 'Toko Perusahaan')) {
+                        $barangData = Barang::where('id', $validated['barang_id'][$i])
+                                        ->where(function ($query) use ($lokasiAsal) {
+                                            if ($lokasiAsal && $lokasiAsal->gudang) {
+                                                $query->where('id_gudang', $lokasiAsal->gudang->id);
+                                            }
+                                    
+                                            if ($lokasiAsal && $lokasiAsal->toko) {
+                                                $query->orWhere('id_toko', $lokasiAsal->toko->id);
+                                            }
+                                        })
+                                        ->first();
 
-                        return back()->with('error', 'Jumlah barang ' . $barangData->nama_barang . ' yang akan dikirim tidak mencukupi')->withInput();
+                        if ($barangData->jumlah_stok < $validated['jumlah'][$i]) {
+                            DB::rollBack();
+
+                            return back()->with('error', "Jumlah barang {$barangData->nama_barang} yang akan dikirim tidak mencukupi")->withInput();
+                        }
+
+                        $barangData->jumlah_stok -= $validated['jumlah'][$i];
+                        $barangData->save();
                     }
 
-                    $barangData->jumlah_stok -= $request->jumlah[$i];
-                    $barangData->save();
-
                     DetailPengirimanBarang::create([
-                        'id_barang' => $request->barang_id[$i],
-                        'id_pengiriman_barang' => $pengirimanBarang->id,
-                        'jumlah' => $request->jumlah[$i],
+                        'id_pengiriman_barang' => $pengirimanBarang['id'],
+                        'id_barang' => $validated['barang_id'][$i],
+                        'jumlah' => $validated['jumlah'][$i],
                     ]);
                 }
             }
 
             DB::commit();
-            
+
             return redirect()->route('pengiriman-barang.index')
                 ->with('success', 'Pengiriman barang berhasil dibuat!');
         } catch (\Exception $e) {
             DB::rollback();
-            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage())->withInput();
+            return back()->with('error', "Terjadi kesalahan saat menambahkan data: {$e->getMessage()}")->withInput();
         }
     }
 
@@ -117,13 +126,13 @@ class PengirimanBarangController extends Controller
     public function show(PengirimanBarang $pengirimanBarang)
     {
         $pengirimanBarang->load([
-            'gudang',
+            'lokasiAsal',
+            'lokasiTujuan',
             'kurir',
-            'toko',
             'statusPengiriman',
             'detailPengirimanBarangs.barang'
         ]);
-        
+
         return view('pengiriman_barang.show', compact('pengirimanBarang'));
     }
 
@@ -132,17 +141,11 @@ class PengirimanBarangController extends Controller
      */
     public function edit(PengirimanBarang $pengirimanBarang)
     {
-        $gudangs = Gudang::where('flag', 1)->get();
-        $kurirs = Kurir::where('flag', 1)->get();
-        $tokos = Toko::where('flag', 1)->get();
         $statusPengirimanBarangs = StatusPengirimanBarang::where('flag', 1)->get();
-        $pengirimanBarang->load(['detailPengirimanBarangs']);
-        
+        $pengirimanBarang->load(['lokasiAsal.gudang', 'lokasiAsal.toko', 'lokasiTujuan.gudang', 'lokasiTujuan.toko', 'kurir', 'detailPengirimanBarangs']);
+
         return view('pengiriman_barang.edit', compact(
             'pengirimanBarang',
-            'gudangs',
-            'kurirs',
-            'tokos',
             'statusPengirimanBarangs'
         ));
     }
@@ -150,32 +153,18 @@ class PengirimanBarangController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PengirimanBarang $pengirimanBarang)
+    public function update(UpdatePengirimanBarangRequest $request, PengirimanBarang $pengirimanBarang)
     {
-        $request->validate([
-            'id_gudang' => 'required|exists:gudangs,id',
-            'tanggal_pengiriman' => 'required|date',
-            'id_kurir' => 'required|exists:kurirs,id',
-            'id_toko' => 'required|exists:tokos,id',
-            'id_status_pengiriman' => 'required|exists:status_pengiriman_barangs,id',
-        ]);
-
         try {
             DB::beginTransaction();
-            
-            $pengirimanBarang->update([
-                'id_gudang' => $request->id_gudang,
-                'tanggal_pengiriman' => $request->tanggal_pengiriman,
-                'id_kurir' => $request->id_kurir,
-                'id_toko' => $request->id_toko,
-                'id_status_pengiriman' => $request->id_status_pengiriman,
-            ]);
-            
+
+            $pengirimanBarang->update($request->validated());
+
             DB::commit();
-            
-            return redirect()->route('pengiriman-barang.show', $pengirimanBarang->id)
+
+            return redirect()->route('pengiriman-barang.index', $pengirimanBarang->id)
                 ->with('success', 'Data pengiriman barang berhasil diperbarui!');
-                
+
         } catch (\Exception $e) {
             DB::rollback();
             return back()->withErrors('Terjadi kesalahan: ' . $e->getMessage())->withInput();
@@ -189,129 +178,78 @@ class PengirimanBarangController extends Controller
     {
         try {
             DB::beginTransaction();
-            
+
             // Hapus semua detail pengiriman barang terkait
-            $pengirimanBarang->detailPengirimanBarangs()->delete();
-            
+            $pengirimanBarang->detailPengirimanBarangs()->update(['flag' => 0]);
+
             // Hapus pengiriman barang
-            $pengirimanBarang->delete();
-            
+            $pengirimanBarang->update(['flag' => 0]);
+
             DB::commit();
-            
+
             return redirect()->route('pengiriman-barang.index')
-                ->with('success', 'Pengiriman barang berhasil dihapus!');
-                
+                ->with('success', 'Data pengiriman barang berhasil dihapus!');
+
         } catch (\Exception $e) {
             DB::rollback();
-            return back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
+            return back()->withErrors("Terjadi kesalahan saat menghapus data pengiriman: {$e->getMessage()}");
         }
     }
 
     /**
-     * Tampilkan form untuk menambah detail pengiriman barang
+     * Show detail pengiriman barang
      */
-    public function createDetail(PengirimanBarang $pengirimanBarang)
-    {
-        $barangs = Barang::where('flag', 1)->get();
-        return view('pengiriman_barang.create-detail', compact('pengirimanBarang', 'barangs'));
-    }
-
-    /**
-     * Simpan detail pengiriman barang baru
-     */
-    public function storeDetail(Request $request, PengirimanBarang $pengirimanBarang)
-    {
-        $request->validate([
-            'id_barang' => 'required|exists:barangs,id',
-            'jumlah' => 'required|numeric|min:1',
-        ]);
-
-        try {
-            DB::beginTransaction();
-            
-            DetailPengirimanBarang::create([
-                'id_barang' => $request->id_barang,
-                'id_pengiriman_barang' => $pengirimanBarang->id,
-                'jumlah' => $request->jumlah,
-            ]);
-            
-            DB::commit();
-            
-            return redirect()->route('pengiriman-barang.show', $pengirimanBarang->id)
-                ->with('success', 'Detail pengiriman barang berhasil ditambahkan!');
-                
-        } catch (\Exception $e) {
-            DB::rollback();
-            return back()->withErrors('Terjadi kesalahan: ' . $e->getMessage())->withInput();
-        }
-    }
-
-    /**
-     * Tampilkan detail pengiriman barang
-     */
-    public function showDetail(DetailPengirimanBarang $detailPengirimanBarang)
+    public function showDetail(PengirimanBarang $pengirimanBarang, DetailPengirimanBarang $detailPengirimanBarang)
     {
         $detailPengirimanBarang->load(['barang', 'pengirimanBarang']);
-        return view('pengiriman_barang.show-detail', compact('detailPengirimanBarang'));
+        return view('detail_pengiriman_barang.show', compact('detailPengirimanBarang'));
     }
 
     /**
-     * Tampilkan form untuk mengedit detail pengiriman barang
-     */
-    public function editDetail(DetailPengirimanBarang $detailPengirimanBarang)
+     * Show Orders from a buyer
+     */ 
+    public function ordersIndex()
     {
-        $barangs = Barang::where('flag', 1)->get();
-        return view('pengiriman_barang.edit-detail', compact('detailPengirimanBarang', 'barangs'));
+        $pengirimanBarangs = PengirimanBarang::with([
+            'lokasiAsal',
+            'kurir',
+            'statusPengiriman',
+            'detailPengirimanBarangs'
+        ])->latest()
+        ->where('flag', 1)
+        ->whereHas('lokasiTujuan', function ($query) {
+            $query->where('id_toko', auth()->user()->toko->id);
+        })
+        ->paginate(10);
+
+        return view('orders.index', compact('pengirimanBarangs'));
     }
 
-    /**
-     * Update detail pengiriman barang
+    /** 
+     * Show detail of Barangs in an order
      */
-    public function updateDetail(Request $request, DetailPengirimanBarang $detailPengirimanBarang)
+    public function ordersShow(PengirimanBarang $pengirimanBarang)
     {
-        $request->validate([
-            'id_barang' => 'required|exists:barangs,id',
-            'jumlah' => 'required|numeric|min:1',
+        $pengirimanBarang->load([
+            'lokasiAsal',
+            'kurir',
+            'statusPengiriman',
+            'detailPengirimanBarangs.barang'
         ]);
 
-        try {
-            DB::beginTransaction();
-            
-            $detailPengirimanBarang->update([
-                'id_barang' => $request->id_barang,
-                'jumlah' => $request->jumlah,
-            ]);
-            
-            DB::commit();
-            
-            return redirect()->route('pengiriman-barang.show', $detailPengirimanBarang->id_pengiriman_barang)
-                ->with('success', 'Detail pengiriman barang berhasil diperbarui!');
-                
-        } catch (\Exception $e) {
-            DB::rollback();
-            return back()->withErrors('Terjadi kesalahan: ' . $e->getMessage())->withInput();
-        }
+        return view('orders.show', compact('pengirimanBarang'));
     }
 
-    /**
-     * Hapus detail pengiriman barang
+    /** 
+     * Show detail of Barangs in an order
      */
-    public function destroyDetail(DetailPengirimanBarang $detailPengirimanBarang)
+    public function ordersDetailShow(PengirimanBarang $pengirimanBarang, DetailPengirimanBarang $detailPengirimanBarang)
     {
-        try {
-            DB::beginTransaction();
-            
-            $id_pengiriman_barang = $detailPengirimanBarang->id_pengiriman_barang;
-            $detailPengirimanBarang->delete();
-            
-            DB::commit();
-            
-            return redirect()->route('pengiriman-barang.show', $id_pengiriman_barang)
-                ->with('success', 'Detail pengiriman barang berhasil dihapus!');
-                
-        } catch (\Exception $e) {
-            DB::rollback();
-            return back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
-        }
+        $detailPengirimanBarang->load([
+            'barang',
+            'pengirimanBarang'
+        ]);
+
+        return view('detail_order.show', compact('detailPengirimanBarang'));
     }
 }

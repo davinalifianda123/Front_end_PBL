@@ -12,9 +12,11 @@
                     <h2 class="font-semibold text-2xl text-gray-800 leading-tight">
                         Daftar Toko
                     </h2>
-                    <a href="{{ route('tokos.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                        Tambah Toko
-                    </a>
+                    @if(auth()->check() && auth()->user()->hasRole('Admin'))
+                        <a href="{{ route('tokos.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
+                            Tambah Toko
+                        </a>
+                    @endif
                 </div>
 
                 <div class="bg-white border-b border-gray-200">
@@ -54,31 +56,33 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                     </svg>
                                                 </a>
-                                                <a href="{{ route('tokos.edit', $toko) }}" class="text-yellow-600 hover:text-yellow-800">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                                    </svg>
-                                                </a>
-                                                @if ($toko->flag == 1)
-                                                    <form action="{{ route('tokos.deactivate', $toko) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menonaktifkan toko ini?');">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <button type="submit" class="text-red-600 hover:text-red-800">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                                            </svg>
-                                                        </button>
-                                                    </form>
-                                                @else 
-                                                    <form action="{{ route('tokos.activate', $toko) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin mengaktifkan toko ini?');">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <button type="submit" class="text-green-600 hover:text-green-800">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                            </svg>
-                                                        </button>
-                                                    </form>
+                                                @if(auth()->check() && auth()->user()->hasRole('Admin'))
+                                                    <a href="{{ route('tokos.edit', $toko) }}" class="text-yellow-600 hover:text-yellow-800">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                        </svg>
+                                                    </a>
+                                                    @if ($toko->flag == 1)
+                                                        <form action="{{ route('tokos.deactivate', $toko) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menonaktifkan toko ini?');">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button type="submit" class="text-red-600 hover:text-red-800">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    @else 
+                                                        <form action="{{ route('tokos.activate', $toko) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin mengaktifkan toko ini?');">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button type="submit" class="text-green-600 hover:text-green-800">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </td>

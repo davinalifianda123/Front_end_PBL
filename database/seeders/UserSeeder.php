@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Imports\UsersImport;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 

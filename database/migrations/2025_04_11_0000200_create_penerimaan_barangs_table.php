@@ -14,15 +14,17 @@ return new class extends Migration
         Schema::create('penerimaan_barangs', function (Blueprint $table) {
             $table->id();
 
-            // $table->unsignedBigInteger('id_supplier');
-            // $table->foreign('id_supplier')
-            //     ->references('id')
-            //     ->on('suppliers');
-
-            $table->unsignedBigInteger('id_gudang');
-            $table->foreign('id_gudang')
+            $table->unsignedBigInteger('id_asal_barang');
+            $table->foreign('id_asal_barang')
                 ->references('id')
-                ->on('gudangs');
+                ->on('lokasis')
+                ->cascadeOnUpdate();
+
+            $table->unsignedBigInteger('id_tujuan_pengiriman');
+            $table->foreign('id_tujuan_pengiriman')
+                ->references('id')
+                ->on('lokasis')
+                ->cascadeOnUpdate();
 
             $table->dateTime('tanggal_penerimaan');
             $table->timestamps();

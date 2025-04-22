@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PenerimaanBarang;
-use App\Models\DetailPenerimaanBarang;
-use App\Models\Supplier;
-use App\Models\Gudang;
+use App\Models\Toko;
 use App\Models\Barang;
+use App\Models\Gudang;
+use App\Models\Lokasi;
 use Illuminate\Http\Request;
+use App\Models\PenerimaanBarang;
 use Illuminate\Support\Facades\DB;
+use App\Models\DetailPenerimaanBarang;
+use App\Http\Requests\PenerimaanBarang\StorePenerimaanBarangRequest;
+use App\Http\Requests\PenerimaanBarang\UpdatePenerimaanBarangRequest;
 
 class PenerimaanBarangController extends Controller
 {
@@ -17,21 +20,21 @@ class PenerimaanBarangController extends Controller
      */
     public function index(Request $request)
     {
-        $query = PenerimaanBarang::with(['supplier', 'gudang', 'detailPenerimaanBarang']);
+        $query = PenerimaanBarang::with(['lokasiAsal.gudang', 'lokasiAsal.toko', 'lokasiTujuan.gudang', 'lokasiTujuan.toko', 'detailPenerimaanBarang']);
 
-        // Filter pencarian
-        if ($request->has('search') && !empty($request->search)) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->whereHas('supplier', function ($subQuery) use ($search) {
-                    $subQuery->where('nama_toko_supplier', 'like', '%' . $search . '%')->where('flag', 1);
-                })
-                    ->orWhereHas('gudang', function ($subQuery) use ($search) {
-                        $subQuery->where('nama_gudang', 'like', '%' . $search . '%')->where('flag', 1);
-                    })
-                    ->orWhere('tanggal_penerimaan', 'like', '%' . $search . '%');
-            });
-        }
+        // Filter pencarian (on the way)
+        // if ($request->has('search') && !empty($request->search)) {
+        //     $search = $request->search;
+        //     $query->where(function ($q) use ($search) {
+        //         $q->whereHas('supplier', function ($subQuery) use ($search) {
+        //             $subQuery->where('nama_toko_supplier', 'like', '%' . $search . '%')->where('flag', 1);
+        //         })
+        //             ->orWhereHas('gudang', function ($subQuery) use ($search) {
+        //                 $subQuery->where('nama_gudang', 'like', '%' . $search . '%')->where('flag', 1);
+        //             })
+        //             ->orWhere('tanggal_penerimaan', 'like', '%' . $search . '%');
+        //     });
+        // }
 
         $penerimaanBarangs = $query->orderBy('tanggal_penerimaan', 'desc')->paginate(10);
 
@@ -43,58 +46,60 @@ class PenerimaanBarangController extends Controller
      */
     public function create()
     {
-        $suppliers = Supplier::where('flag', 1)->orderBy('nama_toko_supplier')->get();
-        $gudangs = Gudang::where('flag', 1)->orderBy('nama_gudang')->get();
-        $barangs = Barang::where('flag', 1)->orderBy('nama_barang')->get();
+        $gudangs = Lokasi::with('gudang')
+            ->whereNotNull('id_gudang')
+            ->where('flag', 1)
+            ->get();
+        $tokos = Lokasi::with(['toko.jenisToko'])
+            ->whereNotNull('id_toko')
+            ->where('flag', 1)
+            ->get();
+        $barangs = Barang::whereHas('toko', function ($query) {
+            $query->whereHas('jenisToko', function ($query) {
+                $query->where('nama_jenis_toko', 'Toko Perusahaan');
+            });
+        })
+        ->orWhereHas('gudang')
+        ->get();
 
-        return view('penerimaan_barang.create', compact('suppliers', 'gudangs', 'barangs'));
+        return view('penerimaan_barang.create', compact('gudangs', 'tokos', 'barangs'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePenerimaanBarangRequest $request)
     {
-        // Validasi data penerimaan barang
-        $request->validate([
-            'id_supplier' => 'required|exists:suppliers,id',
-            'id_gudang' => 'required|exists:gudangs,id',
-            'tanggal_penerimaan' => 'required|date',
-            'barang_id' => 'required|array|min:1',
-            'barang_id.*' => 'required|exists:barangs,id',
-            'jumlah' => 'required|array|min:1',
-            'jumlah.*' => 'required|numeric|min:1',
-            'harga_beli' => 'required|array|min:1',
-            'harga_beli.*' => 'required|numeric|min:0',
-        ]);
-
         DB::beginTransaction();
 
         try {
+            $validated = $request->validated();
+
             // Simpan penerimaan barang
             $penerimaanBarang = PenerimaanBarang::create([
-                'id_supplier' => $request->id_supplier,
-                'id_gudang' => $request->id_gudang,
-                'tanggal_penerimaan' => $request->tanggal_penerimaan,
+                'id_asal_barang' => $validated['id_asal_barang'],
+                'id_tujuan_pengiriman' => $validated['id_tujuan_pengiriman'],
+                'tanggal_penerimaan' => $validated['tanggal_penerimaan'],
             ]);
 
             // Simpan detail penerimaan barang
-            $barangCount = count($request->barang_id);
+            $barangCount = count($validated['barang_id']);
 
+            $detailPenerimaanBarangArray = [];
             for ($i = 0; $i < $barangCount; $i++) {
-                $barang = Barang::where('id', $request->barang_id[$i])->first();
+                $barang = Barang::where('id', $validated['barang_id'][$i])->first();
                 if ($barang) {
-                    $barang->jumlah_stok += $request->jumlah[$i];
+                    $barang->jumlah_stok += $validated['jumlah'][$i];
                     $barang->save();
                 }
 
-                DetailPenerimaanBarang::create([
+                $detailPenerimaanBarangArray[] = [
                     'id_penerimaan_barang' => $penerimaanBarang->id,
-                    'id_barang' => $request->barang_id[$i],
-                    'jumlah' => $request->jumlah[$i],
-                    'harga_beli' => $request->harga_beli[$i],
-                ]);
+                    'id_barang' => $validated['barang_id'][$i],
+                    'jumlah' => $validated['jumlah'][$i],
+                ];
             }
+            DetailPenerimaanBarang::insert($detailPenerimaanBarangArray);
 
             DB::commit();
 
@@ -103,7 +108,7 @@ class PenerimaanBarangController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withInput()
-                ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+                ->with('error', 'Terjadi kesalahan: ' . $e);
         }
     }
 
@@ -123,16 +128,15 @@ class PenerimaanBarangController extends Controller
     public function edit(PenerimaanBarang $penerimaanBarang)
     {
         $penerimaanBarang->load(['detailPenerimaanBarang.barang']);
-        $suppliers = Supplier::where('flag', 1)->orderBy('nama_toko_supplier')->get();
         $gudangs = Gudang::where('flag', 1)->orderBy('nama_gudang')->get();
 
-        return view('penerimaan_barang.edit', compact('penerimaanBarang', 'suppliers', 'gudangs'));
+        return view('penerimaan_barang.edit', compact('penerimaanBarang', 'gudangs'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PenerimaanBarang $penerimaanBarang)
+    public function update(UpdatePenerimaanBarangRequest $request, PenerimaanBarang $penerimaanBarang)
     {
         // Validasi data penerimaan barang
         $request->validate([
@@ -189,120 +193,6 @@ class PenerimaanBarangController extends Controller
             DB::rollBack();
             return redirect()->back()
                 ->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Show the form for editing a detail record.
-     */
-    public function editDetail(DetailPenerimaanBarang $detailPenerimaan)
-    {
-        $detailPenerimaan->load(['penerimaanBarang', 'barang']);
-        $barangs = Barang::where('flag', 1)->orderBy('nama_barang')->get();
-        $suppliers = Supplier::where('flag', 1)->get();
-        $gudangs = Gudang::where('flag', 1)->get();
-
-        return view('detail_penerimaan_barang.edit', compact('detailPenerimaan', 'barangs', 'suppliers', 'gudangs'));
-    }
-
-    /**
-     * Update the specified detail record.
-     */
-    public function updateDetail(Request $request, DetailPenerimaanBarang $detailPenerimaan)
-    {
-        $request->validate([
-            'barang_id' => 'required|exists:barangs,id',
-            'jumlah' => 'required|numeric|min:1',
-            'harga_beli' => 'required|numeric|min:0',
-        ]);
-
-        DB::beginTransaction();
-
-        try {
-            $barangData = Barang::where('id', $request->barang_id)->first();
-            $barangData->jumlah_stok -= $detailPenerimaan->jumlah;
-            $barangData->jumlah_stok += $request->jumlah;
-            $barangData->save();
-
-            $detailPenerimaan->update([
-                'id_barang' => $request->barang_id,
-                'jumlah' => $request->jumlah,
-                'harga_beli' => $request->harga_beli,
-            ]);
-
-            DB::commit();
-
-            return redirect()->route('penerimaan-barang.show', $detailPenerimaan->id_penerimaan_barang)
-                ->with('success', 'Detail penerimaan barang berhasil diperbarui.');
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Terjadi kesalahan saat memperbarui data: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Show the form for creating a new detail record for existing penerimaan.
-     */
-    public function createDetail(PenerimaanBarang $penerimaanBarang)
-    {
-        $barangs = Barang::where('flag', 1)->orderBy('nama_barang')->get();
-
-        return view('detail_penerimaan_barang.create', compact('penerimaanBarang', 'barangs'));
-    }
-
-    /**
-     * Store a newly created detail record.
-     */
-    public function storeDetail(Request $request, PenerimaanBarang $penerimaanBarang)
-    {
-        $request->validate([
-            'barang_id' => 'required|exists:barangs,id',
-            'jumlah' => 'required|integer|min:1',
-            'harga_beli' => 'required|numeric|min:0',
-        ]);
-
-        try {
-            $barangData = Barang::where('id', $request->barang_id)->first();
-            $barangData->jumlah_stok += $request->jumlah;
-            $barangData->save();
-
-            DetailPenerimaanBarang::create([
-                'id_penerimaan_barang' => $penerimaanBarang->id,
-                'id_barang' => $request->barang_id,
-                'jumlah' => $request->jumlah,
-                'harga_beli' => $request->harga_beli,
-            ]);
-
-            return redirect()->route('penerimaan-barang.show', $penerimaanBarang->id)
-                ->with('success', 'Detail penerimaan barang berhasil ditambahkan.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage());
-        }
-    }
-
-    /**
-     * Remove the specified detail record.
-     */
-    public function destroyDetail(DetailPenerimaanBarang $detailPenerimaan)
-    {
-        $penerimaanBarangId = $detailPenerimaan->id_penerimaan_barang;
-
-        try {
-            $barangData = Barang::where('id', $detailPenerimaan->barang->id)->first();
-            $barangData->jumlah_stok -= $detailPenerimaan->jumlah;
-            $barangData->save();
-
-            $detailPenerimaan->delete();
-
-            return redirect()->route('penerimaan-barang.show', $penerimaanBarangId)
-                ->with('success', 'Detail penerimaan barang berhasil dihapus.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Terjadi kesalahan saat menghapus data: ' . $e->getMessage());
         }
     }
 

@@ -9,9 +9,11 @@
                         <h2 class="text-xl font-semibold leading-tight text-gray-800 mb-8">
                             Manajemen Pengguna
                         </h2>
-                        <a href="{{ route('users.create') }}" class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 inline-block">
-                            Tambah Pengguna Baru
-                        </a>
+                        @if(auth()->user()->hasRole('Admin'))
+                            <a href="{{ route('users.create') }}" class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 inline-block">
+                                Tambah Pengguna Baru
+                            </a>
+                        @endif
                     </div>
 
                     <!-- Notifikasi -->
@@ -107,31 +109,33 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                     </svg>
                                                 </a>
-                                                <a href="{{ route('users.edit', $user->id) }}" class="w-4 mr-2 transform hover:text-yellow-500 hover:scale-110 transition">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                                                    </svg>
-                                                </a>
-                                                @if ($user->flag == 1)
-                                                    <form action="{{ route('users.deactivate', $user->id) }}" method="POST" class="inline-block">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <button type="submit" class="w-4 transform hover:text-red-500 hover:scale-110 transition" onclick="return confirm('Apakah Anda yakin ingin menonaktifkan pengguna ini?')">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                                            </svg>
-                                                        </button>
-                                                    </form>
-                                                @else
-                                                    <form action="{{ route('users.activate', $user->id) }}" method="POST" class="inline-block">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <button type="submit" class="w-4 transform hover:text-green-500 hover:scale-110 transition" onclick="return confirm('Apakah Anda yakin ingin mengaktifkan pengguna ini?')">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                            </svg>
-                                                        </button>
-                                                    </form>
+                                                @if(auth()->user()->hasRole('Admin'))
+                                                    <a href="{{ route('users.edit', $user->id) }}" class="w-4 mr-2 transform hover:text-yellow-500 hover:scale-110 transition">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                                        </svg>
+                                                    </a>
+                                                    @if ($user->flag == 1)
+                                                        <form action="{{ route('users.deactivate', $user->id) }}" method="POST" class="inline-block">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button type="submit" class="w-4 transform hover:text-red-500 hover:scale-110 transition" onclick="return confirm('Apakah Anda yakin ingin menonaktifkan pengguna ini?')">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <form action="{{ route('users.activate', $user->id) }}" method="POST" class="inline-block">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button type="submit" class="w-4 transform hover:text-green-500 hover:scale-110 transition" onclick="return confirm('Apakah Anda yakin ingin mengaktifkan pengguna ini?')">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 @endif
                                             </div>
                                         </td>

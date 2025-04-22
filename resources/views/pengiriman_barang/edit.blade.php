@@ -21,24 +21,53 @@
                         <div class="mb-8">
                             <h2 class="text-lg font-medium text-gray-700 mb-4">Informasi Pengiriman</h2>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Asal Barang Section -->
                                 <div>
-                                    <label for="id_gudang" class="block text-sm font-medium text-gray-700 mb-1">Gudang</label>
-                                    <select name="id_gudang" id="id_gudang" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                        <option value="">Pilih Gudang</option>
-                                        @foreach($gudangs as $gudang)
-                                            <option value="{{ $gudang->id }}" {{ $pengirimanBarang->id_gudang == $gudang->id ? 'selected' : '' }}>
-                                                {{ $gudang->nama_gudang ?? $gudang->nama }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('id_gudang')
-                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                    @enderror
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Asal Barang</label>
+                                    <div class="space-y-3">
+                                        <select id="tipe_asal" class="p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" disabled>
+                                            <option value="gudang" {{ $pengirimanBarang->lokasiAsal->gudang ? 'selected' : '' }}>Gudang</option>
+                                            <option value="toko" {{ $pengirimanBarang->lokasiAsal->toko ? 'selected' : '' }}>Toko</option>
+                                        </select>
+                                        
+                                        <div id="asal_container">
+                                            <select name="id_asal_barang" id="id_asal_barang" class="p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                <option value="{{ $pengirimanBarang->id_asal_barang }}" selected>
+                                                    {{ $pengirimanBarang->lokasiAsal->gudang->nama_gudang ?? $pengirimanBarang->lokasiAsal->toko->nama_toko ?? '' }}
+                                                </option>
+                                            </select>
+                                            @error('id_asal_barang')
+                                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Tujuan Pengiriman Section -->
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Tujuan Pengiriman</label>
+                                    <div class="space-y-3">
+                                        <select id="tipe_tujuan" class="p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" disabled>
+                                            <option value="gudang" {{ $pengirimanBarang->lokasiTujuan->gudang != null ? 'selected' : '' }}>Gudang</option>
+                                            <option value="toko" {{ $pengirimanBarang->lokasiTujuan->toko != null ? 'selected' : '' }}>Toko</option>
+                                        </select>
+                                        
+                                        <div id="tujuan_container">
+                                            <select name="id_tujuan_pengiriman" id="id_tujuan_pengiriman" class="p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                <option value="{{ $pengirimanBarang->id_tujuan_pengiriman ?? '' }}" selected>
+                                                    {{ $pengirimanBarang->lokasiTujuan->gudang->nama_gudang ?? $pengirimanBarang->lokasiTujuan->toko->nama_toko ?? '-' }}
+                                                </option>
+                                                @error('id_tujuan_pengiriaman')
+                                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                                @enderror
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 
                                 <div>
                                     <label for="tanggal_pengiriman" class="block text-sm font-medium text-gray-700 mb-1">Tanggal Pengiriman</label>
-                                    <input type="datetime-local" name="tanggal_pengiriman" id="tanggal_pengiriman" value="{{ \Carbon\Carbon::parse($pengirimanBarang->tanggal_pengiriman)->format('Y-m-d\TH:i') }}" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                    <input type="datetime-local" name="tanggal_pengiriman" id="tanggal_pengiriman" value="{{ \Carbon\Carbon::parse($pengirimanBarang->tanggal_pengiriman)->format('Y-m-d\TH:i') }}" class="p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" readonly>
                                     @error('tanggal_pengiriman')
                                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                                     @enderror
@@ -46,13 +75,10 @@
                                 
                                 <div>
                                     <label for="id_kurir" class="block text-sm font-medium text-gray-700 mb-1">Kurir</label>
-                                    <select name="id_kurir" id="id_kurir" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                        <option value="">Pilih Kurir</option>
-                                        @foreach($kurirs as $kurir)
-                                            <option value="{{ $kurir->id }}" {{ $pengirimanBarang->id_kurir == $kurir->id ? 'selected' : '' }}>
-                                                {{ $kurir->nama_kurir ?? $kurir->nama }}
-                                            </option>
-                                        @endforeach
+                                    <select name="id_kurir" id="id_kurir" class="p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                        <option value="{{ $pengirimanBarang->id_kurir }}" selected>
+                                            {{ $pengirimanBarang->kurir->nama_kurir }}
+                                        </option>
                                     </select>
                                     @error('id_kurir')
                                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -60,26 +86,10 @@
                                 </div>
                                 
                                 <div>
-                                    <label for="id_toko" class="block text-sm font-medium text-gray-700 mb-1">Toko Tujuan</label>
-                                    <select name="id_toko" id="id_toko" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                        <option value="">Pilih Toko</option>
-                                        @foreach($tokos as $toko)
-                                            <option value="{{ $toko->id }}" {{ $pengirimanBarang->id_toko == $toko->id ? 'selected' : '' }}>
-                                                {{ $toko->nama_toko ?? $toko->nama }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    @error('id_toko')
-                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                
-                                <div>
                                     <label for="id_status_pengiriman" class="block text-sm font-medium text-gray-700 mb-1">Status Pengiriman</label>
-                                    <select name="id_status_pengiriman" id="id_status_pengiriman" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                        <option value="">Pilih Status</option>
+                                    <select name="id_status_pengiriman" id="id_status_pengiriman" class="p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
                                         @foreach($statusPengirimanBarangs as $status)
-                                            <option value="{{ $status->id }}" {{ $pengirimanBarang->id_status_pengiriman == $status->id ? 'selected' : '' }}>
+                                            <option value="{{ $status->id }}" {{ $status->id == $pengirimanBarang->id_status_pengiriman ? 'selected' : '' }}>
                                                 {{ $status->nama_status ?? $status->nama }}
                                             </option>
                                         @endforeach
@@ -99,33 +109,27 @@
                                     <div class="detail-item border border-gray-200 rounded p-4 mb-4">
                                         <input type="hidden" name="detail_id[]" value="{{ $detail->id }}">
                                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                            <div>
+                                            <div class="col-span-2">
                                                 <label class="block text-sm font-medium text-gray-700 mb-1">Barang</label>
-                                                <select name="barang_id[]" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                                    <option value="">Pilih Barang</option>
-                                                    @foreach($barangs as $barang)
-                                                        <option value="{{ $barang->id }}" {{ $detail->id_barang == $barang->id ? 'selected' : '' }}>
-                                                            {{ $barang->nama_barang ?? $barang->nama }}
-                                                        </option>
-                                                    @endforeach
+                                                <select name="barang_id[]" class="p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
+                                                    <option value="{{ $detail->barang->id }}" selected>
+                                                        {{ $detail->barang->nama_barang }}
+                                                    </option>
                                                 </select>
+                                                @error('barang_id')
+                                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                                @enderror
                                             </div>
-                                            <div>
+                                            <div class="col-span-1">
                                                 <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah</label>
-                                                <input type="number" name="jumlah[]" value="{{ $detail->jumlah }}" min="1" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                                            </div>
-                                            <div class="flex items-end">
-                                                <button type="button" class="remove-detail px-3 py-2 bg-red-500 text-white rounded hover:bg-red-600 mt-4">Hapus</button>
+                                                <input type="number" name="jumlah[]" value="{{ $detail->jumlah }}" min="1" class="p-2 w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" readonly>
+                                                @error('jumlah')
+                                                    <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
                                 @endforeach
-                            </div>
-                            
-                            <div class="mt-4">
-                                <button type="button" id="add-detail" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                                    Tambah Detail Barang
-                                </button>
                             </div>
                         </div>
                         
@@ -139,56 +143,45 @@
             </div>
         </div>
     </div>
-    
-    <template id="detail-template">
-        <div class="detail-item border border-gray-200 rounded p-4 mb-4">
-            <input type="hidden" name="detail_id[]" value="">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Barang</label>
-                    <select name="barang_id[]" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                        <option value="">Pilih Barang</option>
-                        @foreach($barangs as $barang)
-                            <option value="{{ $barang->id }}">{{ $barang->nama_barang ?? $barang->nama }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Jumlah</label>
-                    <input type="number" name="jumlah[]" value="1" min="1" class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50">
-                </div>
-                <div class="flex items-end">
-                    <button type="button" class="remove-detail px-3 py-2 bg-red-500 text-white rounded hover:bg-red-600 mt-4">Hapus</button>
-                </div>
-            </div>
-        </div>
-    </template>
-    
-    @push('scripts')
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const addDetailBtn = document.getElementById('add-detail');
-            const detailContainer = document.getElementById('detail-container');
-            const detailTemplate = document.getElementById('detail-template').innerHTML;
-    
-            // Add new detail
-            addDetailBtn.addEventListener('click', function() {
-                detailContainer.insertAdjacentHTML('beforeend', detailTemplate);
-                attachRemoveEvents();
-            });
-    
-            // Remove detail
-            function attachRemoveEvents() {
-                document.querySelectorAll('.remove-detail').forEach(button => {
-                    button.addEventListener('click', function() {
-                        const detailItem = this.closest('.detail-item');
-                        detailItem.remove();
-                    });
+            // Ini hanya untuk keperluan demonstrasi tampilan
+            // pada form edit, dropdown sudah diatur disabled
+            const tipeAsal = document.getElementById('tipe_asal');
+            const tipeTujuan = document.getElementById('tipe_tujuan');
+            
+            // Containers
+            const gudangAsalContainer = document.getElementById('gudang_asal_container');
+            const tokoAsalContainer = document.getElementById('toko_asal_container');
+            const gudangTujuanContainer = document.getElementById('gudang_tujuan_container');
+            const tokoTujuanContainer = document.getElementById('toko_tujuan_container');
+            
+            // Toggle asal container visibility for demonstration
+            if (tipeAsal) {
+                tipeAsal.addEventListener('change', function() {
+                    if (this.value === 'gudang') {
+                        gudangAsalContainer.classList.remove('hidden');
+                        tokoAsalContainer.classList.add('hidden');
+                    } else {
+                        gudangAsalContainer.classList.add('hidden');
+                        tokoAsalContainer.classList.remove('hidden');
+                    }
                 });
             }
-    
-            // Attach events to existing remove buttons
-            attachRemoveEvents();
+            
+            // Toggle tujuan container visibility for demonstration
+            if (tipeTujuan) {
+                tipeTujuan.addEventListener('change', function() {
+                    if (this.value === 'gudang') {
+                        gudangTujuanContainer.classList.remove('hidden');
+                        tokoTujuanContainer.classList.add('hidden');
+                    } else {
+                        gudangTujuanContainer.classList.add('hidden');
+                        tokoTujuanContainer.classList.remove('hidden');
+                    }
+                });
+            }
         });
     </script>
 </x-default-layout>

@@ -5,6 +5,12 @@
                 Edit Barang
             </h2>
         </div>
+
+        @if(session('error'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded m-4" role="alert">
+                <span class="block sm:inline">{{ session('error') }}</span>
+            </div>
+        @endif
     
         <div class="border-t border-gray-200">
             <form action="{{ route('barangs.update', $barang->id) }}" method="POST" class="p-6">
@@ -27,27 +33,11 @@
                             <option value="">Pilih Kategori</option>
                             @foreach($kategoris as $kategori)
                                 <option value="{{ $kategori->id }}" {{ old('id_kategori', $barang->id_kategori) == $kategori->id ? 'selected' : '' }}>
-                                    {{ $kategori->nama_kategori }}
+                                    {{ $kategori->nama_kategori_barang }}
                                 </option>
                             @endforeach
                         </select>
                         @error('id_kategori')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-    
-                    <div>
-                        <label for="id_gudang" class="block text-sm font-medium text-gray-700">Gudang</label>
-                        <select name="id_gudang" id="id_gudang" required
-                                class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                            <option value="">Pilih Gudang</option>
-                            @foreach($gudangs as $gudang)
-                                <option value="{{ $gudang->id }}" {{ old('id_gudang', $barang->id_gudang) == $gudang->id ? 'selected' : '' }}>
-                                    {{ $gudang->nama_gudang }}
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('id_gudang')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>

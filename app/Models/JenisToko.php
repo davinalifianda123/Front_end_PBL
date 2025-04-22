@@ -17,7 +17,7 @@ class JenisToko extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'nama_toko',
+        'nama_jenis_toko',
         'flag'
     ];
 

@@ -19,8 +19,11 @@ class AuthController extends Controller
         try {
             $request->authenticate();
 
-            if (Auth::user()->role->nama_role == 'Admin') {
+            if (auth()->user()->hasRole('Admin')) {
                 return redirect()->intended(route('users.index'));
+            } else if (auth()->user()->hasRole('Supplier')) {
+                auth()->logout();
+                return back()->withErrors(['email' => 'Akun ini tidak memiliki akses ke website ini.'])->withInput($request->only('email', 'password'));
             } else {
                 return redirect()->intended(route('barangs.index'));
             }

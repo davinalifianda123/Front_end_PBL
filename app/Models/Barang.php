@@ -21,17 +21,27 @@ class Barang extends Model
     protected $fillable = [
         'nama_barang',
         'id_kategori',
+        'id_parent_barang',
         'id_gudang',
         'id_toko',
         'jumlah_stok',
         'berat',
-        'harga_jual',
         'flag'
     ];
 
     public function kategori(): BelongsTo
     {
         return $this->belongsTo(KategoriBarang::class, 'id_kategori');
+    }
+
+    public function parentBarang(): BelongsTo
+    {
+        return $this->belongsTo(Barang::class, 'id_parent_barang');
+    }
+
+    public function childBarang(): HasMany
+    {
+        return $this->hasMany(Barang::class, 'id_parent_barang');
     }
     
     public function gudang(): BelongsTo

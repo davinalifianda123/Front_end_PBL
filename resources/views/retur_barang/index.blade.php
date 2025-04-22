@@ -1,10 +1,12 @@
 <x-default-layout>
     <div class="bg-white rounded-lg shadow-md flex flex-col gap-4 p-4">
         <div class="mb-4 flex justify-between items-center gap-12">
-            <h2 class="text-lg font-medium text-gray-900">Laporan Retur Barang</h2>
-            <a href="{{ route('retur-barang.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded">
-                Tambah Retur Barang
-            </a>
+            <h2 class="text-lg font-medium text-gray-900">Retur Barang</h2>
+            @if(auth()->user()->hasRole('Admin', 'Staff'))
+                <a href="{{ route('retur-barang.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded">
+                    Tambah Retur Barang
+                </a>
+            @endif
         </div>
     
         @if($returBarangs->isEmpty())
@@ -34,7 +36,7 @@
                                 Tanggal Retur
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Pelapor
+                                Penanggung Jawab
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Status
@@ -57,7 +59,7 @@
                                 {{ \Carbon\Carbon::parse($returBarang->tanggal_retur)->format('d M Y H:i') }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $returBarang->user->nama ?? 'N/A' }}
+                                {{ $returBarang->user->nama_user ?? 'N/A' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">

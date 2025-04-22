@@ -31,17 +31,29 @@
                         Kategori
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ $barang->kategori->nama_kategori ?? 'N/A' }}
+                        {{ $barang->kategori->nama_kategori_barang ?? 'N/A' }}
                     </dd>
                 </div>
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                        Gudang
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ $barang->gudang->nama_kategori ?? 'N/A' }}
-                    </dd>
-                </div>
+                @if($barang->toko)
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Toko
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{ $barang->toko->nama_toko ?? 'N/A' }}
+                        </dd>
+                    </div>
+                @endif
+                @if($barang->gudang)
+                    <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt class="text-sm font-medium text-gray-500">
+                            Gudang
+                        </dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                            {{ $barang->gudang->nama_gudang ?? 'N/A' }}
+                        </dd>
+                    </div>
+                @endif
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">
                         Jumlah Stok

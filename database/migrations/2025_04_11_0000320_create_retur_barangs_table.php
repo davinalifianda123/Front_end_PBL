@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('retur_barangs', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('id_user');
+            $table->unsignedBigInteger('id_penanggung_jawab');
             $table->foreign('id_user')
                 ->references('id')
                 ->on('users')
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->dateTime('tanggal_retur');
             $table->text('alasan_retur');
 
-            $table->unsignedBigInteger('id_status_retur');
+            $table->unsignedBigInteger('id_status_retur')->default(1);
             $table->foreign('id_status_retur')
                 ->references('id')
                 ->on('status_returs')
@@ -38,6 +38,7 @@ return new class extends Migration
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
 
+            $table->integer('flag')->default(1);
             $table->timestamps();
         });
     }

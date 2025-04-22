@@ -18,15 +18,16 @@ class ReturBarang extends Model
     protected $fillable = [
         'id_pengiriman_barang',
         'id_barang',
-        'id_user',
+        'id_penanggung_jawab',
         'tanggal_retur',
         'alasan_retur',
-        'id_status_retur'
+        'id_status_retur',
+        'flag'
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_user');
+        return $this->belongsTo(User::class, 'id_penanggung_jawab');
     }
     
     public function statusRetur()

@@ -11,11 +11,11 @@
 
             <div class="mb-6">
                 <div class="mb-6">
-                    <label for="id_user" class="block text-sm font-medium text-gray-700">Pelapor</label>
-                    <select id="id_user" name="id_user" class="bg-white p-3 mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md @error('id_user') border-red-500 @enderror">
+                    <label for="id_penanggung_jawab" class="block text-sm font-medium text-gray-700">Penanggung Jawab</label>
+                    <select id="id_penanggung_jawab" name="id_penanggung_jawab" class="shadow bg-white p-3 mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
                         <option value="">Pilih Staff Gudang</option>
                         @foreach($users as $user)
-                            <option value="{{ $user->id }}" {{ old('id_user') == $user->id ? 'selected' : '' }}>{{ $user->nama }}</option>
+                            <option value="{{ $user->id }}" {{ old('id_user') == $user->id ? 'selected' : '' }}>{{ $user->nama_user }}</option>
                         @endforeach
                     </select>
                     @error('id_user')
@@ -25,18 +25,18 @@
 
                 <div class="mb-6">
                     <label for="tanggal_retur" class="block text-sm font-medium text-gray-700">Tanggal Retur</label>
-                    <input type="datetime-local" id="tanggal_retur" name="tanggal_retur" value="{{ old('tanggal_retur') ?? now()->format('Y-m-d\TH:i') }}" class="bg-white p-3 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('tanggal_retur') border-red-500 @enderror">
+                    <input type="datetime-local" id="tanggal_retur" name="tanggal_retur" value="{{ old('tanggal_retur') ?? now()->format('Y-m-d\TH:i') }}" class="bg-white p-3 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                     @error('tanggal_retur')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <div class="mb-6">
-                    <label for="id_pengiriman_barang" class="block text-sm font-medium text-gray-700">Pengiriman Barang</label>
-                    <select id="id_pengiriman_barang" name="id_pengiriman_barang" class="bg-white p-3 mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md @error('id_pengiriman_barang') border-red-500 @enderror">
-                        <option value="">Pilih Pengiriman</option>
+                    <label for="id_pengiriman_barang" class="block text-sm font-medium text-gray-700">Orderan Barang</label>
+                    <select id="id_pengiriman_barang" name="id_pengiriman_barang" class="shadow bg-white p-3 mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                        <option value="">Pilih Orderan</option>
                         @foreach($pengirimanBarangs as $pengiriman)
-                            <option value="{{ $pengiriman->id }}" {{ old('id_pengiriman_barang') == $pengiriman->id ? 'selected' : '' }}>{{ \Carbon\Carbon::parse($pengiriman->tanggal_pengiriman)->format('d M Y') }}</option>
+                            <option value="{{ $pengiriman->id }}" {{ old('id_pengiriman_barang') == $pengiriman->id ? 'selected' : '' }}>ID#{{ $pengiriman->id }} - {{ \Carbon\Carbon::parse($pengiriman->tanggal_pengiriman)->format('d M Y') }}</option>
                         @endforeach
                     </select>
                     @error('id_pengiriman_barang')
@@ -46,7 +46,7 @@
 
                 <div class="mb-6">
                     <label for="alasan_retur" class="block text-sm font-medium text-gray-700">Alasan Retur</label>
-                    <textarea id="alasan_retur" name="alasan_retur" rows="4" class="p-3 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md @error('alasan_retur') border-red-500 @enderror">{{ old('alasan_retur') }}</textarea>
+                    <textarea id="alasan_retur" name="alasan_retur" rows="4" class="p-3 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">{{ old('alasan_retur') }}</textarea>
                     @error('alasan_retur')
                         <p class="mt-1 text-sm text-red-500">{{ $message }}</p>
                     @enderror
@@ -71,7 +71,7 @@
                                 <select name="id_barang[]" class="p-3 barang-select mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-white">
                                     <option value="">Pilih Barang</option>
                                     @foreach($barangs as $barang)
-                                        <option value="{{ $barang->id }}">{{ $barang->nama_barang }}</option>
+                                        <option value="{{ $barang->id }}">{{ $barang->nama_barang }} - {{ $barang->gudang->nama_gudang ?? $barang->toko->nama_toko }}</option>
                                     @endforeach
                                 </select>
                                 <p class="error-message mt-1 text-sm text-red-500"></p>

@@ -17,8 +17,8 @@
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ \Carbon\Carbon::parse($returBarang->tanggal_retur)->format('d M Y H:i') }}</dd>
                     </div>
                     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt class="text-sm font-medium text-gray-500">Pelapor</dt>
-                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $returBarang->user->nama ?? 'N/A' }}</dd>
+                        <dt class="text-sm font-medium text-gray-500">Penanggung Jawab</dt>
+                        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{{ $returBarang->user->nama_user ?? 'N/A' }}</dd>
                     </div>
                     <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                         <dt class="text-sm font-medium text-gray-500">Status Retur</dt>
@@ -43,9 +43,6 @@
         <div class="mt-8">
             <div class="flex justify-between items-center mb-4 px-4 py-5">
                 <h3 class="text-lg font-medium text-gray-900">Detail Barang yang Diretur</h3>
-                <a href="{{ route('detail-retur-barang.create', $returBarang->id) }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-                    Tambah Detail Barang
-                </a>
             </div>
     
             @if($returBarang->detailReturBarangs->isEmpty())
@@ -77,9 +74,6 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Jumlah
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Aksi
-                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -93,17 +87,6 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ $detail->jumlah_barang_retur }}
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                    <div class="flex space-x-2">
-                                        <a href="{{ route('detail-retur-barang.show', $detail->id) }}" class="text-indigo-600 hover:text-indigo-900">Detail</a>
-                                        <a href="{{ route('detail-retur-barang.edit', $detail->id) }}" class="text-amber-600 hover:text-amber-900">Edit</a>
-                                        <form action="{{ route('detail-retur-barang.destroy', $detail->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus detail barang ini?');" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-red-600 hover:text-red-900">Hapus</button>
-                                        </form>
-                                    </div>
                                 </td>
                             </tr>
                             @endforeach

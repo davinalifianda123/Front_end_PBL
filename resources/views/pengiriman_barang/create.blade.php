@@ -1,14 +1,14 @@
 <x-default-layout>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg m-6">
         <div class="p-6 bg-white border-b border-gray-200">
             <div class="mb-6">
                 <h2 class="text-2xl font-semibold text-gray-800">Tambah Pengiriman Barang</h2>
             </div>
 
             @if (session('error'))
-            <div class="p-4 mb-4 text-red-700 bg-red-100 border-l-4 border-red-500 rounded-lg" role="alert">
-                {{ session('error') }}
-            </div>
+                <div class="p-4 mb-4 text-red-700 bg-red-100 border-l-4 border-red-500 rounded-lg" role="alert">
+                    {{ session('error') }}
+                </div>
             @endif
     
             <form action="{{ route('pengiriman-barang.store') }}" method="POST">
@@ -20,18 +20,40 @@
                         <h3 class="text-lg font-medium text-gray-900 mb-4">Data Pengiriman</h3>
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Gudang -->
+                            <!-- Asal Barang -->
                             <div>
-                                <label for="id_gudang" class="block text-sm font-medium text-gray-700">Gudang</label>
-                                <select id="id_gudang" name="id_gudang" class="p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                    <option value="">Pilih Gudang</option>
-                                    @foreach($gudangs as $gudang)
-                                        <option value="{{ $gudang->id }}" {{ old('id_gudang') == $gudang->id ? 'selected' : '' }}>
-                                            {{ $gudang->nama_gudang }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('id_gudang')
+                                <label for="asal_tipe" class="block text-sm font-medium text-gray-700">Asal Barang</label>
+                                <div class="mt-1 flex space-x-2">
+                                    <select id="asal_tipe" name="asal_tipe" class="p-3 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                                        <option value="" selected>Pilih Tipe</option>
+                                        <option value="gudang">Gudang</option>
+                                        <option value="toko">Toko</option>
+                                    </select>
+                                    
+                                    <select id="id_asal_barang" name="id_asal_barang" class="p-3 block w-2/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required disabled>
+                                        <option value="" disabled selected>Pilih Lokasi</option>
+                                    </select>
+                                </div>
+                                @error('id_asal_barang')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <!-- Tujuan Pengiriman -->
+                            <div>
+                                <label for="tujuan_tipe" class="block text-sm font-medium text-gray-700">Tujuan Pengiriman</label>
+                                <div class="mt-1 flex space-x-2">
+                                    <select id="tujuan_tipe" name="tujuan_tipe" class="p-3 block w-1/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
+                                        <option value="" selected>Pilih Tipe</option>
+                                        <option value="gudang">Gudang</option>
+                                        <option value="toko">Toko</option>
+                                    </select>
+                                    
+                                    <select id="id_tujuan_pengiriman" name="id_tujuan_pengiriman" class="p-3 block w-2/3 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required disabled>
+                                        <option value="" disabled selected>Pilih Lokasi</option>
+                                    </select>
+                                </div>
+                                @error('id_tujuan_pengiriman')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
@@ -61,22 +83,6 @@
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
                             </div>
-    
-                            <!-- Toko -->
-                            <div>
-                                <label for="id_toko" class="block text-sm font-medium text-gray-700">Toko</label>
-                                <select id="id_toko" name="id_toko" class="p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                    <option value="">Pilih Toko</option>
-                                    @foreach($tokos as $toko)
-                                        <option value="{{ $toko->id }}" {{ old('id_toko') == $toko->id ? 'selected' : '' }}>
-                                            {{ $toko->nama_toko }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('id_toko')
-                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                @enderror
-                            </div>
                         </div>
                     </div>
     
@@ -88,20 +94,20 @@
                             <div class="detail-barang-item mb-4 p-4 border border-gray-200 rounded-md">
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <!-- Barang -->
-                                    <div>
+                                    <div class="col-span-2">
                                         <label for="barang_id_0" class="block text-sm font-medium text-gray-700">Barang</label>
                                         <select id="barang_id_0" name="barang_id[]" class="p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" required>
                                             <option value="">Pilih Barang</option>
                                             @foreach($barangs as $barang)
                                                 <option value="{{ $barang->id }}">
-                                                    {{ $barang->nama_barang }}
+                                                    {{ $barang->nama_barang }} - {{ $barang->gudang->nama_gudang ?? $barang->toko->nama_toko}}
                                                 </option>
                                             @endforeach
                                         </select>
                                     </div>
     
                                     <!-- Jumlah -->
-                                    <div>
+                                    <div class="col-span-1">
                                         <label for="jumlah_0" class="block text-sm font-medium text-gray-700">Jumlah</label>
                                         <input type="number" id="jumlah_0" name="jumlah[]" min="1" value="1" 
                                             class="p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -146,6 +152,7 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Detail barang counter and handlers
         let detailCounter = 1;
         const container = document.getElementById('detail-barang-container');
         const addButton = document.getElementById('add-detail-btn');
@@ -158,10 +165,9 @@
             newDetail.innerHTML = `
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <!-- Barang -->
-                    <div>
+                    <div class="col-span-2">
                         <label for="barang_id_${detailCounter}" class="block text-sm font-medium text-gray-700">Barang</label>
-                        <select id="barang_id_${detailCounter}" name="barang_id[]" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                            <option value="">Pilih Barang</option>
+                        <select id="barang_id_${detailCounter}" name="barang_id[]" class="p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                             ${Array.from(document.querySelectorAll('#barang_id_0 option')).map(opt => 
                                 `<option value="${opt.value}">${opt.textContent}</option>`
                             ).join('')}
@@ -169,10 +175,10 @@
                     </div>
     
                     <!-- Jumlah -->
-                    <div>
+                    <div class="col-span-1">
                         <label for="jumlah_${detailCounter}" class="block text-sm font-medium text-gray-700">Jumlah</label>
                         <input type="number" id="jumlah_${detailCounter}" name="jumlah[]" min="1" value="1" 
-                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+                            class="p-3 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
                     </div>
     
                     <!-- Hapus Button -->
@@ -211,6 +217,69 @@
                         }
                     }
                 }
+            }
+        });
+
+        // Handlers for Asal Barang and Tujuan Pengiriman dropdowns
+        const asalTipeDropdown = document.getElementById('asal_tipe');
+        const asalIdDropdown = document.getElementById('id_asal_barang');
+        const tujuanTipeDropdown = document.getElementById('tujuan_tipe');
+        const tujuanIdDropdown = document.getElementById('id_tujuan_pengiriman');
+
+        const gudangs = @json($gudangs);
+        const tokos = @json($tokos);
+
+        // Handle perubahan pada dropdown "Asal Tipe"
+        asalTipeDropdown.addEventListener('change', function() {
+            const selectedType = this.value;
+            
+            // Reset dropdown "Asal ID"
+            asalIdDropdown.innerHTML = '<option value="" disabled selected>Pilih Lokasi</option>';
+            asalIdDropdown.disabled = false;
+            
+            // Isi dropdown "Asal ID" sesuai dengan tipe yang dipilih
+            if (selectedType === 'gudang') {
+                gudangs.forEach(gudang => {
+                    const option = document.createElement('option');
+                    option.value = gudang.id;
+                    option.textContent = gudang.gudang.nama_gudang;
+                    asalIdDropdown.appendChild(option);
+                });
+            } else if (selectedType === 'toko') {
+                tokos.forEach(toko => {
+                    const option = document.createElement('option');
+                    option.value = toko.id;
+                    option.textContent = toko.toko.nama_toko;
+                    asalIdDropdown.appendChild(option);
+                });
+            }
+        });
+
+        // Handle perubahan pada dropdown "Tujuan Tipe"
+        tujuanTipeDropdown.addEventListener('change', function() {
+            const selectedType = this.value;
+            
+            // Reset dropdown "Tujuan ID"
+            tujuanIdDropdown.innerHTML = '<option value="" disabled selected>Pilih Lokasi</option>';
+            tujuanIdDropdown.disabled = false;
+            
+            // Isi dropdown "Tujuan ID" sesuai dengan tipe yang dipilih
+            if (selectedType === 'gudang') {
+                gudangs.forEach(gudang => {
+                    const option = document.createElement('option');
+                    option.value = gudang.id;
+                    option.textContent = gudang.gudang.nama_gudang;
+                    tujuanIdDropdown.appendChild(option);
+                });
+            } else if (selectedType === 'toko') {
+                tokos.forEach(toko => {
+                    if (toko.toko.jenis_toko.nama_jenis_toko !== 'Toko Supplier') {
+                        const option = document.createElement('option');
+                        option.value = toko.id;
+                        option.textContent = toko.toko.nama_toko;
+                        tujuanIdDropdown.appendChild(option);
+                    }
+                });
             }
         });
     });

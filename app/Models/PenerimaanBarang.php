@@ -18,7 +18,8 @@ class PenerimaanBarang extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'id_supplier',
+        'id_asal_barang',
+        'id_tujuan_pengiriman',
         'id_gudang',
         'tanggal_penerimaan',
     ];
@@ -27,9 +28,14 @@ class PenerimaanBarang extends Model
         'tanggal_penerimaan' => 'datetime',
     ];
 
-    public function supplier(): BelongsTo
+    public function lokasiAsal(): BelongsTo
     {
-        return $this->belongsTo(Supplier::class, 'id_supplier');
+        return $this->belongsTo(Lokasi::class, 'id_asal_barang');
+    }
+
+    public function lokasiTujuan(): BelongsTo
+    {
+        return $this->belongsTo(Lokasi::class, 'id_tujuan_pengiriman');
     }
 
     public function gudang(): BelongsTo

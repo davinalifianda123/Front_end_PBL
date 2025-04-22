@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class DetailPengirimanBarang extends Model
 {
@@ -19,11 +20,17 @@ class DetailPengirimanBarang extends Model
         'id_pengiriman_barang',
         'id_barang',
         'jumlah',
-        'harga_jual_satuan',
+        'flag',
+        // 'harga_jual_satuan',
     ];
 
-    public function barang()
+    public function barang(): BelongsTo
     {
         return $this->belongsTo(Barang::class, 'id_barang');
+    }
+
+    public function pengirimanBarang(): BelongsTo
+    {
+        return $this->belongsTo(PengirimanBarang::class, 'id_pengiriman_barang');
     }
 }

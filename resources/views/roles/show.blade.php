@@ -6,9 +6,6 @@
                     <div class="flex justify-between items-center mb-6 gap-12">
                         <h2 class="text-2xl font-semibold text-gray-800">Detail Role</h2>
                         <div class="flex space-x-2">
-                            <a href="{{ route('roles.edit', $role->id) }}" class="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition">
-                                Edit
-                            </a>
                             <a href="{{ route('roles.index') }}" class="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 transition">
                                 Kembali
                             </a>

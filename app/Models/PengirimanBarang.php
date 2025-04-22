@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PengirimanBarang extends Model
 {
@@ -16,30 +17,31 @@ class PengirimanBarang extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'id_gudang',
-        'id_toko',
+        'id_asal_barang',
+        'id_tujuan_pengiriman',
         'tanggal_pengiriman',
         'id_kurir',
         'id_status_pengiriman',
+        'flag',
     ];
 
     protected $casts = [
         'tanggal_pengiriman' => 'datetime',
     ];
 
-    public function gudang()
+    public function lokasiAsal()
     {
-        return $this->belongsTo(Gudang::class, 'id_gudang');
+        return $this->belongsTo(Lokasi::class, 'id_asal_barang');
     }
 
-    public function kurir()
+    public function lokasiTujuan()
+    {
+        return $this->belongsTo(Lokasi::class, 'id_tujuan_pengiriman');
+    }
+
+    public function kurir(): BelongsTo
     {
         return $this->belongsTo(Kurir::class, 'id_kurir');
-    }
-
-    public function toko()
-    {
-        return $this->belongsTo(Toko::class, 'id_toko');
     }
 
     public function statusPengiriman()

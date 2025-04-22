@@ -2,9 +2,11 @@
     <div class="bg-white rounded-lg shadow-md">
         <div class="flex justify-between items-center p-6">
             <h1 class="text-2xl font-bold text-gray-800">Daftar Penerimaan Barang</h1>
-            <a href="{{ route('penerimaan-barang.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Tambah Penerimaan
-            </a>
+            @if(auth()->user()->hasRole('Admin', 'Staff'))
+                <a href="{{ route('penerimaan-barang.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Tambah Penerimaan
+                </a>    
+            @endif
         </div>
 
         @if (session('success'))
@@ -47,8 +49,8 @@
                 <thead class="bg-gray-50">
                     <tr>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supplier</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gudang</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asal Barang</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tujuan Pengiriman</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Penerimaan</th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah Item</th>
                         <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
@@ -59,10 +61,10 @@
                         <tr class="hover:bg-gray-50">
                             <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $penerimaan->id }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $penerimaan->supplier ? $penerimaan->supplier->nama_toko_supplier : 'N/A' }}
+                                {{ $penerimaan->lokasiAsal->gudang->nama_gudang ?? $penerimaan->lokasiAsal->toko->nama_toko ?? 'N/A' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $penerimaan->gudang ? $penerimaan->gudang->nama_gudang : 'N/A' }}
+                                {{ $penerimaan->lokasiTujuan->gudang->nama_gudang ??$penerimaan->lokasiTujuan->toko->nama_toko ?? 'N/A' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                 {{ $penerimaan->tanggal_penerimaan ? $penerimaan->tanggal_penerimaan->format('d/m/Y') : 'N/A' }}

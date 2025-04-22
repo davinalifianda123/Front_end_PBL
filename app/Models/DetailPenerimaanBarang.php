@@ -20,7 +20,6 @@ class DetailPenerimaanBarang extends Model
         'id_penerimaan_barang',
         'id_barang',
         'jumlah',
-        'harga_beli',
     ];
 
     public function penerimaanBarang(): BelongsTo

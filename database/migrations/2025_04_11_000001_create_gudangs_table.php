@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_gudang');
             $table->string('alamat');
+            $table->boolean('is_pusat')->default(false);
             $table->integer('flag')->default(1);
             $table->timestamps();
             $table->softDeletes();

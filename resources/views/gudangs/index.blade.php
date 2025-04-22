@@ -2,9 +2,11 @@
     <div class="bg-white rounded-lg shadow-md p-6">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold text-gray-800">Daftar Gudang</h1>
-            <a href="{{ route('gudangs.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition duration-300">
-                Tambah Gudang Baru
-            </a>
+            @if(auth()->check() && auth()->user()->hasRole('Admin'))
+                <a href="{{ route('gudangs.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition duration-300">
+                    Tambah Gudang Baru
+                </a>
+            @endif
         </div>
 
         @if(session('success'))
@@ -49,25 +51,27 @@
                                         <a href="{{ route('gudangs.show', $gudang->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded transition duration-300">
                                             Detail
                                         </a>
-                                        <a href="{{ route('gudangs.edit', $gudang->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm py-1 px-3 rounded transition duration-300">
-                                            Edit
-                                        </a>
-                                        @if ($gudang->flag == 1)
-                                            <form action="{{ route('gudangs.deactivate', $gudang->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menonaktifkan gudang ini?');">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-3 rounded transition duration-300 w-30">
-                                                    Nonaktifkan
-                                                </button>
-                                            </form>
-                                        @else
-                                            <form action="{{ route('gudangs.activate', $gudang->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin mengaktifkan gudang ini?');">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white text-sm py-1 px-3 rounded transition duration-300 w-30">
-                                                    Aktifkan
-                                                </button>
-                                            </form>
+                                        @if(auth()->check() && auth()->user()->hasRole('Admin'))
+                                            <a href="{{ route('gudangs.edit', $gudang->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm py-1 px-3 rounded transition duration-300">
+                                                Edit
+                                            </a>
+                                            @if ($gudang->flag == 1)
+                                                <form action="{{ route('gudangs.deactivate', $gudang->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menonaktifkan gudang ini?');">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-white text-sm py-1 px-3 rounded transition duration-300 w-30">
+                                                        Nonaktifkan
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <form action="{{ route('gudangs.activate', $gudang->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin mengaktifkan gudang ini?');">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button type="submit" class="bg-green-500 hover:bg-green-600 text-white text-sm py-1 px-3 rounded transition duration-300 w-30">
+                                                        Aktifkan
+                                                    </button>
+                                                </form>
+                                            @endif
                                         @endif
                                     </div>
                                 </td>

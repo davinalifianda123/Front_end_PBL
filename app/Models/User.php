@@ -62,8 +62,18 @@ class User extends Authenticatable
         return $this->belongsTo(Toko::class, 'id_toko');
     }
 
-    public function hasRole(string $role): bool
+    public function gudang(): BelongsTo
     {
-        return $this->role()->where('nama_role', $role)->exists();
+        return $this->belongsTo(Gudang::class, 'id_gudang');
+    }
+
+    public function hasRole(...$roles): bool
+    {
+        foreach ($roles as $role) {
+            if ($this->role()->where('nama_role', $role)->exists()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

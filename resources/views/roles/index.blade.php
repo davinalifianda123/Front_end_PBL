@@ -5,9 +5,11 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-semibold text-gray-800">Daftar Role</h2>
-                        <a href="{{ route('roles.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
-                            Tambah Role Baru
-                        </a>
+                        @if(auth()->user()->hasRole('Admin'))
+                            <a href="{{ route('roles.create') }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+                                Tambah Role Baru
+                            </a>
+                        @endif
                     </div>
 
                     @if (session('success'))
@@ -35,16 +37,18 @@
                                                 <a href="{{ route('roles.show', $role->id) }}" class="text-blue-500 hover:text-blue-900">
                                                     Detail
                                                 </a>
-                                                <a href="{{ route('roles.edit', $role->id) }}" class="text-yellow-500 hover:text-amber-900">
-                                                    Edit
-                                                </a>
-                                                {{-- <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="inline-block">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-red-500 hover:text-red-900 cursor-pointer" onclick="return confirm('Apakah Anda yakin ingin menghapus role ini?')">
-                                                        Delete
-                                                    </button>
-                                                </form> --}}
+                                                @if(auth()->user()->hasRole('Admin'))
+                                                    <a href="{{ route('roles.edit', $role->id) }}" class="text-yellow-500 hover:text-amber-900">
+                                                        Edit
+                                                    </a>
+                                                    {{-- <form action="{{ route('roles.destroy', $role->id) }}" method="POST" class="inline-block">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="text-red-500 hover:text-red-900 cursor-pointer" onclick="return confirm('Apakah Anda yakin ingin menghapus role ini?')">
+                                                            Delete
+                                                        </button>
+                                                    </form> --}}
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>

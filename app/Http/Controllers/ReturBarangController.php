@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ReturBarang\StoreReturBarangRequest;
+use App\Http\Requests\ReturBarang\UpdateReturBarangRequest;
 use App\Models\ReturBarang;
 use App\Models\DetailReturBarang;
 use App\Models\StatusRetur;
 use App\Models\Barang;
 use App\Models\PengirimanBarang;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 
@@ -21,6 +22,7 @@ class ReturBarangController extends Controller
     {
         $returBarangs = ReturBarang::with(['user', 'statusRetur', 'pengirimanBarang', 'detailReturBarangs'])
             ->orderBy('tanggal_retur', 'desc')
+            ->where('flag', 1)
             ->paginate(10);
         
         return view('retur_barang.index', compact('returBarangs'));
@@ -31,7 +33,9 @@ class ReturBarangController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $users = User::whereHas('role', function ($query) {
+            $query->where('nama_role', '!=', 'Supplier')->where('nama_role', '!=', 'Buyer');
+        })->get();
         $statusReturs = StatusRetur::all();
         $pengirimanBarangs = PengirimanBarang::all();
         $barangs = Barang::all();
@@ -42,27 +46,15 @@ class ReturBarangController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreReturBarangRequest $request)
     {
-        $request->validate([
-            'id_user' => 'required|exists:users,id',
-            'tanggal_retur' => 'required|date',
-            'alasan_retur' => 'required|string',
-            'id_pengiriman_barang' => 'required|exists:pengiriman_barangs,id',
-            'id_barang' => 'required|array',
-            'id_barang.*' => 'exists:barangs,id',
-            'jumlah_barang_retur' => 'required|array',
-            'jumlah_barang_retur.*' => 'required|integer|min:1'
-        ]);
-
         DB::beginTransaction();
         try {
             // Buat retur barang utama
             $returBarang = ReturBarang::create([
-                'id_user' => $request->id_user,
+                'id_penanggung_jawab' => $request->id_user,
                 'tanggal_retur' => $request->tanggal_retur,
                 'alasan_retur' => $request->alasan_retur,
-                'id_status_retur' => 1,
                 'id_pengiriman_barang' => $request->id_pengiriman_barang,
             ]);
             
@@ -119,39 +111,24 @@ class ReturBarangController extends Controller
      */
     public function edit(ReturBarang $returBarang)
     {
-        $users = User::all();
         $statusReturs = StatusRetur::all();
         $pengirimanBarangs = PengirimanBarang::all();
         $returBarang->load('detailReturBarangs.barang');
         
-        return view('retur_barang.edit', compact('returBarang', 'users', 'statusReturs', 'pengirimanBarangs'));
+        return view('retur_barang.edit', compact('returBarang','statusReturs', 'pengirimanBarangs'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ReturBarang $returBarang)
+    public function update(UpdateReturBarangRequest $request, ReturBarang $returBarang)
     {
-        $request->validate([
-            'id_user' => 'required|exists:users,id',
-            'tanggal_retur' => 'required|date',
-            'alasan_retur' => 'required|string',
-            'id_status_retur' => 'required|exists:status_returs,id',
-            'id_pengiriman_barang' => 'required|exists:pengiriman_barangs,id',
-        ]);
-
         DB::beginTransaction();
         try {
-            $returBarang->update([
-                'id_user' => $request->id_user,
-                'tanggal_retur' => $request->tanggal_retur,
-                'alasan_retur' => $request->alasan_retur,
-                'id_status_retur' => $request->id_status_retur,
-                'id_pengiriman_barang' => $request->id_pengiriman_barang,
-            ]);
+            $returBarang->update($request->validated());
             
             DB::commit();
-            return redirect()->route('retur-barang.show', $returBarang->id)
+            return redirect()->route('retur-barang.index')
                 ->with('success', 'Laporan retur barang berhasil diperbarui.');
         } catch (QueryException $e) {
             DB::rollback();
@@ -169,10 +146,10 @@ class ReturBarangController extends Controller
         DB::beginTransaction();
         try {
             // Hapus semua detail retur terkait
-            $returBarang->detailReturBarangs()->delete();
+            $returBarang->detailReturBarangs()->update(['flag' => 0]);
             
             // Hapus retur barang utama
-            $returBarang->delete();
+            $returBarang->update(['flag' => 0]);
             
             DB::commit();
             return redirect()->route('retur-barang.index')

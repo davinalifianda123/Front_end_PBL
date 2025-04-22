@@ -15,9 +15,21 @@ class GudangImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+        $isPusatValue = $row['is_pusat'];
+
+        $isPusatBoolean = false;
+        if (is_string($isPusatValue)) {
+            $isPusatBoolean = strtolower($isPusatValue) === 'true';
+        } elseif (is_numeric($isPusatValue)) {
+            $isPusatBoolean = (bool) $isPusatValue; // 1 akan jadi true, 0 jadi false
+        } elseif (is_bool($isPusatValue)) {
+            $isPusatBoolean = $isPusatValue;
+        }
+
         return new Gudang([
             'nama_gudang' => $row['nama_gudang'],
             'alamat' => $row['alamat'],
+            'is_pusat' => $isPusatBoolean,
         ]);
     }
 }

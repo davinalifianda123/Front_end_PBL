@@ -14,10 +14,17 @@ return new class extends Migration
         Schema::create('pengiriman_barangs', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('id_gudang')->nullable();
-            $table->foreign('id_gudang')
+            $table->unsignedBigInteger('id_asal_barang')->nullable();
+            $table->foreign('id_asal_barang')
                 ->references('id')
-                ->on('gudangs')
+                ->on('lokasis')
+                ->nullOnDelete()
+                ->cascadeOnUpdate();
+                
+            $table->unsignedBigInteger('id_tujuan_pengiriman')->nullable();
+            $table->foreign('id_tujuan_pengiriman')
+                ->references('id')
+                ->on('lokasis')
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
 
@@ -30,20 +37,14 @@ return new class extends Migration
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->unsignedBigInteger('id_toko')->nullable();
-            $table->foreign('id_toko')
-                ->references('id')
-                ->on('tokos')
-                ->nullOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->unsignedBigInteger('id_status_pengiriman')->nullable();
+            $table->unsignedBigInteger('id_status_pengiriman')->default(1);
             $table->foreign('id_status_pengiriman')
                 ->references('id')
                 ->on('status_pengiriman_barangs')
-                ->nullOnDelete()
+                ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
+            $table->integer('flag')->default(1);
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ class StoreBarangRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,40 @@ class StoreBarangRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nama_barang' => [ 
+                'required',
+                'unique:barangs',
+                'string',
+                'max:255',
+            ],
+            'id_kategori' => [
+                'required',
+                'exists:kategori_barangs,id',
+            ],
+            'berat' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'nama_barang.required' => 'Nama barang harus diisi.',
+            'nama_barang.unique' => 'Nama barang yang dimasukkan sudah terdaftar.',
+            'nama_barang.max' => 'Nama barang maksimal 255 karakter.',
+            
+            'id_kategori.exists' => 'Kategori barang yang dipilih tidak ditemukan.',
+
+            'berat.required' => 'Berat barang harus diisi.',
+            'berat.min' => 'Berat barang minimal 1',
         ];
     }
 }

@@ -16,14 +16,12 @@ class DatabaseSeeder extends Seeder
             JenisTokoSeeder::class,
             TokoSeeder::class,
             GudangSeeder::class,
+            LokasiSeeder::class,
             UserSeeder::class,
             KategoriBarangSeeder::class,
             KurirSeeder::class,
             StatusPengirimanBarangSeeder::class,
             StatusReturSeeder::class,
-            // PenerimaanBarangSeeder::class,
-            // PengirimanBarangSeeder::class,
-            // ReturBarangSeeder::class,
         ]);
     }
 }
