@@ -11,19 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tokos', function (Blueprint $table) {
+        Schema::create('gudang_dan_tokos', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_toko');
-
-            $table->unsignedBigInteger('id_jenis_toko');
-            $table->foreign('id_jenis_toko')
-                ->references('id')
-                ->on('jenis_tokos')
-                ->restrictOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->string('alamat');
-            $table->string('no_telepon');
+            $table->string('nama_gudang_toko');
+            $table->string('alamat')->nullable();
+            $table->string('no_telepon')->nullable();
             $table->integer('flag')->default(1);
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tokos');
+        Schema::dropIfExists('gudangs');
     }
 };

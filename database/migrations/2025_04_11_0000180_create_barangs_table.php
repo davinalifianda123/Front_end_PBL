@@ -22,28 +22,6 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->unsignedBigInteger('id_parent_barang')->nullable();
-            $table->foreign('id_parent_barang')
-                ->references('id')
-                ->on('barangs')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-            
-            $table->unsignedBigInteger('id_gudang')->nullable();
-            $table->foreign('id_gudang')
-                ->references('id')
-                ->on('gudangs')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-                
-            $table->unsignedBigInteger('id_toko')->nullable();
-            $table->foreign('id_toko')
-                ->references('id')
-                ->on('tokos')
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->bigInteger('jumlah_stok')->default(0);
             $table->bigInteger('berat');
             $table->integer('flag')->default(1);
 

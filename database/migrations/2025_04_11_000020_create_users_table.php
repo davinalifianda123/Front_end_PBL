@@ -26,17 +26,10 @@ return new class extends Migration
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
             
-            $table->unsignedBigInteger('id_gudang')->nullable();
-            $table->foreign('id_gudang')
+            $table->unsignedBigInteger('id_lokasi')->nullable();
+            $table->foreign('id_lokasi')
                 ->references('id')
-                ->on('gudangs')
-                ->nullOnDelete()
-                ->cascadeOnUpdate();
-
-            $table->unsignedBigInteger('id_toko')->nullable();
-            $table->foreign('id_toko')
-                ->references('id')
-                ->on('tokos')
+                ->on('gudang_dan_tokos')
                 ->nullOnDelete()
                 ->cascadeOnUpdate();
 

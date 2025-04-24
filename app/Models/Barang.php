@@ -21,10 +21,6 @@ class Barang extends Model
     protected $fillable = [
         'nama_barang',
         'id_kategori',
-        'id_parent_barang',
-        'id_gudang',
-        'id_toko',
-        'jumlah_stok',
         'berat',
         'flag'
     ];
@@ -34,25 +30,55 @@ class Barang extends Model
         return $this->belongsTo(KategoriBarang::class, 'id_kategori');
     }
 
-    public function parentBarang(): BelongsTo
-    {
-        return $this->belongsTo(Barang::class, 'id_parent_barang');
-    }
-
-    public function childBarang(): HasMany
-    {
-        return $this->hasMany(Barang::class, 'id_parent_barang');
-    }
+    // public function childBarang(): HasMany
+    // {
+    //     return $this->hasMany(DetailGudang::class, 'id_barang');
+    // }
     
     public function gudang(): BelongsTo
     {
-        return $this->belongsTo(Gudang::class, 'id_gudang');
+        return $this->belongsTo(GudangDanToko::class, 'id_gudang');
     }
 
-    public function toko(): BelongsTo
-    {
-        return $this->belongsTo(Toko::class, 'id_toko');
-    }
+    // public function supplierKePusat(): HasMany
+    // {
+    //     return $this->belongsTo(SupplierKePusat::class, 'id_barang');
+    // }
+
+    // public function pusatKeCabang(): HasMany
+    // {
+    //     return $this->belongsTo(PusatKeCabang::class, 'id_barang');
+    // }
+
+    // public function cabangKeToko(): HasMany
+    // {
+    //     return $this->belongsTo(CabangKeToko::class, 'id_barang');
+    // }
+
+    // public function tokoKeCabang(): HasMany
+    // {
+    //     return $this->belongsTo(TokoKeCabang::class, 'id_barang');
+    // }
+
+    // public function cabangKePusat(): HasMany
+    // {
+    //     return $this->belongsTo(cabangKePusat::class, 'id_barang');
+    // }
+    
+    // public function pusatKeSupplier(): HasMany
+    // {
+    //     return $this->belongsTo(PusatKeSupplier::class, 'id_barang');
+    // }
+
+    // public function penerimaanDiPusat(): HasMany
+    // {
+    //     return $this->belongsTo(PenerimaanDiPusat::class, 'id_barang');
+    // }
+
+    // public function penerimaanDiCabang(): HasMany
+    // {
+    //     return $this->belongsTo(PenerimaanDiCabang::class, 'id_barang');
+    // }
 
     public function detailPengirimanBarang(): HasMany
     {

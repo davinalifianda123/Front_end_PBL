@@ -27,8 +27,7 @@ class UsersImport implements ToModel, WithHeadingRow
             'email' => $row['email'],
             'password' => Hash::make($row['password']),
             'id_role' => $row['id_role'],
-            'id_gudang' => $this->nullify($row['id_gudang']),
-            'id_toko' => $this->nullify($row['id_toko']),
+            'id_lokasi' => $this->nullify($row['id_lokasi']),
         ]);
     }
 }

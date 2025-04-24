@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Toko;
+namespace App\Http\Requests\GudangDanToko;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreTokoRequest extends FormRequest
+class StoreGudangDanTokoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,23 +22,19 @@ class StoreTokoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama_toko' => [
+            'nama_gudang' => [
                 'required',
                 'string',
                 'max:255',
-            ],
-            'id_jenis_toko' => [ 
-                'required',
-                'exists:jenis_tokos,id',
+                'unique:gudang_dan_tokos', 
             ],
             'alamat' => [
-                'required', 
-                'string', 
-                'unique:tokos'
+                'required',
+                'string',
             ],
             'no_telepon' => [
-                'required', 
-                'string'
+                'required',
+                'string',
             ]
         ];
     }
@@ -51,11 +47,12 @@ class StoreTokoRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nama_toko.required' => 'Nama toko harus diisi.',
-            'nama_toko.max' => 'Nama toko maksimal 255 karakter.',
-            'id_jenis_toko.required' => 'Jenis Toko tidak boleh kosong.',
-            'alamat.required' => 'Nama alamat harus diisi.',
-            'alamat.unique' => 'Nama alamat ini sudah digunakan.',
+            'nama_gudang.required' => 'Nama gudang harus diisi.',
+            'nama_gudang.unique' => 'Nama gudang ini sudah digunakan.',
+            'nama_gudang.max' => 'Nama gudang maksimal 255 karakter.',
+            
+            'alamat.required' => 'Alamat harus diisi.',
+
             'no_telepon.required' => 'No telepon harus diisi.',
         ];
     }
