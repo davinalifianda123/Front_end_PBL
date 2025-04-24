@@ -20,6 +20,7 @@ return new class extends Migration
             $table->bigInteger('jumlah'); // Kolom wajib
             $table->datetime('tanggal'); // Kolom wajib
             $table->timestamps();
+            $table->softDeletes();
 
             // Foreign Key Constraints
             $table->foreign('id_supplier')->references('id')->on('gudang_dan_tokos')->cascadeOnUpdate();
