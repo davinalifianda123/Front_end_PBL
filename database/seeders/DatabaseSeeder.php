@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             KurirSeeder::class,
             StatusPengirimanBarangSeeder::class,
             StatusReturSeeder::class,
+            JenisPenerimaanSeeder::class,
         ]);
     }
 }
