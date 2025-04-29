@@ -16,8 +16,8 @@ use App\Http\Controllers\DetailPenerimaanBarangController;
 use App\Http\Controllers\StatusPengirimanBarangController;
 use App\Http\Controllers\SupplierKePusatController;
 
-// Route::get('/look', [SupplierKePusatController::class, 'index']);
-
+Route::get('/supplier-ke-pusats', [SupplierKePusatController::class, 'index']);
+Route::post('/supplier-ke-pusats', [SupplierKePusatController::class, 'store']);
 
 // Route::middleware('guest')->group(function () {
 //     Route::get('/', fn() => redirect('/login'));
