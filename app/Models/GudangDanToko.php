@@ -29,43 +29,43 @@ class GudangDanToko extends Model
         return $this->hasMany(User::class, 'id_gudang');
     }
 
-    // public function supplierKeTujuanPusat(): HasMany
-    // {
-    //     return $this->hasMany(SupplierKePusat::class, 'id_pusat');
-    // }
+    public function supplierKeTujuanPusat(): HasMany
+    {
+        return $this->hasMany(SupplierKePusat::class, 'id_pusat');
+    }
 
-    // public function asalSupplierKePusat(): HasMany
-    // {
-    //     return $this->hasMany(SupplierKePusat::class, 'id_supplier');
-    // }
+    public function asalSupplierKePusat(): HasMany
+    {
+        return $this->hasMany(SupplierKePusat::class, 'id_supplier');
+    }
 
-    // public function pusatKeTujuanCabang(): HasMany
-    // {
-    //     return $this->hasMany(PusatKeCabang::class, 'id_cabang');
-    // }
+    public function pusatKeTujuanCabang(): HasMany
+    {
+        return $this->hasMany(PusatKeCabang::class, 'id_cabang');
+    }
 
-    // public function asalPusatKeCabang(): HasMany
-    // {
-    //     return $this->hasMany(PusatKeCabang::class, 'id_pusat');
-    // }
+    public function asalPusatKeCabang(): HasMany
+    {
+        return $this->hasMany(PusatKeCabang::class, 'id_pusat');
+    }
 
-    // public function cabangKeTujuanToko(): HasMany
-    // {
-    //     return $this->hasMany(CabangKeToko::class, 'id_toko');
-    // }
+    public function cabangKeTujuanToko(): HasMany
+    {
+        return $this->hasMany(CabangKeToko::class, 'id_toko');
+    }
 
-    // public function asalCabangKeToko(): HasMany
-    // {
-    //     return $this->hasMany(CabangKeToko::class, 'id_cabang');
-    // }
+    public function asalCabangKeToko(): HasMany
+    {
+        return $this->hasMany(CabangKeToko::class, 'id_cabang');
+    }
 
-    // public function asalPenerimaanDiPusat(): HasMany
-    // {
-    //     return $this->hasMany(PenerimaanDiPusat::class, 'id_asal_barang');
-    // }
+    public function asalPenerimaanDiPusat(): HasMany
+    {
+        return $this->hasMany(PenerimaanDiPusat::class, 'id_asal_barang');
+    }
 
-    // public function asalPenerimaanDiCabang(): HasMany
-    // {
-    //     return $this->hasMany(PenerimaanDiPusat::class, 'id_asal_barang');
-    // }
+    public function asalPenerimaanDiCabang(): HasMany
+    {
+        return $this->hasMany(PenerimaanDiPusat::class, 'id_asal_barang');
+    }
 }
