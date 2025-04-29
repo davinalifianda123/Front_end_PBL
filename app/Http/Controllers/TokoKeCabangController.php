@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\TokoKeCabang;
 
 class TokoKeCabangController extends Controller
 {
@@ -11,7 +12,15 @@ class TokoKeCabangController extends Controller
      */
     public function index()
     {
+        $TokoKeCabang = TokoKeCabang::with('toko', 'cabang', 'barang')->get();
+
         //
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Toko Ke Cabang',
+            'data' => $TokoKeCabang,
+        ]);
     }
 
     /**
@@ -60,7 +69,7 @@ class TokoKeCabangController extends Controller
     public function destroy(string $id)
     {
 
-        
+
         //
     }
 
