@@ -14,6 +14,8 @@ use App\Http\Controllers\PengirimanBarangController;
 use App\Http\Controllers\DetailReturBarangController;
 use App\Http\Controllers\DetailPenerimaanBarangController;
 use App\Http\Controllers\StatusPengirimanBarangController;
+use App\Http\Controllers\PusatKeSupplierController;
+
 
 Route::middleware('guest')->group(function () {
     Route::get('/', fn() => redirect('/login'));
