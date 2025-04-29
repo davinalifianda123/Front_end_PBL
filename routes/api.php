@@ -14,7 +14,9 @@ use App\Http\Controllers\DetailReturBarangController;
 use App\Http\Controllers\DetailPenerimaanBarangController;
 use App\Http\Controllers\StatusPengirimanBarangController;
 use App\Http\Controllers\PusatKeCabangController;
-// Route::get('/look', [PusatKeCabangController::class, 'index']);
+
+Route::get('/pusat-ke-cabangs', [PusatKeCabangController::class, 'index']);
+Route::post('/pusat-ke-cabangs', [PusatKeCabangController::class, 'store']);
 
 // Route::middleware('guest')->group(function () {
 //     Route::get('/', fn() => redirect('/login'));
