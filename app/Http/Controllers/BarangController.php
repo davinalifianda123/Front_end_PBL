@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use App\Models\Toko;
 use App\Models\Barang;
 use App\Models\Gudang;
+use App\Models\GudangDanToko;
 use App\Models\KategoriBarang;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Barang\StoreBarangRequest;
@@ -15,21 +16,16 @@ class BarangController extends Controller
      */
     public function index()
     {
-        $query = Barang::with(['kategori', 'gudang', 'toko']);
+        // $query = Barang::with(['kategori', 'gudang', 'toko']);
+        $query = Barang::with(['kategori']);
 
-        if (auth()->user()->hasRole('Staff')) {
-            if (auth()->user()->id_toko) {
-                $query->where('id_toko', auth()->user()->id_toko);
-            } elseif (auth()->user()->id_gudang) {
-                $query->where('id_gudang', auth()->user()->id_gudang);
-            }
-        }
-
-        if (auth()->user()->hasRole('Supplier')) {
-            $query->whereHas('gudang', function ($query) {
-                $query->where('is_pusat', true);
-            });
-        }
+        // if (auth()->user()->hasRole('Admin')) {
+        //     if (auth()->user()->id_toko) {
+        //         $query->where('id_toko', auth()->user()->id_toko);
+        //     } elseif (auth()->user()->id_gudang) {
+        //         $query->where('id_gudang', auth()->user()->id_gudang);
+        //     }
+        // }
 
         $barangs = $query->orderBy('id')->paginate(10);
 
@@ -42,9 +38,9 @@ class BarangController extends Controller
     public function create()
     {
         $categories = KategoriBarang::all();
-        $gudangs = Gudang::all();
+        $gudangTokos = GudangDanToko::all();
 
-        return view('barangs.create', compact('categories', 'gudangs'));
+        return view('barangs.create', compact('categories', 'gudangTokos'));
     }
 
     /**

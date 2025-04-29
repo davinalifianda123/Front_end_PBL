@@ -24,8 +24,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     
-    // Routes untuk User & Role Management - hanya Admin
-    Route::middleware(['role:Admin, Supervisor'])->group(function () {
+    // Routes untuk User & Role Management - hanya SuperAdmin
+    Route::middleware(['role:SuperAdmin, Supervisor'])->group(function () {
         Route::resource('roles', RoleController::class);
         Route::resource('users', UserController::class);
         Route::patch('users/{user}/activate', [UserController::class, 'activate'])
@@ -34,11 +34,11 @@ Route::middleware(['auth'])->group(function () {
             ->name('users.deactivate');
     });
     
-    // Routes untuk Categories - Admin, Supervisor, Staff
-    Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
+    // Routes untuk Categories - SuperAdmin, Supervisor, Admin
+    Route::middleware(['role:SuperAdmin,Supervisor,Admin'])->group(function () {
         Route::resource('categories', KategoriBarangController::class);
-        // Activate/Deactivate hanya untuk Admin dan Supervisor
-        Route::middleware(['role:Admin,Supervisor'])->group(function () {
+        // Activate/Deactivate hanya untuk SuperAdmin dan Supervisor
+        Route::middleware(['role:SuperAdmin,Supervisor'])->group(function () {
             Route::patch('categories/{category}/activate', [KategoriBarangController::class, 'activate'])
                 ->name('categories.activate');
             Route::patch('categories/{category}/deactivate', [KategoriBarangController::class, 'deactivate'])
@@ -46,11 +46,11 @@ Route::middleware(['auth'])->group(function () {
         });
     });
     
-    // Routes untuk Barang - Admin, Supervisor, Staff, Supplier, Buyer
-    Route::middleware(['role:Admin,Supervisor,Staff,Supplier,Buyer'])->group(function () {
+    // Routes untuk Barang - SuperAdmin, Supervisor, Admin, Supplier, Buyer
+    Route::middleware(['role:SuperAdmin,Supervisor,Admin,Supplier,Buyer'])->group(function () {
         Route::resource('barangs', BarangController::class);
-        // Activate/Deactivate hanya untuk Admin saja
-        Route::middleware(['role:Admin'])->group(function () {
+        // Activate/Deactivate hanya untuk SuperAdmin saja
+        Route::middleware(['role:SuperAdmin'])->group(function () {
             Route::patch('barangs/{barang}/activate', [BarangController::class, 'activate'])
                 ->name('barangs.activate');
             Route::patch('barangs/{barang}/deactivate', [BarangController::class, 'deactivate'])
@@ -58,82 +58,82 @@ Route::middleware(['auth'])->group(function () {
         });
     });
     
-    // Routes untuk Gudang - Admin, Supervisor, Staff
-    Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
-        Route::resource('gudangs', GudangController::class);
-        // Activate/Deactivate hanya untuk Admin dan Supervisor
-        Route::middleware(['role:Admin,Supervisor'])->group(function () {
-            Route::patch('gudangs/{gudang}/activate', [GudangController::class, 'activate'])
-                ->name('gudangs.activate');
-            Route::patch('gudangs/{gudang}/deactivate', [GudangController::class, 'deactivate'])
-                ->name('gudangs.deactivate');
-        });
-    });
+    // // Routes untuk Gudang - SuperAdmin, Supervisor, Admin
+    // Route::middleware(['role:SuperAdmin,Supervisor,Admin'])->group(function () {
+    //     Route::resource('gudangs', GudangController::class);
+    //     // Activate/Deactivate hanya untuk SuperAdmin dan Supervisor
+    //     Route::middleware(['role:SuperAdmin,Supervisor'])->group(function () {
+    //         Route::patch('gudangs/{gudang}/activate', [GudangController::class, 'activate'])
+    //             ->name('gudangs.activate');
+    //         Route::patch('gudangs/{gudang}/deactivate', [GudangController::class, 'deactivate'])
+    //             ->name('gudangs.deactivate');
+    //     });
+    // });
     
-    // Routes untuk Toko - Admin, Supervisor, Staff
-    Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
-        Route::resource('tokos', TokoController::class);
-        // Activate/Deactivate hanya untuk Admin dan Supervisor
-        Route::middleware(['role:Admin,Supervisor'])->group(function () {
-            Route::patch('tokos/{toko}/activate', [TokoController::class, 'activate'])
-                ->name('tokos.activate');
-            Route::patch('tokos/{toko}/deactivate', [TokoController::class, 'deactivate'])
-                ->name('tokos.deactivate');
-        });
-    });
+    // // Routes untuk Toko - SuperAdmin, Supervisor, Admin
+    // Route::middleware(['role:SuperAdmin,Supervisor,Admin'])->group(function () {
+    //     Route::resource('tokos', TokoController::class);
+    //     // Activate/Deactivate hanya untuk SuperAdmin dan Supervisor
+    //     Route::middleware(['role:SuperAdmin,Supervisor'])->group(function () {
+    //         Route::patch('tokos/{toko}/activate', [TokoController::class, 'activate'])
+    //             ->name('tokos.activate');
+    //         Route::patch('tokos/{toko}/deactivate', [TokoController::class, 'deactivate'])
+    //             ->name('tokos.deactivate');
+    //     });
+    // });
     
-    // Routes untuk Penerimaan Barang - Admin, Staff
-    Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
-        Route::resource('penerimaan-barang', PenerimaanBarangController::class);
+    // // Routes untuk Penerimaan Barang - SuperAdmin, Admin
+    // Route::middleware(['role:SuperAdmin,Supervisor,Admin'])->group(function () {
+    //     Route::resource('penerimaan-barang', PenerimaanBarangController::class);
     
-        Route::get('/penerimaan-barang/{penerimaanBarang}details/{detailPenerimaan}', [PenerimaanBarangController::class, 'showDetail'])
-            ->name('penerimaan-barang.show-detail');
-    });
+    //     Route::get('/penerimaan-barang/{penerimaanBarang}details/{detailPenerimaan}', [PenerimaanBarangController::class, 'showDetail'])
+    //         ->name('penerimaan-barang.show-detail');
+    // });
     
-    // Status Pengiriman Barang - hanya Admin
-    Route::middleware(['role:Admin'])->group(function () {
+    // Status Pengiriman Barang - hanya SuperAdmin
+    Route::middleware(['role:SuperAdmin'])->group(function () {
         Route::resource('status-pengiriman-barang', StatusPengirimanBarangController::class);
     });
     
-    // Routes untuk Pengiriman Barang - Admin, Staff, Supplier
-    Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
-        // Buat resource pengiriman, tapi restrict mana yang bisa diakses oleh Supplier
-        Route::resource('pengiriman-barang', PengirimanBarangController::class);
+    // // Routes untuk Pengiriman Barang - SuperAdmin, Admin, Supplier
+    // Route::middleware(['role:SuperAdmin,Supervisor,Admin'])->group(function () {
+    //     // Buat resource pengiriman, tapi restrict mana yang bisa diakses oleh Supplier
+    //     Route::resource('pengiriman-barang', PengirimanBarangController::class);
         
-        // Detail view untuk semua role yang bisa akses pengiriman
-        Route::get('pengiriman-barang/{pengirimanBarang}/details/{detailPengirimanBarang}', [PengirimanBarangController::class, 'showDetail'])
-            ->name('pengiriman-barang.detail.show');
-    });
+    //     // Detail view untuk semua role yang bisa akses pengiriman
+    //     Route::get('pengiriman-barang/{pengirimanBarang}/details/{detailPengirimanBarang}', [PengirimanBarangController::class, 'showDetail'])
+    //         ->name('pengiriman-barang.detail.show');
+    // });
     
-    // Routes untuk Retur Barang - Admin, Staff, Buyer
-    Route::middleware(['role:Admin,Supervisor,Staff,Buyer'])->group(function () {
-        Route::resource('retur-barang', ReturBarangController::class);
-        // Detail view untuk semua role yang bisa akses retur
-        Route::get('detail-retur-barang/{detailReturBarang}', [DetailReturBarangController::class, 'show'])
-            ->name('detail-retur-barang.show');
-        Route::get('retur-barang/{returBarang}/detail/create', [DetailReturBarangController::class, 'create'])
-            ->name('detail-retur-barang.create');
-        Route::post('detail-retur-barang', [DetailReturBarangController::class, 'store'])
-            ->name('detail-retur-barang.store');
+    // // Routes untuk Retur Barang - SuperAdmin, Admin, Buyer
+    // Route::middleware(['role:SuperAdmin,Supervisor,Admin,Buyer'])->group(function () {
+    //     Route::resource('retur-barang', ReturBarangController::class);
+    //     // Detail view untuk semua role yang bisa akses retur
+    //     Route::get('detail-retur-barang/{detailReturBarang}', [DetailReturBarangController::class, 'show'])
+    //         ->name('detail-retur-barang.show');
+    //     Route::get('retur-barang/{returBarang}/detail/create', [DetailReturBarangController::class, 'create'])
+    //         ->name('detail-retur-barang.create');
+    //     Route::post('detail-retur-barang', [DetailReturBarangController::class, 'store'])
+    //         ->name('detail-retur-barang.store');
         
-        // Operasi edit dan delete hanya untuk Admin dan Staff
-        Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
-            Route::get('detail-retur-barang/{detailReturBarang}/edit', [DetailReturBarangController::class, 'edit'])
-                ->name('detail-retur-barang.edit');
-            Route::put('detail-retur-barang/{detailReturBarang}', [DetailReturBarangController::class, 'update'])
-                ->name('detail-retur-barang.update');
-            Route::delete('detail-retur-barang/{detailReturBarang}', [DetailReturBarangController::class, 'destroy'])
-                ->name('detail-retur-barang.destroy');
-        });
-    });
+    //     // Operasi edit dan delete hanya untuk SuperAdmin dan Admin
+    //     Route::middleware(['role:SuperAdmin,Supervisor,Admin'])->group(function () {
+    //         Route::get('detail-retur-barang/{detailReturBarang}/edit', [DetailReturBarangController::class, 'edit'])
+    //             ->name('detail-retur-barang.edit');
+    //         Route::put('detail-retur-barang/{detailReturBarang}', [DetailReturBarangController::class, 'update'])
+    //             ->name('detail-retur-barang.update');
+    //         Route::delete('detail-retur-barang/{detailReturBarang}', [DetailReturBarangController::class, 'destroy'])
+    //             ->name('detail-retur-barang.destroy');
+    //     });
+    // });
 
-    Route::middleware(['role:buyer'])->group(function () {
-        Route::get('/orders', [PengirimanBarangController::class, 'ordersIndex'])
-            ->name('orders.index');
-        Route::get('/orders/{pengirimanBarang}', [PengirimanBarangController::class, 'ordersShow'])
-            ->name('orders.show');
+    // Route::middleware(['role:buyer'])->group(function () {
+    //     Route::get('/orders', [PengirimanBarangController::class, 'ordersIndex'])
+    //         ->name('orders.index');
+    //     Route::get('/orders/{pengirimanBarang}', [PengirimanBarangController::class, 'ordersShow'])
+    //         ->name('orders.show');
 
-        Route::get('/orders/{pengirimanBarang}/details/{detailPengirimanBarang}', [PengirimanBarangController::class, 'ordersDetailShow'])
-            ->name('orders.detail.show');
-    });
+    //     Route::get('/orders/{pengirimanBarang}/details/{detailPengirimanBarang}', [PengirimanBarangController::class, 'ordersDetailShow'])
+    //         ->name('orders.detail.show');
+    // });
 });
