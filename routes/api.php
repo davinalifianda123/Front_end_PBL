@@ -21,8 +21,8 @@ use App\Http\Controllers\PusatKeCabangController;
 use App\Http\Controllers\SupplierKePusatController;
 use App\Http\Controllers\CabangKeTokoController;
 
-route::get('/look',[CabangKeTokoController::class,'index']);
-route::post('/masukkandata',[CabangKeTokoController::class,'store']);
+route::get('/cabang-ke-tokos',[CabangKeTokoController::class,'index']);
+route::post('/cabang-ke-tokos',[CabangKeTokoController::class,'store']);
 
 Route::get('/supplier-ke-pusats', [SupplierKePusatController::class, 'index']);
 Route::post('/supplier-ke-pusats', [SupplierKePusatController::class, 'store']);
