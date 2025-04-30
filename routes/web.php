@@ -14,6 +14,7 @@ use App\Http\Controllers\DetailReturBarangController;
 use App\Http\Controllers\PenerimaanDiCabangController;
 use App\Http\Controllers\DetailPenerimaanBarangController;
 use App\Http\Controllers\StatusPengirimanBarangController;
+use App\Http\Controllers\SupplierKePusatController;
 use App\Http\Controllers\PenerimaanDiPusatController;
 use App\Http\Controllers\DetailGudangController;
 
@@ -22,11 +23,7 @@ use App\Http\Controllers\DetailGudangController;
 // Route::get('/testPenerimaan', [PenerimaanDiPusatController::class, 'index']);
 // Route::get('/testDetail', [DetailGudangController::class, 'index']);
 
-Route::middleware('guest')->group(function () {
-    Route::get('/', fn() => redirect('/login'));
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
-});
+// Route::get('/look', [SupplierKePusatController::class, 'index']);
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
