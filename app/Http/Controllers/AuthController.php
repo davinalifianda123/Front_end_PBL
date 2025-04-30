@@ -19,7 +19,7 @@ class AuthController extends Controller
         try {
             $request->authenticate();
 
-            if (auth()->user()->hasRole('Admin')) {
+            if (auth()->user()->hasRole('SuperAdmin')) {
                 return redirect()->intended(route('users.index'));
             } else if (auth()->user()->hasRole('Supplier')) {
                 auth()->logout();

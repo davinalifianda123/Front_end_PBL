@@ -35,10 +35,10 @@ class Barang extends Model
     //     return $this->hasMany(DetailGudang::class, 'id_barang');
     // }
     
-    public function gudang(): BelongsTo
-    {
-        return $this->belongsTo(GudangDanToko::class, 'id_gudang');
-    }
+    // public function gudang(): BelongsTo
+    // {
+    //     return $this->belongsTo(GudangDanToko::class, 'id_gudang');
+    // }
 
     // public function supplierKePusat(): HasMany
     // {
@@ -80,8 +80,8 @@ class Barang extends Model
     //     return $this->belongsTo(PenerimaanDiCabang::class, 'id_barang');
     // }
 
-    public function detailPengirimanBarang(): HasMany
-    {
-        return $this->hasMany(DetailPenerimaanBarang::class, 'id_barang');
-    }
+    // public function detailPengirimanBarang(): HasMany
+    // {
+    //     return $this->hasMany(DetailPenerimaanBarang::class, 'id_barang');
+    // }
 }
