@@ -19,14 +19,6 @@ class BarangController extends Controller
         // $query = Barang::with(['kategori', 'gudang', 'toko']);
         $query = Barang::with(['kategori']);
 
-        // if (auth()->user()->hasRole('Admin')) {
-        //     if (auth()->user()->id_toko) {
-        //         $query->where('id_toko', auth()->user()->id_toko);
-        //     } elseif (auth()->user()->id_gudang) {
-        //         $query->where('id_gudang', auth()->user()->id_gudang);
-        //     }
-        // }
-
         $barangs = $query->orderBy('id')->paginate(10);
 
         return view('barangs.index', compact('barangs'));
