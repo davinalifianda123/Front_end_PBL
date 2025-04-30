@@ -61,7 +61,7 @@
 //         });
 //     });
 
-//     // Routes untuk Gudang - Admin, Supervisor, Staff
+//     // Routes untuk Gudang - Admin, Supervisor, Staff.
 //     Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
 //         Route::resource('gudangs', GudangController::class);
 //         // Activate/Deactivate hanya untuk Admin dan Supervisor

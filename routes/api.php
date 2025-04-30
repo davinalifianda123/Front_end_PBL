@@ -3,7 +3,7 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\TokoController;
+use App\Http\Controllers\TokoController; // Ensure this class exists in the specified namespace
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\GudangController;
@@ -16,7 +16,8 @@ use App\Http\Controllers\DetailPenerimaanBarangController;
 use App\Http\Controllers\StatusPengirimanBarangController;
 use App\Http\Controllers\TokoKeCabangController;
 
-Route::get('/look', [TokoKeCabangController::class, 'index']);
+Route::get('/toko-ke-cabangs', [TokoKeCabangController::class, 'index']);
+Route::post('/toko-ke-cabangs', [TokoKeCabangController::class, 'store']);
 
 Route::middleware('guest')->group(function () {
     Route::get('/', fn() => redirect('/login'));
