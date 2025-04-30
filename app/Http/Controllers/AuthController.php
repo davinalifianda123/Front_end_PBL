@@ -12,14 +12,14 @@ class AuthController extends Controller
     public function showLoginForm()
     {
         return view('auth.login');
-    }
+    }   
 
     public function login(LoginRequest $request)
     {
         try {
             $request->authenticate();
 
-            if (auth()->user()->hasRole('Admin')) {
+            if (auth()->user()->hasRole('SuperAdmin')) {
                 return redirect()->intended(route('users.index'));
             } else if (auth()->user()->hasRole('Supplier')) {
                 auth()->logout();

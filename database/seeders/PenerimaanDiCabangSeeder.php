@@ -2,22 +2,22 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\PenerimaanDiPusat;
+use App\Models\PenerimaanDiCabang;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class PenerimaanDiPusatSeeder extends Seeder
+class PenerimaanDiCabangSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        PenerimaanDiPusat::create([
+        PenerimaanDiCabang::create([
             'id_jenis_penerimaan' => 1,
             'id_asal_barang' => 1,
             'id_barang' => 1,
-            'jumlah' => 100,
+            'jumlah' => 10,
             'tanggal' => now(),
         ]);
     }

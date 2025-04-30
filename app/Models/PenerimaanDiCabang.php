@@ -2,25 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-class PenerimaanDiPusat extends Model
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class PenerimaanDiCabang extends Model
 {
-    /** @use HasFactory<\Database\Factories\KurirFactory> */
+    /** @use HasFactory<\Database\Factories\PenerimaanDiCabangFactory> */
     use HasFactory, SoftDeletes;
+
     /**
-    * The attributes that are mass assignable.
-    *
-    * @var list<string>
-    */
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
     protected $fillable = [
         'id_jenis_penerimaan',
         'id_asal_barang',
         'id_barang',
         'jumlah',
-        'tanggal'
+        'tanggal',
     ];
 
     public function jenisPenerimaan(): BelongsTo

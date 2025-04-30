@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PusatKeSupplier;
+use Illuminate\Support\Facades\DB;
 class PusatKeSupplierController extends Controller
 {
     /**

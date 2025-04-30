@@ -23,6 +23,9 @@ class DatabaseSeeder extends Seeder
             StatusReturSeeder::class,
             JenisPenerimaanSeeder::class,
             PusatKeSupplierSeeder::class,
+            PusatKeCabangSeeder::class,
+            PenerimaanDiPusatSeeder::class,
+            PenerimaanDiCabangSeeder::class,
         ]);
     }
 }

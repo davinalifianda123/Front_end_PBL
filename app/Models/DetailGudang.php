@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class DetailGudang extends Model
 {
@@ -19,4 +22,14 @@ class DetailGudang extends Model
         'jumlah_stok',
         'stok_opname'
     ];
+
+    public function gudang(): BelongsTo
+    {
+        return $this->belongsTo(GudangDanToko::class, 'id_gudang');
+    }
+
+    public function barang(): BelongsTo
+    {
+        return $this->belongsTo(Barang::class, 'id_barang');
+    }
 }
