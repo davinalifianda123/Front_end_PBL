@@ -14,6 +14,7 @@ use App\Http\Controllers\DetailReturBarangController;
 use App\Http\Controllers\PenerimaanDiCabangController;
 use App\Http\Controllers\DetailPenerimaanBarangController;
 use App\Http\Controllers\StatusPengirimanBarangController;
+use App\Http\Controllers\SupplierKePusatController;
 use App\Http\Controllers\PenerimaanDiPusatController;
 use App\Http\Controllers\DetailGudangController;
 

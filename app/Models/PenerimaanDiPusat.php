@@ -5,12 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-<<<<<<< HEAD
-
-=======
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
->>>>>>> 9bcb70e46542c4181318cbfb7aff22e3c07d3b9a
 class PenerimaanDiPusat extends Model
 {
     /** @use HasFactory<\Database\Factories\KurirFactory> */
