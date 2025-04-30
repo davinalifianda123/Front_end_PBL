@@ -1,7 +1,7 @@
 <?php
-
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PusatKeSupplierController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TokoController;
 use App\Http\Controllers\UserController;
@@ -24,6 +24,8 @@ use App\Http\Controllers\CabangKeTokoController;
 route::get('/cabang-ke-tokos',[CabangKeTokoController::class,'index']);
 route::post('/cabang-ke-tokos',[CabangKeTokoController::class,'store']);
 
+Route::get('/lihatpusatkesupplier', [PusatKeSupplierController::class, 'index']); 
+Route::post('/tambahpusatkesupplier', [PusatKeSupplierController::class, 'store']);
 Route::get('/supplier-ke-pusats', [SupplierKePusatController::class, 'index']);
 Route::post('/supplier-ke-pusats', [SupplierKePusatController::class, 'store']);
 Route::get('/testPenerimaan', [PenerimaanDiPusatController::class, 'index']);
