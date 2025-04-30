@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\CabangKeToko;
 
 class CabangKeTokoSeeder extends Seeder
 {
@@ -12,6 +13,14 @@ class CabangKeTokoSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // \App\Models\CabangKeToko::factory(10)->create();
+        CabangKeToko::create([
+            'kode' => 'BRG001',
+            'id_cabang' => 1,
+            'id_toko' => 1,
+            'id_barang' => 1,
+            'jumlah' => 100,
+            'tanggal' => now(),
+        ]);
     }
 }

@@ -22,7 +22,7 @@ class BarangSeeder extends Seeder
             'berat' => 100,
             'flag' => 1,
         ]);
-        
+
         $this->command->info('Importing roles from Excel...');
 
         $disk = 'local';

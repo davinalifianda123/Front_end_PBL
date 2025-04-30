@@ -19,6 +19,10 @@ use App\Http\Controllers\DetailGudangController;
 use App\Http\Controllers\PenerimaanDiCabangController;
 use App\Http\Controllers\PusatKeCabangController;
 use App\Http\Controllers\SupplierKePusatController;
+use App\Http\Controllers\CabangKeTokoController;
+
+route::get('/cabang-ke-tokos',[CabangKeTokoController::class,'index']);
+route::post('/cabang-ke-tokos',[CabangKeTokoController::class,'store']);
 
 Route::get('/lihatpusatkesupplier', [PusatKeSupplierController::class, 'index']); 
 Route::post('/tambahpusatkesupplier', [PusatKeSupplierController::class, 'store']);
@@ -30,7 +34,7 @@ Route::get('/testDetailGudang', [DetailGudangController::class, 'index']);
 Route::post('/testDetailGudang', [DetailGudangController::class, 'store']);
 Route::get('/pusat-ke-cabangs', [PusatKeCabangController::class, 'index']);
 Route::post('/pusat-ke-cabangs', [PusatKeCabangController::class, 'store']);
- 
+
 
 Route::get('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'index']);
 Route::post('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'store']);
