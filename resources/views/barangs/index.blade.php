@@ -6,7 +6,7 @@
                     Daftar Barang
                 </h2>
             </div>
-            @if(auth()->check() && auth()->user()->hasRole('Admin'))
+            @if(auth()->check() && auth()->user()->hasRole('SuperAdmin'))
                 <div>
                     <a href="{{ route('barangs.create') }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Tambah Barang
@@ -42,25 +42,22 @@
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Kategori
                                 </th>
-                                @if(auth()->check())
-                                    @if(auth()->user()->gudang || auth()->user()->hasRole('Admin'))
+                                {{-- @if(auth()->check())
+                                    @if(auth()->user()->hasRole('SuperAdmin'))
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Gudang
                                         </th>
                                     @endif
-                                    @if(auth()->user()->toko || auth()->user()->hasRole('Admin'))
+                                    @if(auth()->user()->hasRole('SuperAdmin'))
                                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Toko
                                         </th>
                                     @endif
-                                @endif
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Stok
-                                </th>
+                                @endif --}}
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Berat
                                 </th>
-                                @if(auth()->check() && !auth()->user()->hasRole('Supplier') && !auth()->user()->hasRole('Buyer'))
+                                @if(auth()->check())
                                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Aksi
                                     </th>
@@ -79,31 +76,28 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ $barang->kategori->nama_kategori_barang ?? 'N/A' }}
                                 </td>
-                                @if(auth()->check())
-                                    @if(auth()->user()->gudang || auth()->user()->hasRole('Admin'))
+                                {{-- @if(auth()->check())
+                                    @if(auth()->user()->hasRole('SuperAdmin'))
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{ $barang->gudang->nama_gudang ?? '-' }}
                                         </td>
                                     @endif
-                                    @if(auth()->user()->toko || auth()->user()->hasRole('Admin'))
+                                    @if(auth()->user()->hasRole('SuperAdmin'))
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{ $barang->toko->nama_toko ?? '-' }}
                                         </td>
                                     @endif
                                     </td>
-                                @endif
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ number_format($barang->jumlah_stok) }}
-                                </td>
+                                @endif --}}
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ number_format($barang->berat) }}
                                 </td>
-                                @if(auth()->check() && !auth()->user()->hasRole('Supplier') && !auth()->user()->hasRole('Buyer'))
+                                @if(auth()->check())
                                     <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium space-x-4">
                                         <a href="{{ route('barangs.show', $barang->id) }}" class="text-blue-600 hover:text-blue-900">
                                             Detail
                                         </a>
-                                        @if(auth()->check() && auth()->user()->hasRole('Admin'))
+                                        @if(auth()->check() && auth()->user()->hasRole('SuperAdmin'))
                                             <a href="{{ route('barangs.edit', $barang->id) }}" class="text-amber-600 hover:text-amber-900">
                                                 Edit
                                             </a>

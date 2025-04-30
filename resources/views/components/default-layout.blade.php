@@ -24,20 +24,14 @@
     </head>
     <body class="bg-[#FDFDFC] dark:bg-[#0a0a0a] text-[#1b1b18] flex items-center lg:justify-center min-h-screen flex-col">
         @switch(Auth::user()->role->nama_role)
-            @case("Admin")
-                <x-headers.header-admin />
+            @case("SuperAdmin")
+                <x-headers.header-super-admin />
                 @break
             @case("Supervisor")
                 <x-headers.header-supervisor />
                 @break
-            @case("Staff")
-                <x-headers.header-staff />
-                @break
-            @case("Supplier")
-                <x-headers.header-supplier />
-                @break
-            @case("Buyer")
-                <x-headers.header-buyer />
+            @case("Admin")
+                <x-headers.header-admin />
                 @break
         @endswitch
         <div class="flex items-center justify-center w-full transition-opacity opacity-100 duration-750 lg:grow starting:opacity-0">
