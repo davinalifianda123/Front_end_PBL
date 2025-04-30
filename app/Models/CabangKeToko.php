@@ -10,7 +10,7 @@ class CabangKeToko extends Model
 {
     /** @use HasFactory<\Database\Factories\CabangKeTokoFactory> */
     use HasFactory, SoftDeletes;
-        
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,4 +24,19 @@ class CabangKeToko extends Model
         'jumlah',
         'tanggal'
     ];
+
+    public function cabang()
+    {
+        return $this->belongsTo(GudangDanToko::class, 'id_cabang');
+    }
+
+    public function toko()
+    {
+        return $this->belongsTo(GudangDanToko::class, 'id_toko');
+    }
+
+    public function barang()
+    {
+        return $this->belongsTo(Barang::class, 'id_barang');
+    }
 }
