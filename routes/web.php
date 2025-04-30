@@ -95,6 +95,8 @@ use App\Http\Controllers\StatusPengirimanBarangController;
 use App\Http\Controllers\SupplierKePusatController;
 use App\Http\Controllers\PenerimaanDiPusatController;
 use App\Http\Controllers\DetailGudangController;
+use App\Http\Controllers\CabangKeTokoController;
+use App\Http\Controllers\GudangDanTokoController;
 
 // Route::get('/penerimaan-di-cabang', [PenerimaanDiCabangController::class, 'index']);
 // Route::post('/penerimaan-di-cabang', [PenerimaanDiCabangController::class, 'store']);
