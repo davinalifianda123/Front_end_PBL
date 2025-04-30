@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PusatKeCabang extends Model
 {
    /** @use HasFactory<\Database\Factories\PusatKeCabangFactory> */
     use HasFactory, SoftDeletes; 
-
+    
 
     /**
      * The attributes that are mass assignable.
@@ -25,4 +26,16 @@ class PusatKeCabang extends Model
         'jumlah',
         'tanggal'
     ];
+    public function pusat(): BelongsTo
+    {
+        return $this->belongsTo(GudangDanToko::class,'id_pusat');
+    }
+    public function cabang(): BelongsTo
+    {
+        return $this->belongsTo(GudangDanToko::class, 'id_cabang');
+    }
+    public function barang(): BelongsTo
+    {
+        return $this->belongsTo(Barang::class, 'id_barang');
+    }
 }

@@ -17,7 +17,8 @@ use App\Http\Controllers\StatusPengirimanBarangController;
 use App\Http\Controllers\PenerimaanDiPusatController;
 use App\Http\Controllers\DetailGudangController;
 use App\Http\Controllers\PenerimaanDiCabangController;
-
+use App\Http\Controllers\PusatKeCabangController;
+use App\Http\Controllers\SupplierKePusatController;
 
 Route::get('/supplier-ke-pusats', [SupplierKePusatController::class, 'index']);
 Route::post('/supplier-ke-pusats', [SupplierKePusatController::class, 'store']);
@@ -25,6 +26,9 @@ Route::get('/testPenerimaan', [PenerimaanDiPusatController::class, 'index']);
 Route::post('/testPenerimaan', [PenerimaanDiPusatController::class, 'store']);
 Route::get('/testDetailGudang', [DetailGudangController::class, 'index']);
 Route::post('/testDetailGudang', [DetailGudangController::class, 'store']);
+Route::get('/pusat-ke-cabangs', [PusatKeCabangController::class, 'index']);
+Route::post('/pusat-ke-cabangs', [PusatKeCabangController::class, 'store']);
+ 
 
 Route::get('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'index']);
 Route::post('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'store']);
