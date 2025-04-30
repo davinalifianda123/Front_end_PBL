@@ -1,83 +1,5 @@
 <?php
 
-// use App\Http\Controllers\AuthController;
-// use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\RoleController;
-// use App\Http\Controllers\TokoController;
-// use App\Http\Controllers\UserController;
-// use App\Http\Controllers\BarangController;
-// use App\Http\Controllers\GudangController;
-// use App\Http\Controllers\ReturBarangController;
-// use App\Http\Controllers\KategoriBarangController;
-// use App\Http\Controllers\PenerimaanBarangController;
-// use App\Http\Controllers\PengirimanBarangController;
-// use App\Http\Controllers\DetailReturBarangController;
-// use App\Http\Controllers\DetailPenerimaanBarangController;
-// use App\Http\Controllers\StatusPengirimanBarangController;
-// use App\Http\Controllers\TokoKeCabangController;
-
-// Route::get('/look', [TokoKeCabangController::class, 'index']);
-
-// Route::middleware('guest')->group(function () {
-//     Route::get('/', fn() => redirect('/login'));
-//     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-//     Route::post('/login', [AuthController::class, 'login']);
-// });
-
-// Route::middleware(['auth'])->group(function () {
-//     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-//     // Routes untuk User & Role Management - hanya Admin
-//     Route::middleware(['role:Admin, Supervisor'])->group(function () {
-//         Route::resource('roles', RoleController::class);
-//         Route::resource('users', UserController::class);
-//         Route::patch('users/{user}/activate', [UserController::class, 'activate'])
-//             ->name('users.activate');
-//         Route::patch('users/{user}/deactivate', [UserController::class, 'deactivate'])
-//             ->name('users.deactivate');
-//     });
-
-//     // Routes untuk Categories - Admin, Supervisor, Staff
-//     Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
-//         Route::resource('categories', KategoriBarangController::class);
-//         // Activate/Deactivate hanya untuk Admin dan Supervisor
-//         Route::middleware(['role:Admin,Supervisor'])->group(function () {
-//             Route::patch('categories/{category}/activate', [KategoriBarangController::class, 'activate'])
-//                 ->name('categories.activate');
-//             Route::patch('categories/{category}/deactivate', [KategoriBarangController::class, 'deactivate'])
-//                 ->name('categories.deactivate');
-//         });
-//     });
-
-//     // Routes untuk Barang - Admin, Supervisor, Staff, Supplier, Buyer
-//     Route::middleware(['role:Admin,Supervisor,Staff,Supplier,Buyer'])->group(function () {
-//         Route::resource('barangs', BarangController::class);
-//         // Activate/Deactivate hanya untuk Admin saja
-//         Route::middleware(['role:Admin'])->group(function () {
-//             Route::patch('barangs/{barang}/activate', [BarangController::class, 'activate'])
-//                 ->name('barangs.activate');
-//             Route::patch('barangs/{barang}/deactivate', [BarangController::class, 'deactivate'])
-//                 ->name('barangs.deactivate');
-//         });
-//     });
-
-//     // Routes untuk Gudang - Admin, Supervisor, Staff.
-//     Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
-//         Route::resource('gudangs', GudangController::class);
-//         // Activate/Deactivate hanya untuk Admin dan Supervisor
-//         Route::middleware(['role:Admin,Supervisor'])->group(function () {
-//             Route::patch('gudangs/{gudang}/activate', [GudangController::class, 'activate'])
-//                 ->name('gudangs.activate');
-//             Route::patch('gudangs/{gudang}/deactivate', [GudangController::class, 'deactivate'])
-//                 ->name('gudangs.deactivate');
-//         });
-//     });
-
-//     // Routes untuk Toko - Admin, Supervisor, Staff
-//     Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
-//         Route::resource('tokos', TokoController::class);
-//         // Activate/Deactivate hanya untuk Admin dan Supervisor
-//         Route::middleware(['role:Admin,Supervisor'])->group(function () {
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
@@ -98,16 +20,11 @@ use App\Http\Controllers\DetailGudangController;
 use App\Http\Controllers\CabangKeTokoController;
 use App\Http\Controllers\GudangDanTokoController;
 
-// Route::get('/penerimaan-di-cabang', [PenerimaanDiCabangController::class, 'index']);
-// Route::post('/penerimaan-di-cabang', [PenerimaanDiCabangController::class, 'store']);
-// Route::get('/testPenerimaan', [PenerimaanDiPusatController::class, 'index']);
-// Route::get('/testDetail', [DetailGudangController::class, 'index']);
-
-// Route::middleware('guest')->group(function () {
-//     Route::get('/', fn() => redirect('/login'));
-//     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-//     Route::post('/login', [AuthController::class, 'login']);
-// });
+Route::middleware('guest')->group(function () {
+    Route::get('/', fn() => redirect('/login'));
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -238,5 +155,5 @@ Route::middleware(['auth'])->group(function () {
 //             ->name('orders.detail.show');
 //     });
 // });
-?>
+
 });
