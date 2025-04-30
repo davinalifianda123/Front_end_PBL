@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             StatusPengirimanBarangSeeder::class,
             StatusReturSeeder::class,
             JenisPenerimaanSeeder::class,
+            PenerimaanDiPusatSeeder::class,
             PenerimaanDiCabangSeeder::class,
         ]);
     }
