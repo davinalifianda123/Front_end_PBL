@@ -1,7 +1,7 @@
 <?php
-
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PusatKeSupplierController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TokoController;
 use App\Http\Controllers\UserController;
@@ -20,6 +20,8 @@ use App\Http\Controllers\PenerimaanDiCabangController;
 use App\Http\Controllers\PusatKeCabangController;
 use App\Http\Controllers\SupplierKePusatController;
 
+Route::get('/lihatpusatkesupplier', [PusatKeSupplierController::class, 'index']); 
+Route::post('/tambahpusatkesupplier', [PusatKeSupplierController::class, 'store']);
 Route::get('/supplier-ke-pusats', [SupplierKePusatController::class, 'index']);
 Route::post('/supplier-ke-pusats', [SupplierKePusatController::class, 'store']);
 Route::get('/testPenerimaan', [PenerimaanDiPusatController::class, 'index']);
