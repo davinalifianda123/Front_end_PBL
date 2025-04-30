@@ -2,7 +2,7 @@
     <div class="bg-white rounded-lg shadow-md p-6">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold text-gray-800">Daftar Gudang</h1>
-            @if(auth()->check() && auth()->user()->hasRole('Admin'))
+            @if(auth()->check() && auth()->user()->hasRole('SuperAdmin'))
                 <a href="{{ route('gudangs.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition duration-300">
                     Tambah Gudang Baru
                 </a>
@@ -51,7 +51,7 @@
                                         <a href="{{ route('gudangs.show', $gudang->id) }}" class="bg-blue-500 hover:bg-blue-600 text-white text-sm py-1 px-3 rounded transition duration-300">
                                             Detail
                                         </a>
-                                        @if(auth()->check() && auth()->user()->hasRole('Admin'))
+                                        @if(auth()->check() && auth()->user()->hasRole('SuperAdmin'))
                                             <a href="{{ route('gudangs.edit', $gudang->id) }}" class="bg-yellow-500 hover:bg-yellow-600 text-white text-sm py-1 px-3 rounded transition duration-300">
                                                 Edit
                                             </a>

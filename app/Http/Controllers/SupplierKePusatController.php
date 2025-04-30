@@ -63,8 +63,6 @@ class SupplierKePusatController extends Controller
                 'message' => 'Pengiriman barang gagal dikirimkan dari Supplier Ke Pusat',
             ]);
         }
-
-
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\DetailGudang;
 
 class DetailGudangSeeder extends Seeder
 {
@@ -12,6 +13,11 @@ class DetailGudangSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        DetailGudang::create([
+            'id_gudang' => 1,
+            'id_barang' => 1,
+            'jumlah_stok' => 100,
+            'stok_opname' => 100
+        ]);
     }
 }

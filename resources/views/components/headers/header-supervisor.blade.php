@@ -8,12 +8,12 @@
                 <a href="{{ route('roles.index') }}" class="hover:text-blue-200">Roles</a>
                 <a href="{{ route('users.index') }}" class="hover:text-blue-200">Users</a>
                 <a href="{{ route('categories.index') }}" class="hover:text-blue-200">Category</a>
-                <a href="{{ route('gudangs.index') }}" class="hover:text-blue-200">Gudang</a>
-                <a href="{{ route('tokos.index') }}" class="hover:text-blue-200">Toko</a>
+                {{-- <a href="{{ route('gudangs.index') }}" class="hover:text-blue-200">Gudang</a>
+                <a href="{{ route('tokos.index') }}" class="hover:text-blue-200">Toko</a> --}}
                 <a href="{{ route('barangs.index') }}" class="hover:text-blue-200">Barang</a>
-                <a href="{{ route('penerimaan-barang.index') }}" class="hover:text-blue-200">Penerimaan Barang</a>
+                {{-- <a href="{{ route('penerimaan-barang.index') }}" class="hover:text-blue-200">Penerimaan Barang</a>
                 <a href="{{ route('pengiriman-barang.index') }}" class="hover:text-blue-200">Pengiriman Barang</a>
-                <a href="{{ route('retur-barang.index') }}" class="hover:text-blue-200">Retur Barang</a>
+                <a href="{{ route('retur-barang.index') }}" class="hover:text-blue-200">Retur Barang</a> --}}
                 <!-- Tambahkan menu lain di sini -->
                 <form action="{{ route('logout') }}" method="post">
                     @csrf 
