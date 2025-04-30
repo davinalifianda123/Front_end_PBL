@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Imports\BarangImport;
 use Illuminate\Database\Seeder;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use App\Imports\BarangImport;
 
 class BarangSeeder extends Seeder
 {
