@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class PenerimaanDiCabang extends Model
 {
@@ -25,4 +26,21 @@ class PenerimaanDiCabang extends Model
         'tanggal',
     ];
 
+<<<<<<< HEAD
+=======
+    public function jenisPenerimaan(): BelongsTo
+    {
+        return $this->belongsTo(JenisPenerimaan::class, 'id_jenis_penerimaan');
+    }
+
+    public function asalBarang(): BelongsTo
+    {
+        return $this->belongsTo(GudangDanToko::class, 'id_asal_barang');
+    }
+
+    public function barang(): BelongsTo
+    {
+        return $this->belongsTo(Barang::class, 'id_barang');
+    }
+>>>>>>> 95b39c10ea76bb9a4e707428240fd6e561b0887f
 }

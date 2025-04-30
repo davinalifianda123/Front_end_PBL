@@ -21,7 +21,6 @@ return new class extends Migration
             $table->datetime('tanggal'); // Kolom wajib
             $table->timestamps();
             $table->softDeletes();
-
             // Foreign Key Constraints
             $table->foreign('id_supplier')->references('id')->on('gudang_dan_tokos')->cascadeOnUpdate();
             $table->foreign('id_pusat')->references('id')->on('gudang_dan_tokos')->cascadeOnUpdate();
