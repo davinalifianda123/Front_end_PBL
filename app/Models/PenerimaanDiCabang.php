@@ -23,6 +23,7 @@ class PenerimaanDiCabang extends Model
         'id_barang',
         'jumlah',
         'tanggal',
+        'flag',
     ];
 
     public function jenisPenerimaan(): BelongsTo

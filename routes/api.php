@@ -34,14 +34,18 @@ Route::get('/testDetailGudang', [DetailGudangController::class, 'index']);
 Route::post('/testDetailGudang', [DetailGudangController::class, 'store']);
 Route::get('/pusat-ke-cabangs', [PusatKeCabangController::class, 'index']);
 Route::post('/pusat-ke-cabangs', [PusatKeCabangController::class, 'store']);
+
 Route::get('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'index']);
 Route::post('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'store']);
+Route::get('/penerimaan-di-cabangs/{id}', [PenerimaanDiCabangController::class, 'show']);
+Route::delete('/penerimaan-di-cabangs/{id}', [PenerimaanDiCabangController::class, 'destroy']);
+
 Route::get('/toko-ke-cabangs', [TokoKeCabangController::class, 'index']);
 Route::post('/toko-ke-cabangs', [TokoKeCabangController::class, 'store']);
 
-Route::get('/debug-route', function () {
-    return response()->json(['ok' => true]);
-});
-Route::post('/test-post', function () {
-    return response()->json(['message' => 'POST sukses']);
-});
+// Route::get('/debug-route', function () {
+//     return response()->json(['ok' => true]);
+// });
+// Route::post('/test-post', function () {
+//     return response()->json(['message' => 'POST sukses']);
+// });
