@@ -20,5 +20,13 @@ class PenerimaanDiCabangSeeder extends Seeder
             'jumlah' => 10,
             'tanggal' => now(),
         ]);
+
+        PenerimaanDiCabang::create([
+            'id_jenis_penerimaan' => 1,
+            'id_asal_barang' => 1,
+            'id_barang' => 1,
+            'jumlah' => 20,
+            'tanggal' => now(),
+        ]);
     }
 }

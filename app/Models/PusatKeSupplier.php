@@ -21,6 +21,7 @@ class PusatKeSupplier extends Model
         'id_barang',
         'jumlah',
         'tanggal',
+        'flag'
     ];
 
     public function barang()

@@ -20,5 +20,15 @@ class PusatKeCabangSeeder extends Seeder
             'jumlah'=> 20,
             'tanggal'=> now(),
         ]);
+        PusatKeCabang::create([
+            'kode'=> '1',
+            'id_pusat'=> 1,
+            'id_cabang'=> 1,
+            'id_barang'=> 1,
+            'jumlah'=> 30,
+            'tanggal'=> now(),
+        ]);
+
+
     }
 }

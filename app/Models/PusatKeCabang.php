@@ -24,7 +24,8 @@ class PusatKeCabang extends Model
         'id_cabang',
         'id_barang',
         'jumlah',
-        'tanggal'
+        'tanggal',
+        'flag'
     ];
     public function pusat(): BelongsTo
     {

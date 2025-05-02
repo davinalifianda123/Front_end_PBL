@@ -70,8 +70,23 @@ class SupplierKePusatController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $SupplierKePusat = SupplierKePusat::with('supplier','pusat','barang')->findOrFail($id);
+
+            return response()->json([
+                'status' => true,
+                'message' => "Data Supplier Ke Pusat  dengan ID: {$id}",
+                'data' => $SupplierKePusat,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Data Supplier Ke Pusat dengan ID: {$id} tidak ditemukan.",
+         ]);
+        }
     }
+
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -94,7 +109,31 @@ class SupplierKePusatController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $SupplierKePusat = SupplierKePusat::findOrFail(id: $id);
+
+            if ($SupplierKePusat->flag == 0){
+                return response()->json(data: [
+                    'status' => false,
+                    'message' => "Data Supplier Ke Pusat dengan ID: {$id} sudah dihapus sebelumnya",
+                ]);
+                
+            }
+
+            return DB::transaction(function () use ($id, $SupplierKePusat) {
+                $SupplierKePusat->update(['flag' => 0]);
+
+                return response()->json(data: [
+                    'status' => true,
+                    'message' => "Berhasil menghapus Data Supplier Ke Pusat dengan ID: {$id}",
+                ]);
+            }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Gagal menghapus Data Supplier Ke Pusat dengan ID: {$id}",
+            ]);
+        }
     }
 
 }

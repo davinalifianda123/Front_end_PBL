@@ -22,5 +22,14 @@ class SupplierKePusatSeeder extends Seeder
             'jumlah' => 20,
             'tanggal' => now(),
         ]);
+
+        SupplierKePusat::create([
+            'kode'=> '1ftyg5',
+            'id_supplier' => 1,
+            'id_pusat' => 1,
+            'id_barang' => 1,
+            'jumlah' => 10,
+            'tanggal' => now(),
+        ]);
 }
 }
