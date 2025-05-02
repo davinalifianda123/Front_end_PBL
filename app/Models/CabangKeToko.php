@@ -22,7 +22,8 @@ class CabangKeToko extends Model
         'id_toko',
         'id_barang',
         'jumlah',
-        'tanggal'
+        'tanggal',
+        'flag',
     ];
 
     public function cabang()

@@ -24,6 +24,8 @@ use App\Http\Controllers\CabangKeTokoController;
 
 route::get('/cabang-ke-tokos',[CabangKeTokoController::class,'index']);
 route::post('/cabang-ke-tokos',[CabangKeTokoController::class,'store']);
+route::delete('/cabang-ke-tokos/{id}',[CabangKeTokoController::class,'destroy']);
+route::get('/cabang-ke-tokos/{id}',[CabangKeTokoController::class,'show']);
 Route::get('/lihatpusatkesupplier', [PusatKeSupplierController::class, 'index']);
 Route::post('/tambahpusatkesupplier', [PusatKeSupplierController::class, 'store']);
 Route::get('/supplier-ke-pusats', [SupplierKePusatController::class, 'index']);

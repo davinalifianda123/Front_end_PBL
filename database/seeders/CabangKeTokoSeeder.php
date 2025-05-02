@@ -22,5 +22,14 @@ class CabangKeTokoSeeder extends Seeder
             'jumlah' => 100,
             'tanggal' => now(),
         ]);
+
+        CabangKeToko::create([
+            'kode' => 'BRG001',
+            'id_cabang' => 1,
+            'id_toko' => 1,
+            'id_barang' => 1,
+            'jumlah' => 200,
+            'tanggal' => now(),
+        ]);
     }
 }
