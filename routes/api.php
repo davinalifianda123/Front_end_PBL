@@ -36,8 +36,9 @@ Route::post('/testPenerimaan', [PenerimaanDiPusatController::class, 'store']);
 Route::get('/testDetailGudang', [DetailGudangController::class, 'index']);
 Route::post('/testDetailGudang', [DetailGudangController::class, 'store']);
 Route::get('/pusat-ke-cabangs', [PusatKeCabangController::class, 'index']);
-Route::post('/pusat-ke-cabangs', [PusatKeCabangController::class, 'store']);
-
+Route::post('/pusat-ke-cabangs', [PusatKeCabangController::class, 'store']); 
+Route::get('/pusat-ke-cabangs/{id}', [PusatKeCabangController::class, 'show']); 
+Route::delete('/pusat-ke-cabangs/{id}', [PusatKeCabangController::class, 'destroy']); 
 Route::get('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'index']);
 Route::post('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'store']);
 Route::get('/penerimaan-di-cabangs/{id}', [PenerimaanDiCabangController::class, 'show']);

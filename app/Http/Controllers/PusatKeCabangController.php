@@ -67,7 +67,20 @@ class PusatKeCabangController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $pusatKeCabang = PusatKeCabang::with('pusat', 'cabang', 'barang')->findOrFail($id);
+
+            return response()->json([
+                'status' => true,
+                'message' => "Data Pusat Ke Cabang dengan ID: {$id}",
+                'data' => $pusatKeCabang,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Data Pusat Ke Cabang dengan ID: {$id} tidak ditemukan.",
+            ]);
+        }
     }
 
     /**
@@ -91,6 +104,28 @@ class PusatKeCabangController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $pusatKeCabang = PusatKeCabang::findOrFail($id);
+
+            if ($pusatKeCabang->flag == 0) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Data Penerimaan Di Cabang dengan ID: {$id} sudah dihapus sebelumnya.",
+                ]);
+            }
+            return DB::transaction(function () use ($id, $pusatKeCabang) {
+                $pusatKeCabang->update(['flag' => 0]);
+
+                return response()->json([
+                    'status' => true,
+                    'message' => "Berhasil menghapus Data Penerimaan Di Cabang dengan ID: {$id}",
+                ]);
+            }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Gagal menghapus Data Penerimaan Di Cabang dengan ID: {$id}",
+            ]);
+        }
     }
 }
