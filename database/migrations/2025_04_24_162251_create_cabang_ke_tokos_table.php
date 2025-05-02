@@ -29,7 +29,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('barangs')
                 ->cascadeOnUpdate();
-            $table->integer('jumlah');  
+            $table->integer('jumlah');
             $table->dateTime('tanggal');
             $table->timestamps();
             $table->softDeletes();

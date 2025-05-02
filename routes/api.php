@@ -42,6 +42,8 @@ Route::delete('/penerimaan-di-cabangs/{id}', [PenerimaanDiCabangController::clas
 
 Route::get('/toko-ke-cabangs', [TokoKeCabangController::class, 'index']);
 Route::post('/toko-ke-cabangs', [TokoKeCabangController::class, 'store']);
+Route::delete('/toko-ke-cabangs/{id}', [TokoKeCabangController::class, 'destroy']);
+Route::get('/toko-ke-cabangs/{id}', [TokoKeCabangController::class, 'show']);
 
 // Route::get('/debug-route', function () {
 //     return response()->json(['ok' => true]);

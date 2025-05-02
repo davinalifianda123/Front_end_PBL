@@ -17,7 +17,7 @@ class PenerimaanDiCabangController extends Controller
         $penerimaanDiCabang = PenerimaanDiCabang::with('jenisPenerimaan', 'asalBarang', 'barang')->get();
 
         // return view('penerimaan-di-cabang.index', compact('penerimaanDiCabang'));
-        
+
         return response()->json([
             'status' => true,
             'message' => 'Data Penerimaan Di Cabang',
@@ -31,7 +31,7 @@ class PenerimaanDiCabangController extends Controller
     public function create()
     {
         //
-        
+
     }
 
     /**
