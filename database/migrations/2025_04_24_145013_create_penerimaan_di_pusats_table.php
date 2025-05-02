@@ -33,6 +33,7 @@ return new class extends Migration
 
             $table->bigInteger('jumlah');
             $table->dateTime('tanggal');
+            $table->integer('flag')->default(1);
 
             $table->timestamps();
             $table->softDeletes();
