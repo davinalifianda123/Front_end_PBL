@@ -33,6 +33,7 @@ return new class extends Migration
             $table->dateTime('tanggal');
             $table->timestamps();
             $table->softDeletes();
+            $table->integer('flag')->default(1);
         });
     }
 

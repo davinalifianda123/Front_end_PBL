@@ -69,7 +69,19 @@ class TokoKeCabangController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $tokoKeCabang = TokoKeCabang::with('toko', 'cabang', 'barang')->findOrFail($id);
+            return response()->json([
+                'status' => true,
+                'message' => "Data Toko Ke Cabang dengan ID: {$id}",
+                'data' => $tokoKeCabang,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Data Toko Ke Cabang dengan ID: {$id} tidak ditemukan",
+            ]);
+        }
     }
 
     /**
@@ -93,10 +105,30 @@ class TokoKeCabangController extends Controller
      */
     public function destroy(string $id)
     {
+        try {
+            $tokoKeCabang = TokoKeCabang::findOrFail($id);
 
+            if ($tokoKeCabang->flag == 0) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Data Penerimaan Di Cabang dengan ID: {$id} sudah dihapus",
+                ]);
+            }
 
-        //
+            return DB::transaction(function () use ($tokoKeCabang, $id) {
+                $tokoKeCabang->update(['flag' => 0]);
+
+                return response()->json([
+                    'status' => true,
+                    'message' => "Berhasil menghapus Data Penerimaan Di Cabang dengan ID: {$id}",
+                ]);
+
+            }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+        } catch (\Throwable $th ) {
+            return response()->json([
+                'status' => false,
+                'message' => "Gagal menghapus Data Penerimaan Di Cabang dengan ID: {$id}",
+            ]);
+        }
     }
-
-
 }

@@ -24,6 +24,7 @@ class TokoKeCabang extends Model
         'id_barang',
         'jumlah',
         'tanggal',
+        'flag'
     ];
 
     public function toko(): BelongsTo

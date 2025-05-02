@@ -28,6 +28,9 @@ Route::get('/lihatpusatkesupplier', [PusatKeSupplierController::class, 'index'])
 Route::post('/tambahpusatkesupplier', [PusatKeSupplierController::class, 'store']);
 Route::get('/supplier-ke-pusats', [SupplierKePusatController::class, 'index']);
 Route::post('/supplier-ke-pusats', [SupplierKePusatController::class, 'store']);
+Route::get('/supplier-ke-pusats/{id}', [SupplierKePusatController::class, 'show']);
+Route::delete('/supplier-ke-pusats/{id}', [SupplierKePusatController::class, 'destroy']);
+
 Route::get('/testPenerimaan', [PenerimaanDiPusatController::class, 'index']);
 Route::post('/testPenerimaan', [PenerimaanDiPusatController::class, 'store']);
 Route::get('/testDetailGudang', [DetailGudangController::class, 'index']);
@@ -38,12 +41,17 @@ Route::get('/pusat-ke-cabangs/{id}', [PusatKeCabangController::class, 'show']);
 Route::delete('/pusat-ke-cabangs/{id}', [PusatKeCabangController::class, 'destroy']); 
 Route::get('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'index']);
 Route::post('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'store']);
+Route::get('/penerimaan-di-cabangs/{id}', [PenerimaanDiCabangController::class, 'show']);
+Route::delete('/penerimaan-di-cabangs/{id}', [PenerimaanDiCabangController::class, 'destroy']);
+
 Route::get('/toko-ke-cabangs', [TokoKeCabangController::class, 'index']);
 Route::post('/toko-ke-cabangs', [TokoKeCabangController::class, 'store']);
+Route::delete('/toko-ke-cabangs/{id}', [TokoKeCabangController::class, 'destroy']);
+Route::get('/toko-ke-cabangs/{id}', [TokoKeCabangController::class, 'show']);
 
-Route::get('/debug-route', function () {
-    return response()->json(['ok' => true]);
-});
-Route::post('/test-post', function () {
-    return response()->json(['message' => 'POST sukses']);
-});
+// Route::get('/debug-route', function () {
+//     return response()->json(['ok' => true]);
+// });
+// Route::post('/test-post', function () {
+//     return response()->json(['message' => 'POST sukses']);
+// });

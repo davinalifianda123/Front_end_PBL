@@ -22,7 +22,8 @@ class SupplierKePusat extends Model
         'id_pusat',
         'id_barang',
         'jumlah',
-        'tanggal'
+        'tanggal',
+        'flag'
     ];
     public function supplier(): BelongsTo 
     {
