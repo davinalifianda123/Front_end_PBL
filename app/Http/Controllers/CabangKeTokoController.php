@@ -66,7 +66,19 @@ class CabangKeTokoController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try {
+            $CabangKeToko = CabangKeToko::with('cabang', 'toko', 'barang')->findOrFail($id);
+            return response()->json([
+                'status' => true,
+                'message' => "Data Cabang Ke Toko dengan ID: {$id}",
+                'data' => $CabangKeToko,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Data Cabang Ke Toko dengan ID: {$id} tidak ditemukan.",
+            ]);
+        }
     }
 
     /**
@@ -83,6 +95,31 @@ class CabangKeTokoController extends Controller
     public function update(Request $request, string $id)
     {
         //
+        // $validated = $request->validate([
+        //     'kode' => 'required|string',
+        //     'id_cabang' => 'required|exists:gudang_dan_tokos,id',
+        //     'id_toko' => 'required|exists:gudang_dan_tokos,id',
+        //     'id_barang' => 'required|exists:barangs,id',
+        //     'jumlah' => 'required|integer|min:1',
+        //     'tanggal' => 'required|date',
+        // ]);
+        // try {
+        //     $CabangKeToko = CabangKeToko::findOrFail($id);
+        //     return DB::transaction(function () use ($validated, $CabangKeToko) {
+
+        //         $CabangKeToko->update($validated);
+
+        //         return response()->json([
+        //             'status' => true,
+        //             'message' => 'Barang berhasil diperbarui',
+        //         ]);
+        //     }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+        // } catch (\Throwable $th) {
+        //     return response()->json([
+        //         'status' => false,
+        //         'message' => 'Gagal memperbarui barang. Silakan coba lagi.',
+        //     ]);
+        // }
     }
 
     /**
@@ -91,5 +128,33 @@ class CabangKeTokoController extends Controller
     public function destroy(string $id)
     {
         //
+        try {
+            $CabangKeToko = CabangKeToko::findOrFail($id);
+
+            if ($CabangKeToko->flag == 0) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Data Penerimaan Di Toko dengan ID: {$id} sudah dihapus sebelumnya",
+                ]);
+            }
+
+            return DB::transaction(function () use ($id, $CabangKeToko) {
+                $CabangKeToko->update(['flag' => 0]);
+
+                return response()->json([
+                    'status' => true,
+                    'message' => "Berhasil menghapus Data Penerimaan Di Toko dengan ID: {$id}",
+                ]);
+            }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+            return response()->json([
+                'status' => true,
+                'message' => 'Barang berhasil dihapus',
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Gagal menghapus Data Penerimaan Di Toko dengan ID: {$id} {th->getMessage()}",
+            ]);
+        }
     }
 }
