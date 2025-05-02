@@ -21,5 +21,14 @@ class TokoKeCabangSeeder extends Seeder
             'jumlah' => 10,
             'tanggal' => now(),
         ]);
+
+        TokoKeCabang::create([
+            'kode' => 'TKC001',
+            'id_toko' => 1,
+            'id_cabang' => 1,
+            'id_barang' => 1,
+            'jumlah' => 20,
+            'tanggal' => now(),
+        ]);
     }
 }

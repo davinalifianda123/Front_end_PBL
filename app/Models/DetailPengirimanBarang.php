@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+// Ensure the PengirimanBarang model exists in the specified namespace
+use App\Models\PengirimanBarang;
+use App\Models\Barang;
 
 class DetailPengirimanBarang extends Model
 {

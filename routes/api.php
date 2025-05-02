@@ -38,6 +38,8 @@ Route::get('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'inde
 Route::post('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'store']);
 Route::get('/toko-ke-cabangs', [TokoKeCabangController::class, 'index']);
 Route::post('/toko-ke-cabangs', [TokoKeCabangController::class, 'store']);
+Route::delete('/toko-ke-cabangs/{id}', [TokoKeCabangController::class, 'destroy']);
+Route::get('/toko-ke-cabangs/{id}', [TokoKeCabangController::class, 'show']);
 
 Route::get('/debug-route', function () {
     return response()->json(['ok' => true]);
