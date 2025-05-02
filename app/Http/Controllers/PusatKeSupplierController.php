@@ -67,6 +67,24 @@ class PusatKeSupplierController extends Controller
     public function show(string $id)
     {
         //
+        try {
+            $pusatkesupplier = PusatKeSupplier::with([
+                'supplier',
+                'pusat',
+                'barang'
+            ])->findOrFail($id);
+
+            return response()->json([
+                'status' => true,
+                'message' => "Data Pusat Ke Supplier dengan ID: {$id}",
+                'data' => $pusatkesupplier,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Data Pusat Ke Supplier dengan ID: {$id} tidak ditemukan.",
+            ]);
+        }
     }
 
     /**
@@ -82,7 +100,7 @@ class PusatKeSupplierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
     }
 
     /**
@@ -90,6 +108,27 @@ class PusatKeSupplierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            $pusatkesupplier = PusatKeSupplier::findOrFail($id);
+            if($pusatkesupplier->flag == 0){
+                return response()->json([
+                    'status' => false,
+                    'message' => "Data Pusat Ke Supplier dengan ID: {$id} sudah dihapus",
+                ]);
+            }
+            return DB::transaction(function () use ($pusatkesupplier,$id) {
+                $pusatkesupplier->update(['flag' => 0]);
+
+                return response()->json([
+                    'status' => true,
+                    'message' => "Berhasil menghapus Pusat Ke Supplier dengan ID: {$id}",
+                ]);
+            }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Gagal menghapus Data Pusat Ke Supplier dengan ID: {$id}",
+            ]);
+        }
     }
 }
