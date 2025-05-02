@@ -35,6 +35,7 @@ return new class extends Migration
 
             $table->integer('jumlah');
             $table->dateTime('tanggal');
+            $table-> integer(column: 'flag')->default(value: 1);
             $table->softDeletes();
 
         });

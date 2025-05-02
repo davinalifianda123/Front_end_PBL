@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             PusatKeCabangSeeder::class,
             PenerimaanDiPusatSeeder::class,
             PenerimaanDiCabangSeeder::class,
+            SupplierKePusatSeeder::class,
         ]);
     }
 }

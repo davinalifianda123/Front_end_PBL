@@ -22,6 +22,9 @@ use App\Http\Controllers\SupplierKePusatController;
 
 Route::get('/supplier-ke-pusats', [SupplierKePusatController::class, 'index']);
 Route::post('/supplier-ke-pusats', [SupplierKePusatController::class, 'store']);
+Route::get('/supplier-ke-pusats/{id}', [SupplierKePusatController::class, 'show']);
+Route::delete('/supplier-ke-pusats/{id}', [SupplierKePusatController::class, 'destroy']);
+
 Route::get('/testPenerimaan', [PenerimaanDiPusatController::class, 'index']);
 Route::post('/testPenerimaan', [PenerimaanDiPusatController::class, 'store']);
 Route::get('/testDetailGudang', [DetailGudangController::class, 'index']);
