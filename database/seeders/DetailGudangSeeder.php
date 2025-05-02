@@ -17,7 +17,12 @@ class DetailGudangSeeder extends Seeder
             'id_gudang' => 1,
             'id_barang' => 1,
             'jumlah_stok' => 100,
-            'stok_opname' => 100
+        ]);
+
+        DetailGudang::create([
+            'id_gudang' => 2,
+            'id_barang' => 1,
+            'jumlah_stok' => 50,
         ]);
     }
 }

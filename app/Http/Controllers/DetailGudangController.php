@@ -64,7 +64,19 @@ class DetailGudangController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try{
+            $detailGudang = DetailGudang::with('barang', 'gudang')->findOrFail($id);
+            return response()->json([
+                'success' => true,
+                'message' => "Data Detail Gudang dengan ID: {$id}",
+                'data' => $detailGudang
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Data Detail Gudang dengan ID: {$id} tidak ditemukan",
+            ]);
+        }
     }
 
     /**
@@ -80,7 +92,30 @@ class DetailGudangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validated = $request->validate([
+            'id_barang' => 'required|exists:barangs,id',
+            'id_gudang' => 'required|exists:gudang_dan_tokos,id',
+            'jumlah_stok' => 'required|integer|min:1',
+            'stok_opname' => 'required|integer|min:0|max:1',
+        ]);
+
+        try {
+            $detailGudang = DetailGudang::findOrFail($id);
+
+            return DB::transaction(function () use ($validated, $detailGudang) {
+                $detailGudang->update($validated);
+
+                return response()->json([
+                    'status' => true,
+                    'message' => "Data Detail Gudang dengan ID: {$detailGudang->id} berhasil diperbarui",
+                ]);
+            }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => "Gagal memperbarui Data Detail Gudang dengan ID: {$detailGudang->id}. Silakan coba lagi.",
+            ]);
+        }
     }
 
     /**

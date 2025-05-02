@@ -20,7 +20,8 @@ class PenerimaanDiPusat extends Model
         'id_asal_barang',
         'id_barang',
         'jumlah',
-        'tanggal'
+        'tanggal',
+        'flag'
     ];
 
     public function jenisPenerimaan(): BelongsTo
