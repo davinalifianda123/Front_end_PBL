@@ -37,6 +37,7 @@ return new class extends Migration
 
             $table->timestamps();
             $table->SoftDeletes();
+            $table->integer('flag')->default(1);
         });
     }
 

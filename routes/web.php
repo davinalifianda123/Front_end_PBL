@@ -20,17 +20,14 @@ use App\Http\Controllers\CabangKePusatController;
 use App\Http\Controllers\SupplierKePusatController;
 use App\Http\Controllers\PenerimaanDiPusatController;
 use App\Http\Controllers\DetailGudangController;
+use App\Http\Controllers\CabangKeTokoController;
+use App\Http\Controllers\GudangDanTokoController;
 
-// Route::get('/penerimaan-di-cabang', [PenerimaanDiCabangController::class, 'index']);
-// Route::post('/penerimaan-di-cabang', [PenerimaanDiCabangController::class, 'store']);
-// Route::get('/testPenerimaan', [PenerimaanDiPusatController::class, 'index']);
-// Route::get('/testDetail', [DetailGudangController::class, 'index']);
-
-// Route::middleware('guest')->group(function () {
-//     Route::get('/', fn() => redirect('/login'));
-//     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-//     Route::post('/login', [AuthController::class, 'login']);
-// });
+Route::middleware('guest')->group(function () {
+    Route::get('/', fn() => redirect('/login'));
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -93,6 +90,8 @@ Route::middleware(['auth'])->group(function () {
 //         });
 //     });
 
+//     // Routes untuk Penerimaan Barang - Admin, Staff
+//     Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
 //     // Routes untuk Penerimaan Barang - SuperAdmin, Admin
 //     Route::middleware(['role:SuperAdmin,Supervisor,Admin'])->group(function () {
 //         Route::resource('penerimaan-barang', PenerimaanBarangController::class);
@@ -101,6 +100,13 @@ Route::middleware(['auth'])->group(function () {
 //             ->name('penerimaan-barang.show-detail');
 //     });
 
+//     // Status Pengiriman Barang - hanya Admin
+//     Route::middleware(['role:Admin'])->group(function () {
+//         Route::resource('status-pengiriman-barang', StatusPengirimanBarangController::class);
+//     });
+
+//     // Routes untuk Pengiriman Barang - Admin, Staff, Supplier
+//     Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
 //     // Status Pengiriman Barang - hanya SuperAdmin
 //     Route::middleware(['role:SuperAdmin'])->group(function () {
 //         Route::resource('status-pengiriman-barang', StatusPengirimanBarangController::class);
@@ -116,6 +122,8 @@ Route::middleware(['auth'])->group(function () {
 //             ->name('pengiriman-barang.detail.show');
 //     });
 
+//     // Routes untuk Retur Barang - Admin, Staff, Buyer
+//     Route::middleware(['role:Admin,Supervisor,Staff,Buyer'])->group(function () {
 //     // Routes untuk Retur Barang - SuperAdmin, Admin, Buyer
 //     Route::middleware(['role:SuperAdmin,Supervisor,Admin,Buyer'])->group(function () {
 //         Route::resource('retur-barang', ReturBarangController::class);
@@ -127,6 +135,8 @@ Route::middleware(['auth'])->group(function () {
 //         Route::post('detail-retur-barang', [DetailReturBarangController::class, 'store'])
 //             ->name('detail-retur-barang.store');
 
+//         // Operasi edit dan delete hanya untuk Admin dan Staff
+//         Route::middleware(['role:Admin,Supervisor,Staff'])->group(function () {
 //         // Operasi edit dan delete hanya untuk SuperAdmin dan Admin
 //         Route::middleware(['role:SuperAdmin,Supervisor,Admin'])->group(function () {
 //             Route::get('detail-retur-barang/{detailReturBarang}/edit', [DetailReturBarangController::class, 'edit'])
@@ -147,4 +157,6 @@ Route::middleware(['auth'])->group(function () {
 //         Route::get('/orders/{pengirimanBarang}/details/{detailPengirimanBarang}', [PengirimanBarangController::class, 'ordersDetailShow'])
 //             ->name('orders.detail.show');
 //     });
+// });
+
 });

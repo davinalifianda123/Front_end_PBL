@@ -21,5 +21,14 @@ class CabangKePusatSeeder extends Seeder
             'jumlah' => 10,
             'tanggal' => now(),
         ]);
+
+        CabangKePusat::create([
+            'kode' => 'abc',
+            'id_pusat' => 1,
+            'id_cabang' => 1,
+            'id_barang' => 1,
+            'jumlah' => 10,
+            'tanggal' => now(),
+        ]);
     }
 }

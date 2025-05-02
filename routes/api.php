@@ -21,10 +21,17 @@ use App\Http\Controllers\DetailGudangController;
 use App\Http\Controllers\PenerimaanDiCabangController;
 use App\Http\Controllers\PusatKeCabangController;
 use App\Http\Controllers\SupplierKePusatController;
+use App\Http\Controllers\TokoKeCabangController;
+use App\Http\Controllers\CabangKeTokoController;
 
-Route::get('lihatcabangkepusat',[CabangKePusatController::class,'index']);
-Route::post('masukcabangkepusat',[CabangKePusatController::class,'store']);
+Route::get('/lihatcabangkepusat',[CabangKePusatController::class,'index']);
+Route::post('/masukcabangkepusat',[CabangKePusatController::class,'store']);
+Route::get('/masukcabangkepusat/{id}',[CabangKePusatController::class,'show']);
+Route::delete('hapuscabangkepusat/{id}',[CabangKePusatController::class,'destroy']);
 Route::get('/lihatpusatkesupplier', [PusatKeSupplierController::class, 'index']); 
+route::get('/cabang-ke-tokos',[CabangKeTokoController::class,'index']);
+route::post('/cabang-ke-tokos',[CabangKeTokoController::class,'store']);
+Route::get('/lihatpusatkesupplier', [PusatKeSupplierController::class, 'index']);
 Route::post('/tambahpusatkesupplier', [PusatKeSupplierController::class, 'store']);
 Route::get('/supplier-ke-pusats', [SupplierKePusatController::class, 'index']);
 Route::post('/supplier-ke-pusats', [SupplierKePusatController::class, 'store']);
@@ -34,10 +41,11 @@ Route::get('/testDetailGudang', [DetailGudangController::class, 'index']);
 Route::post('/testDetailGudang', [DetailGudangController::class, 'store']);
 Route::get('/pusat-ke-cabangs', [PusatKeCabangController::class, 'index']);
 Route::post('/pusat-ke-cabangs', [PusatKeCabangController::class, 'store']);
- 
-
 Route::get('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'index']);
 Route::post('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'store']);
+Route::get('/toko-ke-cabangs', [TokoKeCabangController::class, 'index']);
+Route::post('/toko-ke-cabangs', [TokoKeCabangController::class, 'store']);
+
 Route::get('/debug-route', function () {
     return response()->json(['ok' => true]);
 });

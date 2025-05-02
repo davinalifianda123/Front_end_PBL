@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use App\Models\Barang;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
 use App\Imports\BarangImport;
@@ -22,7 +22,7 @@ class BarangSeeder extends Seeder
             'berat' => 100,
             'flag' => 1,
         ]);
-        
+
         $this->command->info('Importing roles from Excel...');
 
         $disk = 'local';
