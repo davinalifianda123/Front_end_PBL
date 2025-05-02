@@ -1,4 +1,6 @@
 <?php
+
+use App\Http\Controllers\CabangKePusatController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PusatKeSupplierController;
 use App\Http\Controllers\AuthController;
@@ -22,6 +24,11 @@ use App\Http\Controllers\SupplierKePusatController;
 use App\Http\Controllers\TokoKeCabangController;
 use App\Http\Controllers\CabangKeTokoController;
 
+Route::get('/lihatcabangkepusat',[CabangKePusatController::class,'index']);
+Route::post('/masukcabangkepusat',[CabangKePusatController::class,'store']);
+Route::get('/masukcabangkepusat/{id}',[CabangKePusatController::class,'show']);
+Route::delete('hapuscabangkepusat/{id}',[CabangKePusatController::class,'destroy']);
+Route::get('/lihatpusatkesupplier', [PusatKeSupplierController::class, 'index']); 
 route::get('/cabang-ke-tokos',[CabangKeTokoController::class,'index']);
 route::post('/cabang-ke-tokos',[CabangKeTokoController::class,'store']);
 Route::get('/lihatpusatkesupplier', [PusatKeSupplierController::class, 'index']);

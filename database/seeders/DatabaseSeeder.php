@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CabangKePusat;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,6 +23,7 @@ class DatabaseSeeder extends Seeder
             StatusPengirimanBarangSeeder::class,
             StatusReturSeeder::class,
             JenisPenerimaanSeeder::class,
+            CabangKePusatSeeder::class,
             TokoKeCabangSeeder::class,
             CabangKeTokoSeeder::class,
             PusatKeSupplierSeeder::class,
