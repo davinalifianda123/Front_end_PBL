@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class StatusPengirimanBarang extends Model
+class Status extends Model
 {
-    /** @use HasFactory<\Database\Factories\StatusPengirimanBarangFactory> */
+    /** @use HasFactory<\Database\Factories\StatusFactory> */
     use HasFactory, SoftDeletes;
 
     /**
@@ -17,7 +17,6 @@ class StatusPengirimanBarang extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'nama_role',
-        'flag'
+        'nama_status',
     ];
 }

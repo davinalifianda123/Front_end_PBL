@@ -2,11 +2,11 @@
 
 namespace App\Imports;
 
-use App\Models\StatusPengirimanBarang;
+use App\Models\Status;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class StatusPengirimanBarangImport implements ToModel, WithHeadingRow
+class StatusImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
@@ -15,7 +15,7 @@ class StatusPengirimanBarangImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        return new StatusPengirimanBarang([
+        return new Status([
             'nama_status' => $row['nama_status'],
         ]);
     }

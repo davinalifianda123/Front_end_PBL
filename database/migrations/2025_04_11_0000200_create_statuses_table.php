@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('status_pengiriman_barangs', function (Blueprint $table) {
+        Schema::create('statuses', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_status');
-            $table->integer('flag')->default(1);
+            $table->string("nama_status")->unique();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('status_pengiriman_barangs');
+        Schema::dropIfExists('statuses');
     }
 };

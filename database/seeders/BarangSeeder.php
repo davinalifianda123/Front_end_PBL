@@ -18,12 +18,12 @@ class BarangSeeder extends Seeder
     {
         Barang::create([
             'nama_barang' => 'Barang A',
-            'id_kategori' => 1,
-            'berat' => 100,
-            'flag' => 1,
+            'id_kategori_barang' => 1,
+            'id_satuan_berat' => 1, 
+            'jumlah_satuan_berat' => 100,
         ]);
 
-        $this->command->info('Importing roles from Excel...');
+        $this->command->info('Importing barang from Excel...');
 
         $disk = 'local';
         $fileName = 'Barang.xlsx';

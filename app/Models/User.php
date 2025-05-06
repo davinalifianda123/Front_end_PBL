@@ -57,14 +57,9 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'id_role');
     }
 
-    public function toko(): BelongsTo
+    public function gudangToko(): BelongsTo
     {
-        return $this->belongsTo(Toko::class, 'id_toko');
-    }
-
-    public function gudang(): BelongsTo
-    {
-        return $this->belongsTo(Gudang::class, 'id_gudang');
+        return $this->belongsTo(GudangDanToko::class, 'id_toko');
     }
 
     public function hasRole(...$roles): bool

@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class StatusRetur extends Model
+class SatuanBerat extends Model
 {
-    /** @use HasFactory<\Database\Factories\StatusReturFactory> */
+    /** @use HasFactory<\Database\Factories\SatuanBeratFactory> */
+        /** @use HasFactory<\Database\Factories\RoleFactory> */
     use HasFactory, SoftDeletes;
 
     /**
@@ -17,7 +18,6 @@ class StatusRetur extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'nama_status',
-        'flag'
+        'nama_satuan_berat',
     ];
 }

@@ -15,14 +15,21 @@ return new class extends Migration
             $table->id();
             $table->string('nama_barang');
 
-            $table->unsignedBigInteger('id_kategori');
-            $table->foreign('id_kategori')
+            $table->unsignedBigInteger('id_kategori_barang');
+            $table->foreign('id_kategori_barang')
                 ->references('id')
                 ->on('kategori_barangs')
-                ->cascadeOnDelete()
+                ->restrictOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->bigInteger('berat');
+            $table->unsignedBigInteger('id_satuan_berat');
+            $table->foreign('id_satuan_berat')
+                ->references('id')
+                ->on('satuan_berats')
+                ->restrictOnDelete()
+                ->cascadeOnUpdate();
+
+            $table->integer('jumlah_satuan_berat');
             $table->integer('flag')->default(1);
 
             $table->timestamps();

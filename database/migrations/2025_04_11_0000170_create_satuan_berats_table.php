@@ -11,12 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('status_returs', function (Blueprint $table) {
+        Schema::create('satuan_berats', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_status');
-            $table->integer('flag')->default(1);
+            $table->string('nama_satuan_berat');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -25,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('status_returs');
+        Schema::dropIfExists('satuan_berats');
     }
 };

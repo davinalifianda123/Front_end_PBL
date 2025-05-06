@@ -2,24 +2,25 @@
 
 namespace Database\Seeders;
 
-use App\Imports\StatusPengirimanBarangImport;
+use App\Imports\SatuanBeratImport;
 use Illuminate\Database\Seeder;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-class StatusPengirimanBarangSeeder extends Seeder
+class SatuanBeratSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $this->command->info('Importing status pengiriman barang from Excel...');
+        $this->command->info('Importing satuan berat from Excel...');
 
         $disk = 'local';
-        $fileName = 'StatusPengirimanBarang.xlsx';
+        $fileName = 'SatuanBerat.xlsx';
         $filePath = Storage::disk($disk)->path($fileName);
 
-        Excel::import(new StatusPengirimanBarangImport, $filePath);
+        Excel::import(new SatuanBeratImport, $filePath);
     }
 }

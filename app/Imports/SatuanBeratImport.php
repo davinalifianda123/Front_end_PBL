@@ -2,11 +2,11 @@
 
 namespace App\Imports;
 
-use App\Models\StatusRetur;
+use App\Models\SatuanBerat;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class StatusReturImport implements ToModel, WithHeadingRow
+class SatuanBeratImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row
@@ -15,8 +15,8 @@ class StatusReturImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        return new StatusRetur([
-            'nama_status' => $row['nama_status']
+        return new SatuanBerat([
+            'nama_satuan_berat' => $row['nama_satuan_berat'],
         ]);
     }
 }

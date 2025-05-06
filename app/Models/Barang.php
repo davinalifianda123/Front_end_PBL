@@ -20,14 +20,15 @@ class Barang extends Model
      */
     protected $fillable = [
         'nama_barang',
-        'id_kategori',
-        'berat',
+        'id_kategori_barang',
+        'id_satuan_berat',
+        'jumlah_satuan_berat',
         'flag'
     ];
 
     public function kategori(): BelongsTo
     {
-        return $this->belongsTo(KategoriBarang::class, 'id_kategori');
+        return $this->belongsTo(KategoriBarang::class, 'id_kategori_barang');
     }
 
     // public function childBarang(): HasMany
