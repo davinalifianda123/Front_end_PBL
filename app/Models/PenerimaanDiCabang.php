@@ -21,7 +21,9 @@ class PenerimaanDiCabang extends Model
         'id_jenis_penerimaan',
         'id_asal_barang',
         'id_barang',
-        'jumlah',
+        'id_satuan_berat',
+        'berat_satuan_barang',
+        'jumlah_barang',
         'tanggal',
         'flag',
     ];

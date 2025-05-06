@@ -32,7 +32,14 @@ return new class extends Migration
                 ->on('barangs')
                 ->cascadeOnUpdate();
 
-            $table->integer('jumlah');
+            $table->unsignedBigInteger('id_satuan_berat');
+            $table->foreign('id_satuan_berat')
+                ->references('id')
+                ->on('satuan_berats')
+                ->cascadeOnUpdate();
+
+            $table->integer('berat_satuan_barang');
+            $table->integer('jumlah_barang');
             $table->dateTime('tanggal');
             $table->integer('flag')->default(1);
             $table->softDeletes();
