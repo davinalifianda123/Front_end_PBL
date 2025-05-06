@@ -41,7 +41,7 @@ class PusatKeSupplierController extends Controller
         $status = Status::all();
         $kurir = Kurir::all();
         $jenisPenerimaan = JenisPenerimaan::all();
-        $asalBarang = GudangDanToko::all();
+        $asalBarang = $supplier;
         $satuanBerat = SatuanBerat::all();
 
         return response()->json([
