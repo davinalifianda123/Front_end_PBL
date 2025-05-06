@@ -28,7 +28,19 @@ class DetailGudangController extends Controller
      */
     public function create()
     {
-        //
+        $barangs = Barang::all()->where('flag', 1);
+        $gudang = GudangDanToko::all()->where('flag', 1);
+        $satuanBerat = SatuanBerat::all();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Barang, Gudang dan Toko, dan Satuan Berat',
+            'data' => [
+                'barangs' => $barangs,
+                'gudang' => $gudang,
+                'satuanBerat' => $satuanBerat,
+            ]
+        ]);
     }
 
     /**
