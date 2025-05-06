@@ -21,7 +21,7 @@
             </div>
         @endif
     
-        <livewire:kategori-barang-table theme="tailwind"/>
+        <livewire:kategori-barang-table/>
 
         @if($categories->isEmpty())
         <div class="text-center py-8">
