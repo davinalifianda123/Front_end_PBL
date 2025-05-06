@@ -17,9 +17,13 @@ class PusatKeSupplier extends Model
     protected $fillable = [
         'kode',
         'id_pusat',
+        'id_status',
+        'id_kurir',
         'id_supplier',
         'id_barang',
-        'jumlah',
+        'id_satuan_berat',
+        'berat_satuan_barang',
+        'jumlah_barang',
         'tanggal',
         'flag'
     ];
@@ -36,4 +40,17 @@ class PusatKeSupplier extends Model
     {
         return $this->belongsTo(GudangDanToko::class, 'id_supplier');
     }
+    public function satuanBerat()
+    {
+        return $this->belongsTo(SatuanBerat::class, 'id_satuan_berat');
+    }
+    public function kurir()
+    {
+        return $this->belongsTo(Kurir::class, 'id_kurir');
+    }
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'id_status');
+    }   
+
 }
