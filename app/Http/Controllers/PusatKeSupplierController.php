@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\PusatKeSupplier;
 use Illuminate\Support\Facades\DB;
+use App\Models\Barang;
+use App\Models\SatuanBerat;
+use App\Models\GudangDanToko;
+use App\Models\JenisPenerimaan;
+use App\Models\Status;
+use App\Models\Kurir;
 class PusatKeSupplierController extends Controller
 {
     /**
@@ -30,7 +36,27 @@ class PusatKeSupplierController extends Controller
      */
     public function create()
     {
-        //
+        $barangs = Barang::all();
+        $supplier = GudangDanToko::all();
+        $status = Status::all();
+        $kurir = Kurir::all();
+        $jenisPenerimaan = JenisPenerimaan::all();
+        $asalBarang = GudangDanToko::all();
+        $satuanBerat = SatuanBerat::all();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Barang, Jenis Penerimaan, dan Asal Barang',
+            'data' => [
+                'barangs' => $barangs,
+                'jenisPenerimaan' => $jenisPenerimaan,
+                'asalBarang' => $asalBarang,
+                'satuanBerat' => $satuanBerat,
+                'status'=>$status,
+                'kurir' => $kurir,
+                'asalBarang'=>$asalBarang,
+            ]    
+        ]);
     }
 
     /**
