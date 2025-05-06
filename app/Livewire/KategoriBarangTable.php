@@ -2,9 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Models\KategoriBarang;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\KategoriBarang;
 
 class KategoriBarangTable extends DataTableComponent
 {
@@ -13,21 +13,34 @@ class KategoriBarangTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
+
+        // Tabel
+        $this->setTableAttributes([
+            'class' => 'w-full text-sm text-left rtl:text-right text-[#111827] bg-white',
+        ]);
+
+        // Header kolom
+        $this->setTheadAttributes([
+            'class' => 'text-xs uppercase bg-[#fcfcfc] text-[#687588] text-center',
+        ]);        
     }
+
+
 
     public function columns(): array
     {
         return [
-            Column::make("Id", "id")
+            Column::make("ID", "id")
                 ->sortable(),
-            Column::make("Nama kategori barang", "nama_kategori_barang")
+
+            Column::make("Nama Kategori", "nama_kategori_barang")
                 ->sortable(),
-            Column::make("Flag", "flag")
-                ->sortable(),
-            Column::make("Created at", "created_at")
-                ->sortable(),
-            Column::make("Updated at", "updated_at")
-                ->sortable(),
+
+            Column::make("Status", "flag")
+                ->label(fn($row) => view('components.badge-status', ['flag' => $row->flag])),
+
+            Column::make("Action")
+                ->label(fn($row) => view('components.table-actions', ['row' => $row])),
         ];
     }
 }
