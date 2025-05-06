@@ -29,16 +29,16 @@ class DetailGudangController extends Controller
     public function create()
     {
         $barangs = Barang::all()->where('flag', 1);
-        $gudangDanTokos = GudangDanToko::all()->where('flag', 1);
-        $satuanBerats = SatuanBerat::all();
+        $gudang = GudangDanToko::all()->where('flag', 1);
+        $satuanBerat = SatuanBerat::all();
 
         return response()->json([
             'status' => true,
             'message' => 'Data Barang, Gudang dan Toko, dan Satuan Berat',
             'data' => [
                 'barangs' => $barangs,
-                'gudangDanTokos' => $gudangDanTokos,
-                'satuanBerats' => $satuanBerats,
+                'gudang' => $gudang,
+                'satuanBerat' => $satuanBerat,
             ]
         ]);
     }
