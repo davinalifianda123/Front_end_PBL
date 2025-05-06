@@ -28,7 +28,21 @@ class PenerimaanDiPusatController extends Controller
      */
     public function create()
     {
-        //
+        $barangs = Barang::all()->where('flag', 1);
+        $jenisPenerimaan = JenisPenerimaan::all();
+        $asalBarang = GudangDanToko::all()->where('flag', 1);
+        $satuanBerat = SatuanBerat::all();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Barang, Jenis Penerimaan, dan Asal Barang',
+            'data' => [
+                'barangs' => $barangs,
+                'jenisPenerimaan' => $jenisPenerimaan,
+                'asalBarang' => $asalBarang,
+                'satuanBerat' => $satuanBerat,
+            ]
+        ]);
     }
 
     /**
