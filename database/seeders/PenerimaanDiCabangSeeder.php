@@ -17,7 +17,9 @@ class PenerimaanDiCabangSeeder extends Seeder
             'id_jenis_penerimaan' => 1,
             'id_asal_barang' => 1,
             'id_barang' => 1,
-            'jumlah' => 10,
+            'id_satuan_berat' => 1,
+            'berat_satuan_barang' => 10,
+            'jumlah_barang' => 10,
             'tanggal' => now(),
         ]);
 
@@ -25,7 +27,9 @@ class PenerimaanDiCabangSeeder extends Seeder
             'id_jenis_penerimaan' => 1,
             'id_asal_barang' => 1,
             'id_barang' => 1,
-            'jumlah' => 20,
+            'id_satuan_berat' => 1,
+            'berat_satuan_barang' => 10,
+            'jumlah_barang' => 20,
             'tanggal' => now(),
         ]);
     }
