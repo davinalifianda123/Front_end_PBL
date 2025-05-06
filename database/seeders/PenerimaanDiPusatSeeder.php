@@ -17,7 +17,9 @@ class PenerimaanDiPusatSeeder extends Seeder
             'id_jenis_penerimaan' => 1,
             'id_asal_barang' => 1,
             'id_barang' => 1,
-            'jumlah' => 100,
+            'jumlah_barang' => 100,
+            'id_satuan_berat' => 1,
+            'berat_satuan_barang' => 1000,
             'tanggal' => now(),
         ]);
     }

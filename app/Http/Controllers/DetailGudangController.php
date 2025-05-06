@@ -14,7 +14,7 @@ class DetailGudangController extends Controller
      */
     public function index()
     {
-        $detailGudang = DetailGudang::with('barang', 'gudang')->get();
+        $detailGudang = DetailGudang::with('barang', 'gudang', 'satuanBerat')->get();
 
         return response()->json([
             'success' => true,
@@ -39,6 +39,7 @@ class DetailGudangController extends Controller
         $validated = $request->validate([
             'id_barang' => 'required|exists:barangs,id',
             'id_gudang' => 'required|exists:gudang_dan_tokos,id',
+            'id_satuan_berat' => 'required|exists:satuan_berats,id',
             'jumlah_stok' => 'required|integer|min:1',
         ]);
 
@@ -65,7 +66,7 @@ class DetailGudangController extends Controller
     public function show(string $id)
     {
         try{
-            $detailGudang = DetailGudang::with('barang', 'gudang')->findOrFail($id);
+            $detailGudang = DetailGudang::with('barang', 'gudang', 'satuanBerat')->findOrFail($id);
             return response()->json([
                 'success' => true,
                 'message' => "Data Detail Gudang dengan ID: {$id}",
@@ -96,6 +97,7 @@ class DetailGudangController extends Controller
             'id_barang' => 'required|exists:barangs,id',
             'id_gudang' => 'required|exists:gudang_dan_tokos,id',
             'jumlah_stok' => 'required|integer|min:1',
+            'id_satuan_berat' => 'required|exists:satuan_berats,id',
             'stok_opname' => 'required|integer|min:0|max:1',
         ]);
 
