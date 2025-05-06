@@ -42,4 +42,9 @@ class PenerimaanDiCabang extends Model
     {
         return $this->belongsTo(Barang::class, 'id_barang');
     }
+
+    public function satuanBerat(): BelongsTo
+    {
+        return $this->belongsTo(SatuanBerat::class, 'id_satuan_berat');
+    }
 }
