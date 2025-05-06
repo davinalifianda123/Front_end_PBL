@@ -19,7 +19,9 @@ class PenerimaanDiPusat extends Model
         'id_jenis_penerimaan',
         'id_asal_barang',
         'id_barang',
-        'jumlah',
+        'id_satuan_berat',
+        'berat_satuan_barang',
+        'jumlah_barang',
         'tanggal',
         'flag'
     ];
@@ -37,5 +39,10 @@ class PenerimaanDiPusat extends Model
     public function barang(): BelongsTo
     {
         return $this->belongsTo(Barang::class, 'id_barang');
+    }
+
+    public function satuanBerat(): BelongsTo
+    {
+        return $this->belongsTo(SatuanBerat::class, 'id_satuan_berat');
     }
 }

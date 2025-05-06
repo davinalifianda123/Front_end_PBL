@@ -16,12 +16,14 @@ class DetailGudangSeeder extends Seeder
         DetailGudang::create([
             'id_gudang' => 1,
             'id_barang' => 1,
+            'id_satuan_berat' => 1,
             'jumlah_stok' => 100,
         ]);
 
         DetailGudang::create([
             'id_gudang' => 2,
             'id_barang' => 1,
+            'id_satuan_berat' => 1,
             'jumlah_stok' => 50,
         ]);
     }

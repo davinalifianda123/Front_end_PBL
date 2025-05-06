@@ -14,7 +14,7 @@ class PenerimaanDiPusatController extends Controller
      */
     public function index()
     {
-        $penerimaanDiPusat = PenerimaanDiPusat::with('jenisPenerimaan', 'asalBarang', 'barang')->get();
+        $penerimaanDiPusat = PenerimaanDiPusat::with('jenisPenerimaan', 'asalBarang', 'barang', 'satuanBerat')->get();
 
         return response()->json([
             'success' => true,
@@ -40,11 +40,14 @@ class PenerimaanDiPusatController extends Controller
             'id_barang' => 'required|exists:barangs,id',
             'id_jenis_penerimaan' => 'required|exists:jenis_penerimaans,id',
             'id_asal_barang' => 'required|exists:gudang_dan_tokos,id',
-            'jumlah' => 'required|integer|min:1',
+            'id_satuan_berat' => 'required|exists:satuan_berats,id',
+            'berat_satuan_barang' => 'required|integer|min:1',
+            'jumlah_barang' => 'required|integer|min:1',
             'tanggal' => 'required|date',
         ]);
 
         try {
+            // dd($validated);
             return DB::transaction(function () use ($validated) {
                 PenerimaanDiPusat::create($validated);
 
@@ -56,7 +59,7 @@ class PenerimaanDiPusatController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
-                'message' => 'Gagal menambahkan Data Penerimaan Di Pusat. Silakan coba lagi.',
+                'message' => "Gagal menambahkan Data Penerimaan Di Pusat. Silakan coba lagi. {$th->getMessage()}",
             ]);
         }
     }
@@ -67,7 +70,7 @@ class PenerimaanDiPusatController extends Controller
     public function show(string $id)
     {
         try{
-            $penerimaanDiPusat = PenerimaanDiPusat::with('jenisPenerimaan', 'asalBarang', 'barang')->findOrFail($id);
+            $penerimaanDiPusat = PenerimaanDiPusat::with('jenisPenerimaan', 'asalBarang', 'barang', 'satuanBerat')->findOrFail($id);
 
             return response()->json([
                 'success' => true,
