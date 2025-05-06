@@ -15,7 +15,10 @@ class PusatKeSupplierController extends Controller
     $pusatKeSuppliers = PusatKeSupplier::with([
         'supplier',
         'pusat',
-        'barang'
+        'barang',
+        'kurir',
+        'satuanBerat',
+        'status'
     ])->get();
 
     return response()->json($pusatKeSuppliers);
@@ -37,10 +40,14 @@ class PusatKeSupplierController extends Controller
     {
         $validated = $request->validate([
             'kode'=> 'required|string|max:255',
-            'id_barang' => 'required|exists:barangs,id',
-            'id_pusat' => 'required|exists:gudang_dan_tokos,id',
             'id_supplier' => 'required|exists:gudang_dan_tokos,id',
-            'jumlah' => 'required|integer|min:1',
+            'id_pusat' => 'required|exists:gudang_dan_tokos,id',
+            'id_barang' => 'required|exists:barangs,id',
+            'id_satuan_berat' => 'required|exists:satuan_berats,id',
+            'id_kurir' => 'required|exists:kurirs,id',
+            'id_status' => 'required|exists:statuses,id',
+            'berat_satuan_barang' => 'required|numeric|min:1',
+            'jumlah_barang' => 'required|integer|min:1',
             'tanggal' => 'required|date',
         ]);
 
@@ -56,7 +63,7 @@ class PusatKeSupplierController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
-                'message' => 'Gagal menambahkan Pusat Ke Supplier. Silakan coba lagi.',
+                'message' => "Gagal menambahkan Pusat Ke Supplier. Silakan coba lagi. {$th->getMessage()}",
             ]);
         }
     }
@@ -82,9 +89,10 @@ class PusatKeSupplierController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
-                'message' => "Data Pusat Ke Supplier dengan ID: {$id} tidak ditemukan.",
+                'message' => "Data Pusat Ke Supplier dengan ID: {$id} tidak ditemukan {$th->getMessage()}",
             ]);
         }
+        
     }
 
     /**

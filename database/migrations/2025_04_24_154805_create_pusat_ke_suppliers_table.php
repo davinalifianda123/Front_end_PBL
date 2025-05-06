@@ -16,8 +16,12 @@ return new class extends Migration
             $table->string('kode'); // Kolom wajib
             $table->unsignedBigInteger('id_supplier'); // Foreign Key
             $table->unsignedBigInteger('id_pusat'); // Foreign Key
-            $table->unsignedBigInteger('id_barang'); // Foreign Key
-            $table->bigInteger('jumlah'); // Kolom wajib
+            $table->unsignedBigInteger('id_barang');
+            $table->unsignedBigInteger('id_satuan_berat'); // Foreign Key
+            $table->unsignedBigInteger('id_kurir'); // Foreign Key
+            $table->unsignedBigInteger('id_status'); // Foreign Key
+            $table->integer('berat_satuan_barang'); // Foreign Key
+            $table->bigInteger('jumlah_barang'); // Kolom wajib
             $table->datetime('tanggal'); // Kolom wajib
             $table->timestamps();
             $table->softDeletes();
@@ -26,6 +30,10 @@ return new class extends Migration
             $table->foreign('id_supplier')->references('id')->on('gudang_dan_tokos')->cascadeOnUpdate();
             $table->foreign('id_pusat')->references('id')->on('gudang_dan_tokos')->cascadeOnUpdate();
             $table->foreign('id_barang')->references('id')->on('barangs')->cascadeOnUpdate();
+            $table->foreign('id_satuan_berat')->references('id')->on('satuan_berats')->cascadeOnUpdate();
+            $table->foreign('id_kurir')->references('id')->on('kurirs')->cascadeOnUpdate();
+            $table->foreign('id_status')->references('id')->on('statuses')->cascadeOnUpdate();
+
         });
     }
 

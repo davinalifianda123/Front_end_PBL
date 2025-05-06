@@ -17,7 +17,11 @@ class PusatKeSupplierSeeder extends Seeder
             'id_pusat' => 1,
             'id_supplier' => 1,
             'id_barang' => 1,
-            'jumlah' => 100,
+            'id_satuan_berat' => 1,
+            'id_kurir' => 1,
+            'id_status' => 1,
+            'berat_satuan_barang' => 100,
+            'jumlah_barang' => 100,
             'tanggal' => now(),
     ]);
 
@@ -26,7 +30,11 @@ class PusatKeSupplierSeeder extends Seeder
                 'id_pusat' => 1,
                 'id_supplier' => 2,
                 'id_barang' => 2,
-                'jumlah' => 200,
+                'id_satuan_berat' => 2,
+                'id_kurir' => 2,
+                'id_status' => 2,
+                'berat_satuan_barang' => 200,
+                'jumlah_barang' => 200,
                 'tanggal' => now(),
         ]);
     }
