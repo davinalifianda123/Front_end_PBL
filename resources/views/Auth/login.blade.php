@@ -22,7 +22,7 @@
         <!-- Alpinejs -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js" defer></script>
     </head>
-    <body class="dark:bg-[#0a0a0a] text-[#1b1b18] min-h-screen flex flex-col lg:flex-row">
+    <body class="text-[#1b1b18] min-h-screen flex flex-col lg:flex-row">
     <!-- Background SVG -->
     <div class="w-full lg:w-1/2 h-64 lg:h-auto m-4 lg:m-6 rounded-xl overflow-hidden order-1 lg:order-1">
         <svg class="w-full h-full" viewBox="0 0 668.8 668.8" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
@@ -83,7 +83,29 @@
     <!-- Form login -->
     <div class="w-full lg:w-1/2 bg-white flex items-center justify-center p-6 order-2 lg:order-2">
         <div class="w-full max-w-md">
-            <h2 class="text-3xl font-black text-black mb-6">Login</h2>
+            <div class="flex items-center space-x-4 mb-6">
+                <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M25.529 32.7902L8.708 39.9998L24.5555 22.9637L40.2407 20.1333L25.529 32.7902Z" fill="url(#paint0_linear_4719_3880)"/>
+                    <path d="M26.0159 5.23365L8.00494 0L24.5555 22.964L40.2407 20.1335L26.0159 5.23365Z" fill="url(#paint1_linear_4719_3880)"/>
+                    <path d="M24.6095 22.9105L8.70799 40L0 19.5995L8.00486 0L24.6095 22.9105Z" fill="url(#paint2_radial_4719_3880)"/>
+                    <defs>
+                        <linearGradient id="paint0_linear_4719_3880" x1="24.4473" y1="23.2842" x2="27.0897" y2="31.9013" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#31304D"/>
+                            <stop offset="0.411667" stop-color="#68697E"/>
+                            <stop offset="1" stop-color="#B6BBC4"/>
+                        </linearGradient>
+                        <linearGradient id="paint1_linear_4719_3880" x1="18.8223" y1="-4.53939" x2="29.0842" y2="22.9966" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#31304D"/>
+                            <stop offset="1" stop-color="#B6BBC4"/>
+                        </linearGradient>
+                        <radialGradient id="paint2_radial_4719_3880" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(8.81616 22.3231) rotate(97.3134) scale(19.5449 12.0199)">
+                            <stop stop-color="#B6BBC4"/>
+                            <stop offset="1" stop-color="#31304D"/>
+                        </radialGradient>
+                    </defs>
+                </svg>
+                <h2 class="text-3xl font-black text-black">Gudangku</h2>
+            </div>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-4">
@@ -109,12 +131,15 @@
                         class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
                     <label for="remember" class="ml-2 block text-sm text-gray-700">Remember Me</label>
                 </div>
-
                 <div>
-                    <button type="submit"
-                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                        Login
-                    </button>
+                <button type="submit"
+                class="w-full bg-[#E3E3E3] text-[#777777] py-2 px-4 rounded-md 
+                        hover:bg-[#31304D] hover:text-white 
+                        active:bg-[#161A30] active:text-white 
+                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 
+                        transition-colors duration-200">
+                Login
+                </button>
                 </div>
             </form>
         </div>
