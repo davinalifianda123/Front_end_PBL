@@ -33,7 +33,22 @@ return new class extends Migration
                     ->on('barangs')
                     ->cascadeOnUpdate();
 
-            $table->integer('jumlah');
+            $table->unsignedBigInteger('id_satuan_berat');
+            $table->foreign('id_satuan_berat')
+                        ->references('id')
+                        ->on('satuan_berats')
+                        ->cascadeOnUpdate();
+        
+            $table->Integer('berat_satuan_barang');
+            $table->Integer('jumlah_barang');
+
+            
+            $table->unsignedBigInteger('id_kurir'); // Foreign Key
+            $table->foreign('id_kurir')->references('id')->on('kurirs')->cascadeOnUpdate();
+
+            $table->unsignedBigInteger('id_status'); // Foreign Key
+            $table->foreign('id_status')->references('id')->on('statuses')->cascadeOnUpdate();
+            
             $table->dateTime('tanggal');
             $table-> integer(column: 'flag')->default(value: 1);
             $table->softDeletes();
