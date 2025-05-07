@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DetailGudang;
 use App\Models\PenerimaanDiPusat;
+use App\Models\JenisPenerimaan;
+use App\Models\GudangDanToko;
+use App\Models\SatuanBerat;
 use App\Models\Barang;
 use Illuminate\Support\Facades\DB;
 class PenerimaanDiPusatController extends Controller
@@ -28,9 +31,9 @@ class PenerimaanDiPusatController extends Controller
      */
     public function create()
     {
-        $barangs = Barang::all()->where('flag', 1);
+        $barangs = Barang::all();
         $jenisPenerimaan = JenisPenerimaan::all();
-        $asalBarang = GudangDanToko::all()->where('flag', 1);
+        $asalBarang = GudangDanToko::all();
         $satuanBerat = SatuanBerat::all();
 
         return response()->json([
