@@ -40,16 +40,8 @@ Route::get('/createpusatkesupplier', [PusatKeSupplierController::class, 'create'
 
 Route::resource('supplier-ke-pusats', SupplierKePusatController::class);
 
-Route::get('/penerimaan-di-pusats', [PenerimaanDiPusatController::class, 'index']);
-Route::post('/penerimaan-di-pusats', [PenerimaanDiPusatController::class, 'store']);
-Route::delete('/penerimaan-di-pusats/{id}', [PenerimaanDiPusatController::class, 'destroy']);
-Route::get('/penerimaan-di-pusats/create', [PenerimaanDiPusatController::class, 'create']);
-Route::get('/penerimaan-di-pusats/{id}', [PenerimaanDiPusatController::class, 'show']);
-Route::get('/detail-gudangs', [DetailGudangController::class, 'index']);
-Route::post('/detail-gudangs', [DetailGudangController::class, 'store']);
-Route::put('/detail-gudangs/{id}', [DetailGudangController::class, 'update']);
-Route::get('/detail-gudangs/{id}', [DetailGudangController::class, 'show']);
-Route::get('/detail-gudangs/create', [DetailGudangController::class, 'create']);
+Route::resource('penerimaan-di-pusats', PenerimaanDiPusatController::class);
+Route::resource('detail-gudangs', DetailGudangController::class);
 
 Route::resource('pusat-ke-cabangs', PusatKeCabangController::class);
 
