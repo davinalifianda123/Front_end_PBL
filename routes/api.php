@@ -28,15 +28,21 @@ Route::get('/lihatcabangkepusat',[CabangKePusatController::class,'index']);
 Route::post('/masukcabangkepusat',[CabangKePusatController::class,'store']);
 Route::get('/masukcabangkepusat/{id}',[CabangKePusatController::class,'show']);
 Route::delete('hapuscabangkepusat/{id}',[CabangKePusatController::class,'destroy']);
-route::get('/cabang-ke-tokos',[CabangKeTokoController::class,'index']);
-route::post('/cabang-ke-tokos',[CabangKeTokoController::class,'store']);
-route::delete('/cabang-ke-tokos/{id}',[CabangKeTokoController::class,'destroy']);
-route::get('/cabang-ke-tokos/{id}',[CabangKeTokoController::class,'show']);
+
+Route::resource('cabang-ke-tokos', CabangKeTokoController::class);
+
+// route::get('/cabang-ke-tokos',[CabangKeTokoController::class,'index']);
+// route::post('/cabang-ke-tokos',[CabangKeTokoController::class,'store']);
+// route::delete('/cabang-ke-tokos/{id}',[CabangKeTokoController::class,'destroy']);
+// Route::get('/cabang-ke-tokos/create',[CabangKeTokoController::class,'create']);
+// route::get('/cabang-ke-tokos/{id}',[CabangKeTokoController::class,'show']);
+
 Route::get('/pusatkesupplier', [PusatKeSupplierController::class, 'index']);
 Route::post('/pusatkesupplier', [PusatKeSupplierController::class, 'store']);
 Route::get('/pusatkesupplier/{id}', [PusatKeSupplierController::class, 'show']);
 Route::delete('/pusatkesupplier/{id}', [PusatKeSupplierController::class, 'destroy']);
 Route::get('/createpusatkesupplier', [PusatKeSupplierController::class, 'create']);
+
 Route::get('/supplier-ke-pusats', [SupplierKePusatController::class, 'index']);
 Route::post('/supplier-ke-pusats', [SupplierKePusatController::class, 'store']);
 Route::get('/supplier-ke-pusats/{id}', [SupplierKePusatController::class, 'show']);
