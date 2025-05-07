@@ -18,7 +18,11 @@ class CabangKePusatSeeder extends Seeder
             'id_pusat' => 1,
             'id_cabang' => 1,
             'id_barang' => 1,
-            'jumlah' => 10,
+            'id_satuan_berat' => 1,
+            'id_kurir' => 1,
+            'id_status' => 1,
+            'berat_satuan_barang'=>10,
+            'jumlah_barang' => 10,
             'tanggal' => now(),
         ]);
 
@@ -27,7 +31,11 @@ class CabangKePusatSeeder extends Seeder
             'id_pusat' => 1,
             'id_cabang' => 1,
             'id_barang' => 1,
-            'jumlah' => 10,
+            'id_satuan_berat' => 1,
+            'id_kurir' => 1,
+            'id_status' => 1,
+            'berat_satuan_barang'=>10,
+            'jumlah_barang' => 10,
             'tanggal' => now(),
         ]);
     }

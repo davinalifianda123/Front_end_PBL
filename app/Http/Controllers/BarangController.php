@@ -42,49 +42,7 @@ class BarangController extends Controller
     {
         try {
             DB::transaction(function () use ($request) {
-                $gudangPusat = Gudang::where('is_pusat', true)->first();
-                if (!$gudangPusat) {
-                    throw new \Exception("Gudang pusat tidak ditemukan.");
-                }
-            
-                $tokos = Toko::whereHas(
-                    'jenisToko',
-                    fn($query) => $query->where('nama_jenis_toko', '=', 'Toko Perusahaan')
-                )->get();
-                $gudangsLain = Gudang::where('id', '!=', $gudangPusat->id)->get();
-            
-                $validated = $request->validated();
-            
-                $barangParent = Barang::create(array_merge($validated, [
-                    'id_parent_barang' => null,
-                    'id_gudang' => $gudangPusat->id,
-                    'id_toko' => null,
-                ]));
-            
-                $barangTokoData = [];
-                foreach ($tokos as $toko) {
-                    $jenisToko = $toko->jenisToko->nama_jenis_toko;
-
-                    if ($jenisToko == 'Toko Perusahaan') {
-                        $barangTokoData[] = array_merge($validated, [
-                            'id_toko' => $toko->id,
-                            'id_gudang' => null,
-                            'id_parent_barang' => $barangParent->id,
-                        ]);
-                    }
-                }
-            
-                $barangGudangData = [];
-                foreach ($gudangsLain as $gudang) {
-                    $barangGudangData[] = array_merge($validated, [
-                        'id_toko' => null,
-                        'id_gudang' => $gudang->id,
-                        'id_parent_barang' => $barangParent->id,
-                    ]);
-                }
-            
-                $totalBarangData = array_merge($barangGudangData, $barangTokoData);
-                Barang::insert($totalBarangData);
+                Barang::insert($request->validated);
             });
 
             return redirect()->route('barangs.index')
@@ -110,9 +68,8 @@ class BarangController extends Controller
     public function edit(Barang $barang)
     {
         $kategoris = KategoriBarang::all();
-        $gudangs = Gudang::all();
 
-        return view('barangs.edit', compact('barang', 'kategoris', 'gudangs'));
+        return view('barangs.edit', compact('barang', 'kategoris'));
     }
 
     /**
@@ -123,10 +80,6 @@ class BarangController extends Controller
         try {
             DB::transaction(function () use ($request, $barang) {
                 $barang->update($request->validated());
-                
-                if ($barang->childBarang()->exists()) {
-                    $barang->childBarang()->update($request->validated());
-                }
             });
 
             return redirect()->route('barangs.index')
@@ -146,10 +99,6 @@ class BarangController extends Controller
         try {
             DB::transaction(function () use ($barang) {
                 $barang->update(['flag' => 0]);
-
-                if ($barang->childBarang()->exists()) {
-                    $barang->childBarang()->update(['flag' => 0]);
-                }
             });
 
             return redirect()->route('barangs.index')
@@ -168,10 +117,6 @@ class BarangController extends Controller
         try {
             DB::transaction(function () use ($barang) {
                 $barang->update(['flag' => 1]);
-
-                if ($barang->childBarang()->exists()) {
-                    $barang->childBarang()->update(['flag' => 1]);
-                }
             });
 
             return redirect()->route('barangs.index')

@@ -14,6 +14,12 @@ return new class extends Migration
         Schema::create('cabang_ke_tokos', function (Blueprint $table) {
             $table->id();
             $table->string('kode');
+
+            $table->unsignedBigInteger('id_kurir'); // Foreign Key
+            $table->foreign('id_kurir')->references('id')->on('kurirs')->cascadeOnUpdate();
+
+            $table->unsignedBigInteger('id_status'); // Foreign Key
+            $table->foreign('id_status')->references('id')->on('statuses')->cascadeOnUpdate();
             $table->unsignedBigInteger('id_cabang');
             $table->foreign('id_cabang')
                 ->references('id')
@@ -29,7 +35,13 @@ return new class extends Migration
                 ->references('id')
                 ->on('barangs')
                 ->cascadeOnUpdate();
-            $table->integer('jumlah');
+            $table->unsignedBigInteger('id_satuan_berat');
+            $table->foreign('id_satuan_berat')
+                ->references('id')
+                ->on('satuan_berats')
+                ->cascadeOnUpdate();
+            $table->Integer('berat_satuan_barang');
+            $table->Integer('jumlah_barang');
             $table->dateTime('tanggal');
             $table->integer('flag')->default(1);
             $table->timestamps();
