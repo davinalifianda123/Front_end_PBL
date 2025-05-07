@@ -37,10 +37,12 @@ Route::post('/pusatkesupplier', [PusatKeSupplierController::class, 'store']);
 Route::get('/pusatkesupplier/{id}', [PusatKeSupplierController::class, 'show']);
 Route::delete('/pusatkesupplier/{id}', [PusatKeSupplierController::class, 'destroy']);
 Route::get('/createpusatkesupplier', [PusatKeSupplierController::class, 'create']);
-Route::get('/supplier-ke-pusats', [SupplierKePusatController::class, 'index']);
-Route::post('/supplier-ke-pusats', [SupplierKePusatController::class, 'store']);
-Route::get('/supplier-ke-pusats/{id}', [SupplierKePusatController::class, 'show']);
-Route::delete('/supplier-ke-pusats/{id}', [SupplierKePusatController::class, 'destroy']);
+
+
+Route::resource('supplier-ke-pusats', SupplierKePusatController::class);
+
+
+
 
 Route::get('/penerimaan-di-pusats', [PenerimaanDiPusatController::class, 'index']);
 Route::post('/penerimaan-di-pusats', [PenerimaanDiPusatController::class, 'store']);

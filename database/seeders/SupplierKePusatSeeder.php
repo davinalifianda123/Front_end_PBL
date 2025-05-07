@@ -19,8 +19,12 @@ class SupplierKePusatSeeder extends Seeder
             'id_supplier' => 1,
             'id_pusat' => 1,
             'id_barang' => 1,
-            'jumlah' => 20,
             'tanggal' => now(),
+            'id_kurir' => 1 , 
+            'id_status' => 1 ,
+            'id_satuan_berat' => 1,
+            'berat_satuan_barang' => 100,
+            'jumlah_barang' => 100,
         ]);
 
         SupplierKePusat::create([
@@ -28,8 +32,12 @@ class SupplierKePusatSeeder extends Seeder
             'id_supplier' => 1,
             'id_pusat' => 1,
             'id_barang' => 1,
-            'jumlah' => 10,
             'tanggal' => now(),
+            'id_kurir' => 1 , 
+            'id_status' => 1 ,
+            'id_satuan_berat' => 1,
+            'berat_satuan_barang' => 100,
+            'jumlah_barang' => 100,
         ]);
 }
 }
