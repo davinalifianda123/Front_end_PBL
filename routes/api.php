@@ -31,12 +31,6 @@ Route::delete('hapuscabangkepusat/{id}',[CabangKePusatController::class,'destroy
 
 Route::resource('cabang-ke-tokos', CabangKeTokoController::class);
 
-// route::get('/cabang-ke-tokos',[CabangKeTokoController::class,'index']);
-// route::post('/cabang-ke-tokos',[CabangKeTokoController::class,'store']);
-// route::delete('/cabang-ke-tokos/{id}',[CabangKeTokoController::class,'destroy']);
-// Route::get('/cabang-ke-tokos/create',[CabangKeTokoController::class,'create']);
-// route::get('/cabang-ke-tokos/{id}',[CabangKeTokoController::class,'show']);
-
 Route::get('/pusatkesupplier', [PusatKeSupplierController::class, 'index']);
 Route::post('/pusatkesupplier', [PusatKeSupplierController::class, 'store']);
 Route::get('/pusatkesupplier/{id}', [PusatKeSupplierController::class, 'show']);
