@@ -23,11 +23,9 @@ use App\Http\Controllers\PusatKeCabangController;
 use App\Http\Controllers\SupplierKePusatController;
 use App\Http\Controllers\TokoKeCabangController;
 use App\Http\Controllers\CabangKeTokoController;
+use App\Models\CabangKePusat;
 
-Route::get('/lihatcabangkepusat',[CabangKePusatController::class,'index']);
-Route::post('/masukcabangkepusat',[CabangKePusatController::class,'store']);
-Route::get('/masukcabangkepusat/{id}',[CabangKePusatController::class,'show']);
-Route::delete('hapuscabangkepusat/{id}',[CabangKePusatController::class,'destroy']);
+Route::resource('cabang-ke-pusats', CabangKePusatController::class);
 route::get('/cabang-ke-tokos',[CabangKeTokoController::class,'index']);
 route::post('/cabang-ke-tokos',[CabangKeTokoController::class,'store']);
 route::delete('/cabang-ke-tokos/{id}',[CabangKeTokoController::class,'destroy']);
@@ -58,8 +56,8 @@ Route::post('/pusat-ke-cabangs', [PusatKeCabangController::class, 'store']);
 Route::get('/pusat-ke-cabangs/{id}', [PusatKeCabangController::class, 'show']);
 Route::delete('/pusat-ke-cabangs/{id}', [PusatKeCabangController::class, 'destroy']);
 Route::get('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'index']);
-Route::get('/penerimaan-di-cabangs/create', [PenerimaanDiCabangController::class, 'create']);
 Route::post('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'store']);
+Route::get('/penerimaan-di-cabangs/create', [PenerimaanDiCabangController::class, 'create']);
 Route::get('/penerimaan-di-cabangs/{id}', [PenerimaanDiCabangController::class, 'show']);
 Route::delete('/penerimaan-di-cabangs/{id}', [PenerimaanDiCabangController::class, 'destroy']);
 
@@ -67,6 +65,7 @@ Route::get('/toko-ke-cabangs', [TokoKeCabangController::class, 'index']);
 Route::post('/toko-ke-cabangs', [TokoKeCabangController::class, 'store']);
 Route::delete('/toko-ke-cabangs/{id}', [TokoKeCabangController::class, 'destroy']);
 Route::get('/toko-ke-cabangs/{id}', [TokoKeCabangController::class, 'show']);
+
 
 // Route::get('/debug-route', function () {
 //     return response()->json(['ok' => true]);

@@ -20,6 +20,15 @@ return new class extends Migration
                 ->on('gudang_dan_tokos')
                 ->cascadeOnUpdate();
 
+            $table->unsignedBigInteger('id_satuan_berat'); // Foreign Key
+            $table->foreign('id_satuan_berat')->references('id')->on('satuan_berats')->cascadeOnUpdate();
+    
+            $table->unsignedBigInteger('id_kurir'); // Foreign Key
+            $table->foreign('id_kurir')->references('id')->on('kurirs')->cascadeOnUpdate();
+    
+            $table->unsignedBigInteger('id_status'); // Foreign Key
+            $table->foreign('id_status')->references('id')->on('statuses')->cascadeOnUpdate();
+
             $table->unsignedBigInteger(column: 'id_cabang');
             $table->foreign('id_cabang')
                 ->references('id')
@@ -31,13 +40,13 @@ return new class extends Migration
                 ->references('id')
                 ->on('barangs')
                 ->cascadeOnUpdate();
-
-            $table->integer(column: 'jumlah');
-            $table->dateTime(column: 'tanggal');
-
+    
+            $table->integer('berat_satuan_barang');
+            $table->integer('jumlah_barang');
+            $table->dateTime('tanggal');
+            $table->integer('flag')->default(1);
             $table->timestamps();
             $table->SoftDeletes();
-            $table->integer('flag')->default(1);
         });
     }
 
