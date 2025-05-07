@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\SupplierKePusat;
 use Illuminate\Support\Facades\DB;
+use App\Models\Kurir;
+use App\Models\Barang;
+use App\Models\Status;
+use App\Models\SatuanBerat;
+use App\Models\GudangDanToko;
+
 
 class SupplierKePusatController extends Controller
 {
@@ -13,12 +19,13 @@ class SupplierKePusatController extends Controller
      */
     public function index()
     {
-        $SupplierKePusat =SupplierKePusat::with('supplier','pusat','barang')->get();
+        $SupplierKePusat =SupplierKePusat::with('supplier','pusat','barang', 'kurir', 'satuanBerat','status')->get();
 
         return response()->json([
         'status' => true,
         'message' =>'Data Supllier Ke Pusat',
         'data' => $SupplierKePusat,
+      
         ]);
 
         // 
@@ -31,7 +38,28 @@ class SupplierKePusatController extends Controller
      */
     public function create()
     {
-        //
+        $barangs = Barang::all();
+        $supplier = GudangDanToko::all();
+        $pusat = $supplier;
+        $status = Status::all();
+        $kurir = Kurir::all();
+        $satuanBerat = SatuanBerat::all();
+
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Barang, Jenis Penerimaan, dan Asal Barang',
+            'data' => [
+                'barangs' => $barangs,
+                'supplier' => $supplier,
+                'satuanBerat' => $satuanBerat,
+                'status'=>$status,
+                'kurir' => $kurir,
+                'asalBarang'=>$pusat,
+                
+
+            ]
+        ]);
     }
 
     /**
@@ -44,8 +72,12 @@ class SupplierKePusatController extends Controller
             'id_supplier' => 'required|exists:gudang_dan_tokos,id',
             'id_pusat' => 'required|exists:gudang_dan_tokos,id',
             'id_barang' => 'required|exists:gudang_dan_tokos,id',
-            'jumlah' => 'required|integer|min:1',
+            'jumlah_barang' => 'required|integer|min:1',
             'tanggal' => 'required|date',
+            'id_satuan_berat' => 'required|exists:satuan_berats,id',
+            'id_kurir' => 'required|exists:kurirs,id',
+            'id_status' => 'required|exists:statuses,id',
+            'berat_satuan_barang' => 'required|numeric|min:1',
         ]);
 
         try {
@@ -71,7 +103,7 @@ class SupplierKePusatController extends Controller
     public function show(string $id)
     {
         try {
-            $SupplierKePusat = SupplierKePusat::with('supplier','pusat','barang')->findOrFail($id);
+            $SupplierKePusat = SupplierKePusat::with('supplier','pusat','barang','kurir', 'satuanBerat','status')->findOrFail($id);
 
             return response()->json([
                 'status' => true,
@@ -82,7 +114,7 @@ class SupplierKePusatController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => "Data Supplier Ke Pusat dengan ID: {$id} tidak ditemukan.",
-         ]);
+            ]);
         }
     }
 
