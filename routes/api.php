@@ -23,12 +23,8 @@ use App\Http\Controllers\PusatKeCabangController;
 use App\Http\Controllers\SupplierKePusatController;
 use App\Http\Controllers\TokoKeCabangController;
 use App\Http\Controllers\CabangKeTokoController;
-use App\Models\PusatKeCabang;
 
-Route::get('/lihatcabangkepusat',[CabangKePusatController::class,'index']);
-Route::post('/masukcabangkepusat',[CabangKePusatController::class,'store']);
-Route::get('/masukcabangkepusat/{id}',[CabangKePusatController::class,'show']);
-Route::delete('hapuscabangkepusat/{id}',[CabangKePusatController::class,'destroy']);
+Route::resource('cabang-ke-pusats', CabangKePusatController::class);
 
 Route::resource('cabang-ke-tokos', CabangKeTokoController::class);
 
@@ -41,6 +37,7 @@ Route::get('/createpusatkesupplier', [PusatKeSupplierController::class, 'create'
 Route::resource('supplier-ke-pusats', SupplierKePusatController::class);
 
 Route::resource('penerimaan-di-pusats', PenerimaanDiPusatController::class);
+
 Route::resource('detail-gudangs', DetailGudangController::class);
 
 Route::resource('pusat-ke-cabangs', PusatKeCabangController::class);
@@ -51,6 +48,7 @@ Route::get('/toko-ke-cabangs', [TokoKeCabangController::class, 'index']);
 Route::post('/toko-ke-cabangs', [TokoKeCabangController::class, 'store']);
 Route::delete('/toko-ke-cabangs/{id}', [TokoKeCabangController::class, 'destroy']);
 Route::get('/toko-ke-cabangs/{id}', [TokoKeCabangController::class, 'show']);
+
 
 // Route::get('/debug-route', function () {
 //     return response()->json(['ok' => true]);
