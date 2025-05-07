@@ -29,15 +29,15 @@ Route::get('/lihatcabangkepusat',[CabangKePusatController::class,'index']);
 Route::post('/masukcabangkepusat',[CabangKePusatController::class,'store']);
 Route::get('/masukcabangkepusat/{id}',[CabangKePusatController::class,'show']);
 Route::delete('hapuscabangkepusat/{id}',[CabangKePusatController::class,'destroy']);
-route::get('/cabang-ke-tokos',[CabangKeTokoController::class,'index']);
-route::post('/cabang-ke-tokos',[CabangKeTokoController::class,'store']);
-route::delete('/cabang-ke-tokos/{id}',[CabangKeTokoController::class,'destroy']);
-route::get('/cabang-ke-tokos/{id}',[CabangKeTokoController::class,'show']);
+
+Route::resource('cabang-ke-tokos', CabangKeTokoController::class);
+
 Route::get('/pusatkesupplier', [PusatKeSupplierController::class, 'index']);
 Route::post('/pusatkesupplier', [PusatKeSupplierController::class, 'store']);
 Route::get('/pusatkesupplier/{id}', [PusatKeSupplierController::class, 'show']);
 Route::delete('/pusatkesupplier/{id}', [PusatKeSupplierController::class, 'destroy']);
 Route::get('/createpusatkesupplier', [PusatKeSupplierController::class, 'create']);
+
 Route::get('/supplier-ke-pusats', [SupplierKePusatController::class, 'index']);
 Route::post('/supplier-ke-pusats', [SupplierKePusatController::class, 'store']);
 Route::get('/supplier-ke-pusats/{id}', [SupplierKePusatController::class, 'show']);
@@ -56,11 +56,7 @@ Route::get('/detail-gudangs/create', [DetailGudangController::class, 'create']);
 
 Route::resource('pusat-ke-cabangs', PusatKeCabangController::class);
 
-Route::get('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'index']);
-Route::get('/penerimaan-di-cabangs/create', [PenerimaanDiCabangController::class, 'create']);
-Route::post('/penerimaan-di-cabangs', [PenerimaanDiCabangController::class, 'store']);
-Route::get('/penerimaan-di-cabangs/{id}', [PenerimaanDiCabangController::class, 'show']);
-Route::delete('/penerimaan-di-cabangs/{id}', [PenerimaanDiCabangController::class, 'destroy']);
+Route::resource('penerimaan-di-cabangs', PenerimaanDiCabangController::class);
 
 Route::get('/toko-ke-cabangs', [TokoKeCabangController::class, 'index']);
 Route::post('/toko-ke-cabangs', [TokoKeCabangController::class, 'store']);
