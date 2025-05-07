@@ -23,6 +23,7 @@ use App\Http\Controllers\PusatKeCabangController;
 use App\Http\Controllers\SupplierKePusatController;
 use App\Http\Controllers\TokoKeCabangController;
 use App\Http\Controllers\CabangKeTokoController;
+use App\Models\PusatKeCabang;
 
 Route::get('/lihatcabangkepusat',[CabangKePusatController::class,'index']);
 Route::post('/masukcabangkepusat',[CabangKePusatController::class,'store']);
@@ -53,10 +54,7 @@ Route::put('/detail-gudangs/{id}', [DetailGudangController::class, 'update']);
 Route::get('/detail-gudangs/{id}', [DetailGudangController::class, 'show']);
 Route::get('/detail-gudangs/create', [DetailGudangController::class, 'create']);
 
-Route::get('/pusat-ke-cabangs', [PusatKeCabangController::class, 'index']);
-Route::post('/pusat-ke-cabangs', [PusatKeCabangController::class, 'store']);
-Route::get('/pusat-ke-cabangs/{id}', [PusatKeCabangController::class, 'show']);
-Route::delete('/pusat-ke-cabangs/{id}', [PusatKeCabangController::class, 'destroy']);
+Route::resource('pusat-ke-cabangs', PusatKeCabangController::class);
 
 Route::resource('penerimaan-di-cabangs', PenerimaanDiCabangController::class);
 
