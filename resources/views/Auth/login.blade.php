@@ -22,127 +22,79 @@
         <!-- Alpinejs -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js" defer></script>
     </head>
-    <body class="text-[#1b1b18] min-h-screen flex flex-col lg:flex-row">
-    <!-- Background SVG -->
-    <div class="w-full lg:w-1/2 h-64 lg:h-auto m-4 lg:m-6 rounded-xl overflow-hidden order-1 lg:order-1">
-        <svg class="w-full h-full" viewBox="0 0 668.8 668.8" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <rect class="bg" id="bg" x="0" y="0" width="668.8" height="668.8" fill="#ffffff"></rect>
-            <defs>
-                <filter id="f1" x="-200%" y="-200%" width="500%" height="500%">
-                    <feGaussianBlur stdDeviation="25"></feGaussianBlur>
-                </filter>
-            </defs>
-            <g transform="translate(-277.0769612548288 -132.67693054493537) rotate(3 195.83605400273416 103.7795770838461 )">
-                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#161A30" filter="url(#f1)"></rect>
-                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#171a31" filter="url(#f1)"></rect>
-                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#181a32"></rect>
-            </g>
-            <g transform="translate(-359.051146888631 80.87312403686258) rotate(20 113.86186836893194 317.32963166564406 )">
-                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#191a33" filter="url(#f1)"></rect>
-                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#1a1a34" filter="url(#f1)"></rect>
-                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#1b1a35"></rect>
-            </g>
-            <g transform="translate(-559.1143454056728 191.76996583745108) rotate(11 -86.20133014810978 428.22647346623256 )">
-                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#1c1a36" filter="url(#f1)"></rect>
-                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#1d1a37" filter="url(#f1)"></rect>
-                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#1e1a38"></rect>
-            </g>
-            <g transform="translate(-783.6547627650481 148.1237300972233) rotate(5 -310.7417475074851 384.5802377260048 )">
-                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#1f1a39" filter="url(#f1)"></rect>
-                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#201a3a" filter="url(#f1)"></rect>
-                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#211a3b"></rect>
-            </g>
-            <g transform="translate(-927.6074421955375 -29.643024407089797) rotate(5 -454.6944269379745 206.81348322169168 )">
-                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#221a3c" filter="url(#f1)"></rect>
-                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#231a3d" filter="url(#f1)"></rect>
-                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#241a3e"></rect>
-            </g>
-            <g transform="translate(-923.6153251357902 -258.35125758551146) rotate(10 -450.7023098782272 -21.89474995672998 )">
-                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
-                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
-                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#161A30"></rect>
-            </g>
-            <g transform="translate(-773.546367525501 -430.985845324977) rotate(20 -300.633352267938 -194.5293376961955 )">
-                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
-                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
-                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#31304D"></rect>
-            </g>
-            <g transform="translate(-547.6195024612093 -466.76914540246173) rotate(1 -74.7064872036463 -230.31263777368025 )">
-                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
-                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
-                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#B6BBC4"></rect>
-            </g>
-            <g transform="translate(-351.548421003915 -348.95775402462874) rotate(12 121.36459425364797 -112.50124639584726 )">
-                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
-                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
-                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#F0ECE5"></rect>
-            </g>
-        </svg>
-    </div>
-
-    <!-- Form login -->
-    <div class="w-full lg:w-1/2 bg-white flex items-center justify-center p-6 order-2 lg:order-2">
-        <div class="w-full max-w-md">
-            <div class="flex items-center space-x-4 mb-6">
-                <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M25.529 32.7902L8.708 39.9998L24.5555 22.9637L40.2407 20.1333L25.529 32.7902Z" fill="url(#paint0_linear_4719_3880)"/>
-                    <path d="M26.0159 5.23365L8.00494 0L24.5555 22.964L40.2407 20.1335L26.0159 5.23365Z" fill="url(#paint1_linear_4719_3880)"/>
-                    <path d="M24.6095 22.9105L8.70799 40L0 19.5995L8.00486 0L24.6095 22.9105Z" fill="url(#paint2_radial_4719_3880)"/>
-                    <defs>
-                        <linearGradient id="paint0_linear_4719_3880" x1="24.4473" y1="23.2842" x2="27.0897" y2="31.9013" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#31304D"/>
-                            <stop offset="0.411667" stop-color="#68697E"/>
-                            <stop offset="1" stop-color="#B6BBC4"/>
-                        </linearGradient>
-                        <linearGradient id="paint1_linear_4719_3880" x1="18.8223" y1="-4.53939" x2="29.0842" y2="22.9966" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#31304D"/>
-                            <stop offset="1" stop-color="#B6BBC4"/>
-                        </linearGradient>
-                        <radialGradient id="paint2_radial_4719_3880" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(8.81616 22.3231) rotate(97.3134) scale(19.5449 12.0199)">
-                            <stop stop-color="#B6BBC4"/>
-                            <stop offset="1" stop-color="#31304D"/>
-                        </radialGradient>
-                    </defs>
-                </svg>
-                <h2 class="text-3xl font-black text-black">Gudangku</h2>
+    <body class="text-[#1b1b18] min-h-screen flex lg:flex-row">
+        <!-- Background IMG -->
+        <div class="hidden h-screen p-6 lg:w-1/2 lg:flex">
+            <div class="w-full h-full overflow-hidden rounded-xl ">
+                <img src="{{ asset('images/login-image.png') }}" alt="Ilustrasi Login" class="w-full h-full object-cover">
             </div>
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" id="email" name="email" value="{{ old('email') }}" required
-                        class="w-full px-3 py-2 outline rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') border-red-500 @enderror">
-                    @error('email')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                    <input type="password" id="password" name="password" required
-                        class="w-full px-3 py-2 outline rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password') border-red-500 @enderror">
-                    @error('password')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mb-6 flex items-center">
-                    <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}
-                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                    <label for="remember" class="ml-2 block text-sm text-gray-700">Remember Me</label>
-                </div>
-                <div>
-                <button type="submit"
-                class="w-full bg-[#E3E3E3] text-[#777777] py-2 px-4 rounded-md 
-                        hover:bg-[#31304D] hover:text-white 
-                        active:bg-[#161A30] active:text-white 
-                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 
-                        transition-colors duration-200">
-                Login
-                </button>
-                </div>
-            </form>
         </div>
-    </div>
-</body>
+
+        <!-- Form login -->
+        <div class="w-full lg:w-1/2 bg-white flex items-center justify-center p-6">
+            {{-- Form --}}
+            <div class="w-full max-w-md">
+                {{-- Logo dan Judul --}}
+                <div class="flex items-center space-x-4 mb-6">
+                    <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25.529 32.7902L8.708 39.9998L24.5555 22.9637L40.2407 20.1333L25.529 32.7902Z" fill="url(#paint0_linear_4719_3880)"/>
+                        <path d="M26.0159 5.23365L8.00494 0L24.5555 22.964L40.2407 20.1335L26.0159 5.23365Z" fill="url(#paint1_linear_4719_3880)"/>
+                        <path d="M24.6095 22.9105L8.70799 40L0 19.5995L8.00486 0L24.6095 22.9105Z" fill="url(#paint2_radial_4719_3880)"/>
+                        <defs>
+                            <linearGradient id="paint0_linear_4719_3880" x1="24.4473" y1="23.2842" x2="27.0897" y2="31.9013" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#31304D"/>
+                                <stop offset="0.411667" stop-color="#68697E"/>
+                                <stop offset="1" stop-color="#B6BBC4"/>
+                            </linearGradient>
+                            <linearGradient id="paint1_linear_4719_3880" x1="18.8223" y1="-4.53939" x2="29.0842" y2="22.9966" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#31304D"/>
+                                <stop offset="1" stop-color="#B6BBC4"/>
+                            </linearGradient>
+                            <radialGradient id="paint2_radial_4719_3880" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(8.81616 22.3231) rotate(97.3134) scale(19.5449 12.0199)">
+                                <stop stop-color="#B6BBC4"/>
+                                <stop offset="1" stop-color="#31304D"/>
+                            </radialGradient>
+                        </defs>
+                    </svg>
+                    <h2 class="text-3xl font-black text-black">Gudangku</h2>
+                </div>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" id="email" name="email" value="{{ old('email') }}" required
+                            class="w-full px-3 py-2 outline rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') border-red-500 @enderror">
+                        @error('email')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" id="password" name="password" required
+                            class="w-full px-3 py-2 outline rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password') border-red-500 @enderror">
+                        @error('password')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="mb-6 flex items-center">
+                        <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}
+                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                        <label for="remember" class="ml-2 block text-sm text-gray-700">Remember Me</label>
+                    </div>
+                    <div>
+                    <button type="submit"
+                    class="w-full bg-[#E3E3E3] text-[#777777] py-2 px-4 rounded-md 
+                            hover:bg-[#31304D] hover:text-white 
+                            active:bg-[#161A30] active:text-white 
+                            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 
+                            transition-colors duration-200">
+                    Login
+                    </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
 </html>
