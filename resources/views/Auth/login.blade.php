@@ -22,48 +22,102 @@
         <!-- Alpinejs -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js" defer></script>
     </head>
-    <body class="dark:bg-[#0a0a0a] text-[#1b1b18] flex items-center lg:justify-center min-h-screen flex-col">
+    <body class="dark:bg-[#0a0a0a] text-[#1b1b18] min-h-screen flex flex-col lg:flex-row">
+    <!-- Background SVG -->
+    <div class="w-full lg:w-1/2 h-64 lg:h-auto m-4 lg:m-6 rounded-xl overflow-hidden order-1 lg:order-1">
+        <svg class="w-full h-full" viewBox="0 0 668.8 668.8" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <rect class="bg" id="bg" x="0" y="0" width="668.8" height="668.8" fill="#ffffff"></rect>
+            <defs>
+                <filter id="f1" x="-200%" y="-200%" width="500%" height="500%">
+                    <feGaussianBlur stdDeviation="25"></feGaussianBlur>
+                </filter>
+            </defs>
+            <g transform="translate(-277.0769612548288 -132.67693054493537) rotate(3 195.83605400273416 103.7795770838461 )">
+                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#161A30" filter="url(#f1)"></rect>
+                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#171a31" filter="url(#f1)"></rect>
+                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#181a32"></rect>
+            </g>
+            <g transform="translate(-359.051146888631 80.87312403686258) rotate(20 113.86186836893194 317.32963166564406 )">
+                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#191a33" filter="url(#f1)"></rect>
+                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#1a1a34" filter="url(#f1)"></rect>
+                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#1b1a35"></rect>
+            </g>
+            <g transform="translate(-559.1143454056728 191.76996583745108) rotate(11 -86.20133014810978 428.22647346623256 )">
+                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#1c1a36" filter="url(#f1)"></rect>
+                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#1d1a37" filter="url(#f1)"></rect>
+                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#1e1a38"></rect>
+            </g>
+            <g transform="translate(-783.6547627650481 148.1237300972233) rotate(5 -310.7417475074851 384.5802377260048 )">
+                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#1f1a39" filter="url(#f1)"></rect>
+                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#201a3a" filter="url(#f1)"></rect>
+                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#211a3b"></rect>
+            </g>
+            <g transform="translate(-927.6074421955375 -29.643024407089797) rotate(5 -454.6944269379745 206.81348322169168 )">
+                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#221a3c" filter="url(#f1)"></rect>
+                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="#231a3d" filter="url(#f1)"></rect>
+                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#241a3e"></rect>
+            </g>
+            <g transform="translate(-923.6153251357902 -258.35125758551146) rotate(10 -450.7023098782272 -21.89474995672998 )">
+                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
+                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
+                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#161A30"></rect>
+            </g>
+            <g transform="translate(-773.546367525501 -430.985845324977) rotate(20 -300.633352267938 -194.5293376961955 )">
+                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
+                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
+                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#31304D"></rect>
+            </g>
+            <g transform="translate(-547.6195024612093 -466.76914540246173) rotate(1 -74.7064872036463 -230.31263777368025 )">
+                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
+                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
+                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#B6BBC4"></rect>
+            </g>
+            <g transform="translate(-351.548421003915 -348.95775402462874) rotate(12 121.36459425364797 -112.50124639584726 )">
+                <rect x="8" y="8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
+                <rect x="-8" y="-8" opacity="0.4" width="2837.4780915453775" height="472.91301525756296" fill="black" filter="url(#f1)"></rect>
+                <rect x="0" y="0" width="2837.4780915453775" height="472.91301525756296" fill="#F0ECE5"></rect>
+            </g>
+        </svg>
+    </div>
+
+    <!-- Form login -->
+    <div class="w-full lg:w-1/2 bg-white flex items-center justify-center p-6 order-2 lg:order-2">
         <div class="w-full max-w-md">
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                <div class="px-6 py-4 text-black">
-                    <h2 class="text-3xl font-black">Login</h2>
+            <h2 class="text-3xl font-black text-black mb-6">Login</h2>
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
+                <div class="mb-4">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                    <input type="email" id="email" name="email" value="{{ old('email') }}" required
+                        class="w-full px-3 py-2 outline rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') border-red-500 @enderror">
+                    @error('email')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
-                <div class="p-6">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <div class="mb-4">
-                            <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" id="email" name="email" value="{{ old('email') }}" required
-                                class="w-full px-3 py-2 outline rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') border-red-500 @enderror">
-                            @error('email')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-    
-                        <div class="mb-4">
-                            <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                            <input type="password" id="password" name="password" required
-                                class="w-full px-3 py-2 outline rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password') border-red-500 @enderror">
-                            @error('password')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-    
-                        <div class="mb-6 flex items-center">
-                            <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}
-                                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                            <label for="remember" class="ml-2 block text-sm text-gray-700">Remember Me</label>
-                        </div>
-    
-                        <div>
-                            <button type="submit" 
-                                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                                Login
-                            </button>
-                        </div>
-                    </form>
+
+                <div class="mb-4">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="password" name="password" required
+                        class="w-full px-3 py-2 outline rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password') border-red-500 @enderror">
+                    @error('password')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
-            </div>
+
+                <div class="mb-6 flex items-center">
+                    <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}
+                        class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="remember" class="ml-2 block text-sm text-gray-700">Remember Me</label>
+                </div>
+
+                <div>
+                    <button type="submit"
+                        class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                        Login
+                    </button>
+                </div>
+            </form>
         </div>
-    </body>
+    </div>
+</body>
 </html>
