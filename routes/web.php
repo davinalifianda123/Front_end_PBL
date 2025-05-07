@@ -31,6 +31,11 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    
+    Route::get('/dashboard', function () {
+        return view('dashboard.index');
+    })->name('dashboard');
+    
 
     // Routes untuk User & Role Management - hanya SuperAdmin
     Route::middleware(['role:SuperAdmin, Supervisor'])->group(function () {
