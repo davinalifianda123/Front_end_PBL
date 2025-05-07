@@ -44,10 +44,7 @@ Route::resource('pusat-ke-cabangs', PusatKeCabangController::class);
 
 Route::resource('penerimaan-di-cabangs', PenerimaanDiCabangController::class);
 
-Route::get('/toko-ke-cabangs', [TokoKeCabangController::class, 'index']);
-Route::post('/toko-ke-cabangs', [TokoKeCabangController::class, 'store']);
-Route::delete('/toko-ke-cabangs/{id}', [TokoKeCabangController::class, 'destroy']);
-Route::get('/toko-ke-cabangs/{id}', [TokoKeCabangController::class, 'show']);
+Route::resource('toko-ke-cabangs', TokoKeCabangController::class);
 
 
 // Route::get('/debug-route', function () {
