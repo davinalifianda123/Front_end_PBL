@@ -24,15 +24,11 @@ use App\Http\Controllers\SupplierKePusatController;
 use App\Http\Controllers\TokoKeCabangController;
 use App\Http\Controllers\CabangKeTokoController;
 
+Route::resource('pusat-ke-suppliers', PusatKeSupplierController::class);
+
 Route::resource('cabang-ke-pusats', CabangKePusatController::class);
 
 Route::resource('cabang-ke-tokos', CabangKeTokoController::class);
-
-Route::get('/pusatkesupplier', [PusatKeSupplierController::class, 'index']);
-Route::post('/pusatkesupplier', [PusatKeSupplierController::class, 'store']);
-Route::get('/pusatkesupplier/{id}', [PusatKeSupplierController::class, 'show']);
-Route::delete('/pusatkesupplier/{id}', [PusatKeSupplierController::class, 'destroy']);
-Route::get('/createpusatkesupplier', [PusatKeSupplierController::class, 'create']);
 
 Route::resource('supplier-ke-pusats', SupplierKePusatController::class);
 
