@@ -24,6 +24,14 @@ use App\Http\Controllers\SupplierKePusatController;
 use App\Http\Controllers\TokoKeCabangController;
 use App\Http\Controllers\CabangKeTokoController;
 
+Route::resource('barangs', BarangController::class);
+Route::patch('barangs/{id}/activate', [BarangController::class, 'activate'])->name('barangs.activate');
+Route::patch('barangs/{id}/deactivate', [BarangController::class, 'deactivate'])->name('barangs.deactivate');
+
+Route::resource('kategori-barangs', KategoriBarangController::class);
+Route::patch('kategori-barangs/{id}/activate', [KategoriBarangController::class, 'activate'])->name('kategori-barangs.activate');
+Route::patch('kategori-barangs/{id}/deactivate', [KategoriBarangController::class, 'deactivate'])->name('kategori-barangs.deactivate');
+
 Route::resource('pusat-ke-suppliers', PusatKeSupplierController::class);
 
 Route::resource('cabang-ke-pusats', CabangKePusatController::class);
