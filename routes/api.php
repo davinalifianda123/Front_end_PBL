@@ -32,6 +32,12 @@ Route::resource('kategori-barangs', KategoriBarangController::class);
 Route::patch('kategori-barangs/{id}/activate', [KategoriBarangController::class, 'activate'])->name('kategori-barangs.activate');
 Route::patch('kategori-barangs/{id}/deactivate', [KategoriBarangController::class, 'deactivate'])->name('kategori-barangs.deactivate');
 
+Route::resource('tokos', TokoController::class);
+Route::patch('tokos/{id}/activate', [TokoController::class, 'activate'])->name('tokos.activate');
+Route::patch('tokos/{id}/deactivate', [TokoController::class, 'deactivate'])->name('tokos.deactivate');
+
+Route::resource('gudangs', GudangController::class);
+
 Route::resource('pusat-ke-suppliers', PusatKeSupplierController::class);
 
 Route::resource('cabang-ke-pusats', CabangKePusatController::class);
