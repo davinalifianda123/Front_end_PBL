@@ -38,9 +38,9 @@ class KategoriBarangTable extends DataTableComponent
 
             Column::make("Status", "flag")
                 ->label(fn($row) => view('components.badge-status', ['flag' => $row->flag])),
-
+            
             Column::make("Action")
-                ->label(fn($row) => view('components.table-actions', ['row' => $row])),
+                ->label(fn($row) => view('components.table-actions', ['row' => $row])),            
         ];
     }
 }
