@@ -201,13 +201,13 @@ class SupplierController extends Controller
     public function activate(string $id)
     {
         try {
-            $supplier = GudangDanToko::where('kategori_bangunan', 2)->findOrFail($id);
+            $supplier = GudangDanToko::where('kategori_bangunan', 1)->findOrFail($id);
 
             $supplier->update(['flag' => 1]);
 
             return response()->json([
                 'status' => true,
-                'message' => "Supplier {$toko->nama_gudang_toko} berhasil diaktifkan!",
+                'message' => "Supplier {$supplier->nama_gudang_toko} berhasil diaktifkan!",
                 'data' => $supplier,
             ]);
         } catch (ModelNotFoundException $e) {
