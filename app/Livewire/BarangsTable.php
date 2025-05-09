@@ -35,8 +35,6 @@ class BarangsTable extends DataTableComponent
                 ->sortable(),
             Column::make("Id kategori barang", "id_kategori_barang")
                 ->sortable(),
-            Column::make("Flag", "flag")
-                ->sortable(),
             Column::make("Status", "flag")
                 ->label(fn($row) => view('components.badge-status', ['flag' => $row->flag])),
 

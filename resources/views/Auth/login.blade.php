@@ -35,8 +35,8 @@
             {{-- Form --}}
             <div class="w-full max-w-md">
                 {{-- Logo dan Judul --}}
-                <div class="flex items-center space-x-4 mb-6">
-                    <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div class="flex items-center space-x-2 mb-8">
+                    <svg width="52" height="50" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M25.529 32.7902L8.708 39.9998L24.5555 22.9637L40.2407 20.1333L25.529 32.7902Z" fill="url(#paint0_linear_4719_3880)"/>
                         <path d="M26.0159 5.23365L8.00494 0L24.5555 22.964L40.2407 20.1335L26.0159 5.23365Z" fill="url(#paint1_linear_4719_3880)"/>
                         <path d="M24.6095 22.9105L8.70799 40L0 19.5995L8.00486 0L24.6095 22.9105Z" fill="url(#paint2_radial_4719_3880)"/>
@@ -56,7 +56,11 @@
                             </radialGradient>
                         </defs>
                     </svg>
-                    <h2 class="text-3xl font-black text-black">Gudangku</h2>
+                    <h1 class="text-4xl font-extrabold text-[#161A30]">Gudangku</h1>
+                </div>
+                <div class="mb-6">
+                    <h1 class="text-2xl font-medium text-gray-800">Login</h1>
+                    <p class="text-sm text-gray-600">Silahkan masukkan email dan password</p>
                 </div>
                 <form method="POST" action="{{ route('login') }}">
                     @csrf

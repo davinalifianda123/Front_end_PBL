@@ -71,6 +71,11 @@ Route::middleware(['auth'])->group(function () {
         });
     });
 
+
+    // Routes untuk KategoriBarang - SuperAdmin, Supervisor, Admin, Supplier, Buyer
+    Route::resource('kategori-barang', KategoriBarangController::class);
+
+
 //     // Routes untuk Gudang - SuperAdmin, Supervisor, Admin
 //     Route::middleware(['role:SuperAdmin,Supervisor,Admin'])->group(function () {
 //         Route::resource('gudangs', GudangController::class);
