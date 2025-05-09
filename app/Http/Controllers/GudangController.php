@@ -17,7 +17,7 @@ class GudangController extends Controller
     public function index()
     {
         try {
-            $gudangs = GudangDanToko::where('kategori_bangunan', 1)
+            $gudangs = GudangDanToko::where('kategori_bangunan', 0)
                 ->orderBy('id')
                 ->paginate(10);
 
@@ -66,7 +66,7 @@ class GudangController extends Controller
                 'no_telepon' => 'nullable|string|max:20',
             ]);
 
-            $gudang = GudangDanToko::create(array_merge($validated, ['kategori_bangunan' => 1 ]));
+            $gudang = GudangDanToko::create(array_merge($validated, ['kategori_bangunan' => 0 ]));
 
             return response()->json([
                 'status' => true,
@@ -94,7 +94,7 @@ class GudangController extends Controller
     public function show(string $id)
     {
         try {
-            $gudang = GudangDanToko::where('kategori_bangunan', 1)->findOrFail($id);
+            $gudang = GudangDanToko::where('kategori_bangunan', 0)->findOrFail($id);
 
             return response()->json([
                 'status' => true,
@@ -121,7 +121,7 @@ class GudangController extends Controller
     public function edit(string $id)
     {
         try {
-            $gudang = GudangDanToko::where('kategori_bangunan', 1)->findOrFail($id);
+            $gudang = GudangDanToko::where('kategori_bangunan', 0)->findOrFail($id);
 
             return response()->json([
                 'status' => true,
@@ -148,7 +148,7 @@ class GudangController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $gudang = GudangDanToko::where('kategori_bangunan', 1)->findOrFail($id);
+            $gudang = GudangDanToko::where('kategori_bangunan', 0)->findOrFail($id);
 
             $validated = $request->validate([
                 'nama_gudang_toko' => 'required|string|max:255',
@@ -186,7 +186,7 @@ class GudangController extends Controller
     public function deactivate(string $id)
     {
         try {
-            $gudang = GudangDanToko::where('kategori_bangunan', 1)->findOrFail($id);
+            $gudang = GudangDanToko::where('kategori_bangunan', 0)->findOrFail($id);
 
             $gudang->update(['flag' => 0]);
 
@@ -212,7 +212,7 @@ class GudangController extends Controller
     public function activate(string $id)
     {
         try {
-            $gudang = GudangDanToko::where('kategori_bangunan', 1)->findOrFail($id);
+            $gudang = GudangDanToko::where('kategori_bangunan', 0)->findOrFail($id);
 
             $gudang->update(['flag' => 1]);
 
