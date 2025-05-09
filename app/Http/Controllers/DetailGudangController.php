@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\DetailGudang;
 use App\Models\Barang;
+use App\Models\GudangDanToko;
+use App\Models\SatuanBerat;
 use Illuminate\Support\Facades\DB;
 
 class DetailGudangController extends Controller
@@ -28,8 +30,8 @@ class DetailGudangController extends Controller
      */
     public function create()
     {
-        $barangs = Barang::all()->where('flag', 1);
-        $gudang = GudangDanToko::all()->where('flag', 1);
+        $barangs = Barang::all();
+        $gudang = GudangDanToko::all();
         $satuanBerat = SatuanBerat::all();
 
         return response()->json([
@@ -113,8 +115,8 @@ class DetailGudangController extends Controller
             'stok_opname' => 'required|integer|min:0|max:1',
         ]);
 
+        $detailGudang = DetailGudang::findOrFail($id);
         try {
-            $detailGudang = DetailGudang::findOrFail($id);
 
             return DB::transaction(function () use ($validated, $detailGudang) {
                 $detailGudang->update($validated);

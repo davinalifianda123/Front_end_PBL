@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TokoKeCabang;
 use Illuminate\Support\Facades\DB;
+use App\Models\Barang;
+use App\Models\Kurir;
+use App\Models\GudangDanToko;
+use App\Models\SatuanBerat;
+use App\Models\Status;
 
 class TokoKeCabangController extends Controller
 {
@@ -13,7 +18,7 @@ class TokoKeCabangController extends Controller
      */
     public function index()
     {
-        $TokoKeCabang = TokoKeCabang::with('toko', 'cabang', 'barang')->get();
+        $TokoKeCabang = TokoKeCabang::with('toko', 'cabang', 'barang', 'kurir', 'satuanBerat', 'status')->get();
 
         //
 
@@ -29,7 +34,25 @@ class TokoKeCabangController extends Controller
      */
     public function create()
     {
-        //
+        $barang = Barang::all();
+        $satuanBerat = SatuanBerat::all();
+        $kurir = Kurir::all();
+        $toko = GudangDanToko::all();
+        $cabang = $toko;
+        $status = Status::all();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Toko Ke Cabang',
+            'data' => [
+                'barang' => $barang,
+                'satuanBerat' => $satuanBerat,
+                'kurir' => $kurir,
+                'toko' => $toko,
+                'cabang' => $cabang,
+                'status' => $status,
+            ],
+        ]);
     }
 
     /**
@@ -43,7 +66,11 @@ class TokoKeCabangController extends Controller
             'id_cabang' => 'required|exists:gudang_dan_tokos,id',
             'id_toko' => 'required|exists:gudang_dan_tokos,id',
             'id_barang' => 'required|exists:barangs,id',
-            'jumlah' => 'required|integer|min:1',
+            'id_satuan_berat' => 'required|exists:satuan_berats,id',
+            'id_kurir' => 'nullable|exists:kurirs,id',
+            'id_status' => 'required|exists:statuses,id',
+            'berat_satuan_barang' => 'required|numeric|min:0',
+            'jumlah_barang' => 'required|integer|min:1',
             'tanggal' => 'required|date',
         ]);
 
@@ -70,7 +97,7 @@ class TokoKeCabangController extends Controller
     public function show(string $id)
     {
         try {
-            $tokoKeCabang = TokoKeCabang::with('toko', 'cabang', 'barang')->findOrFail($id);
+            $tokoKeCabang = TokoKeCabang::with('toko', 'cabang', 'barang', 'kurir', 'satuanBerat', 'status')->findOrFail($id);
             return response()->json([
                 'status' => true,
                 'message' => "Data Toko Ke Cabang dengan ID: {$id}",

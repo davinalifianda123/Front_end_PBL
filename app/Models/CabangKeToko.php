@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CabangKeToko extends Model
@@ -18,10 +19,14 @@ class CabangKeToko extends Model
      */
     protected $fillable = [
         'kode',
+        'id_status',
+        'id_kurir',
         'id_cabang',
         'id_toko',
         'id_barang',
-        'jumlah',
+        'id_satuan_berat',
+        'berat_satuan_barang',
+        'jumlah_barang',
         'tanggal',
         'flag',
     ];
@@ -39,5 +44,19 @@ class CabangKeToko extends Model
     public function barang()
     {
         return $this->belongsTo(Barang::class, 'id_barang');
+    }
+
+    public function satuanBerat(): BelongsTo
+    {
+        return $this->belongsTo(SatuanBerat::class, 'id_satuan_berat');
+    }
+
+    public function kurir()
+    {
+        return $this->belongsTo(Kurir::class, 'id_kurir');
+    }
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'id_status');
     }
 }

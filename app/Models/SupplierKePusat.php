@@ -20,8 +20,12 @@ class SupplierKePusat extends Model
         'kode',
         'id_supplier',
         'id_pusat',
+        'id_status',
+        'id_kurir',
         'id_barang',
-        'jumlah',
+        'jumlah_barang',
+        'berat_satuan_barang',
+        'id_satuan_berat',
         'tanggal',
         'flag'
     ];
@@ -40,7 +44,20 @@ class SupplierKePusat extends Model
         return $this->belongsTo(Barang::Class,'id_barang');
     }
 
-    
+
+    public function kurir()
+    {
+        return $this->belongsTo(Kurir::class, 'id_kurir');
+    }
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'id_status');
+    }
+
+    public function satuanBerat(): BelongsTo 
+    {
+        return $this->belongsTo(SatuanBerat::class, 'id_satuan_berat');
+    }
 
 
 

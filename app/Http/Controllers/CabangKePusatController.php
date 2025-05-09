@@ -7,6 +7,14 @@ use App\Models\CabangKePusat;
 use App\Models\PenerimaanDiCabang;
 use Attribute;
 use Illuminate\Http\Request;
+use App\Models\Barang;
+use App\Models\GudangDanToko;
+use App\Models\Status;
+use App\Models\Kurir;
+use App\Models\SatuanBerat;
+
+
+
 
 use function PHPUnit\Framework\callback;
 
@@ -17,7 +25,15 @@ class CabangKePusatController extends Controller
      */
     public function index()
     {
-        $CabangKePusat = CabangKePusat::with('pusat', 'cabang', 'barang')->get();
+        $CabangKePusat = CabangKePusat::with(
+        'pusat',
+        'cabang', 
+        'barang', 
+        'kurir',
+        'satuanBerat',
+        'status'
+        )->get();
+
 
         return response()->json([
             'status' => true,
@@ -31,7 +47,25 @@ class CabangKePusatController extends Controller
      */
     public function create()
     {
-        //
+        $barangs = Barang::all();
+        $pusat = GudangDanToko::all();
+        $status = Status::all();
+        $kurir = Kurir::all();
+        $cabang = $pusat;
+        $satuanBerat = SatuanBerat::all();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Barang, Jenis Penerimaan, dan Asal Barang',
+            'data' => [
+                'barangs' => $barangs,
+                'cabangs' => $cabang,
+                'satuanBerat' => $satuanBerat,
+                'status'=>$status,
+                'kurir' => $kurir,
+                'pusat'=>$pusat,
+            ]    
+        ]);
     }
 
     /**
@@ -44,7 +78,11 @@ class CabangKePusatController extends Controller
             'id_pusat' => 'required|exists:gudang_dan_tokos,id',
             'id_cabang' => 'required|exists:gudang_dan_tokos,id',
             'id_barang' => 'required|exists:barangs,id',
-            'jumlah' => 'required|integer|min:1',
+            'id_satuan_berat' => 'required|exists:satuan_berats,id',
+            'id_kurir' => 'required|exists:kurirs,id',
+            'id_status' => 'required|exists:statuses,id',
+            'berat_satuan_barang' => 'required|numeric|min:1',
+            'jumlah_barang' => 'required|integer|min:1',
             'tanggal' => 'required|date',
             'keterangan' => 'nullable|string|max:255',
         ]);
@@ -66,13 +104,21 @@ class CabangKePusatController extends Controller
         }
     }
 
+    
+
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
         try {
-            $cabangKePusat = CabangKePusat::with('pusat', 'cabang', 'barang')->findOrFail($id);
+            $cabangKePusat = CabangKePusat::with(
+            'pusat',
+            'cabang',
+            'barang',
+            'kurir',
+            'satuanBerat',
+            'status')->findOrFail($id);
 
             return response()->json([
                 'status' => true,
