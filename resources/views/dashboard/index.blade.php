@@ -7,7 +7,7 @@
             <div class="flex items-center bg-white p-5 rounded-lg shadow-sm">
                 <div class="flex-1">
                     <h2 class="text-gray-600 text-sm font-medium mb-1">Barang</h2>
-                    <p class="text-3xl font-bold">54</p>
+                    <p class="text-2xl font-bold">54</p>
                 </div>
                 <div class="p-3 rounded-full bg-yellow-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -20,7 +20,7 @@
             <div class="flex items-center bg-white p-6 rounded-lg shadow-sm">
                 <div class="flex-1">
                     <h2 class="text-gray-600 text-sm font-medium mb-1">Supplier</h2>
-                    <p class="text-3xl font-bold">23</p>
+                    <p class="text-2xl font-bold">23</p>
                 </div>
                 <div class="p-3 rounded-full bg-green-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -33,7 +33,33 @@
             <div class="flex items-center bg-white p-6 rounded-lg shadow-sm">
                 <div class="flex-1">
                     <h2 class="text-gray-600 text-sm font-medium mb-1">TBA</h2>
-                    <p class="text-3xl font-bold">23</p>
+                    <p class="text-2xl font-bold">23</p>
+                </div>
+                <div class="p-3 rounded-full bg-green-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Card TBA -->
+            <div class="flex items-center bg-white p-6 rounded-lg shadow-sm">
+                <div class="flex-1">
+                    <h2 class="text-gray-600 text-sm font-medium mb-1">TBA</h2>
+                    <p class="text-2xl font-bold">23</p>
+                </div>
+                <div class="p-3 rounded-full bg-green-100">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Card TBA -->
+            <div class="flex items-center bg-white p-6 rounded-lg shadow-sm">
+                <div class="flex-1">
+                    <h2 class="text-gray-600 text-sm font-medium mb-1">TBA</h2>
+                    <p class="text-2xl font-bold">23</p>
                 </div>
                 <div class="p-3 rounded-full bg-green-100">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -49,7 +75,7 @@
                 {{-- Header --}}
                 <div class="flex justify-between mb-5">
                     <div>
-                        <h2 class="leading-none text-2xl font-bold text-black dark:text-black pb-1">Activities</h2>
+                        <h2 class="leading-none text-lg font-semibold text-black pb-1">Activities</h2>
                         <p class="text-base font-normal text-gray-500 dark:text-gray-400">Barang Masuk & Keluar</p>
                     </div>
                     <div class="flex items-center space-x-2">
@@ -101,7 +127,7 @@
 
             <!-- Stock Running Low -->
             <div class="bg-white rounded-lg shadow-sm p-6">
-                <h2 class="text-lg font-medium mb-4">Stock Running Low</h2>
+                <h2 class="text-lg font-semibold mb-4">Stock Running Low</h2>
                 <div class="space-y-4">
                     @for($i = 1; $i <= 6; $i++)
                     <div class="flex items-center justify-between">
