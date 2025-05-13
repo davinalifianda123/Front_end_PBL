@@ -17,17 +17,6 @@
         @else
             {{-- script --}}
         @endif
-
-        <!-- Alpinejs -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js" defer></script>
-                <!-- Tailwind CSS (wajib) -->
-        <script src="https://cdn.tailwindcss.com"></script>
-
-        <!-- Flowbite CSS -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
-
-        <!-- Flowbite JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
     </head>
     <body class="text-[#1b1b18] min-h-screen flex lg:flex-row">
         @switch(Auth::user()->role->nama_role)
