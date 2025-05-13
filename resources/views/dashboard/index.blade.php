@@ -1,3 +1,4 @@
+@section('page-title', 'Dashboard')
 <x-default-layout>
     <div class="container px-6 py-4 mx-auto">
 
