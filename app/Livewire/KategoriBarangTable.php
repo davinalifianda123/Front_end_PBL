@@ -3,8 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\KategoriBarang;
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\DataTableComponent;
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
+use Rappasoft\LaravelLivewireTables\Views\Columns\ButtonGroupColumn;
 
 class KategoriBarangTable extends DataTableComponent
 {
@@ -37,10 +39,46 @@ class KategoriBarangTable extends DataTableComponent
                 ->sortable(),
 
             Column::make("Status", "flag")
-                ->label(fn($row) => view('components.badge-status', ['flag' => $row->flag])),
-            
+                ->format(fn($value, $row, Column $column) => view('components.badge-status')->with("flag", $row->flag)),
+
             Column::make("Action")
-                ->label(fn($row) => view('components.table-actions', ['row' => $row])),            
+                ->label(fn($row, Column $column) => view('components.table-actions')->with([
+                    'row' => $row,
+                    'rute_lihat' => route('kategori-barangs.show', $row->id),
+                    'rute_edit' => route('kategori-barangs.edit', $row->id),
+                    'rute_deactivate' => route('kategori-barangs.deactivate', $row->id),
+                    'rute_activate' => route('kategori-barangs.activate', $row->id),
+                ])),
+            
+            // ButtonGroupColumn::make('Actions')
+            //     ->attributes(function($row) {
+            //         return [
+            //             'class' => 'space-x-2',
+            //         ];
+            //     })
+            //     ->buttons([
+            //         LinkColumn::make('View')
+            //             ->title(fn($row) => "View 2")
+            //             ->location(fn($row) => route('kategori-barangs.show', $row))
+            //             ->attributes(function($row) {
+            //                 return [
+            //                     'class' => 'underline text-blue-500 hover:no-underline',
+            //                 ];
+            //             }),
+            //         LinkColumn::make('Edit')
+            //             ->title(fn($row) => "Edit 2")
+            //             ->location(fn($row) => route('kategori-barangs.edit', $row))
+            //             ->attributes(function($row) {
+            //                 return [
+            //                     'class' => 'underline text-blue-500 hover:no-underline',
+            //                 ];
+            //             }),
+            //             Column::make('My one off column')
+            //             ->label(
+            //                 fn($row, Column $column)  => '<strong>'.'aaa'.'</strong>'
+            //             )
+            //             ->html(),
+            //     ])
         ];
     }
 }

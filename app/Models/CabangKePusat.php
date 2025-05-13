@@ -19,17 +19,31 @@ class CabangKePusat extends Model
     protected $fillable = [
         'kode',
         'id_pusat',
+        'id_status',
+        'id_kurir',
         'id_cabang',
         'id_barang',
-        'jumlah',
+        'id_satuan_berat',
+        'berat_satuan_barang',
+        'jumlah_barang',
         'tanggal',
         'flag',
+        
     ];
 
     public function pusat() : BelongsTo
     {
         return $this->belongsTo(GudangDanToko::class,
          'id_pusat');
+    }
+
+    public function kurir()
+    {
+        return $this->belongsTo(Kurir::class, 'id_kurir');
+    }
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'id_status');
     }
 
     public function cabang() : BelongsTo
@@ -42,5 +56,9 @@ class CabangKePusat extends Model
     {
         return $this->belongsTo(Barang::class,
          'id_barang');
+    }
+    public function satuanBerat(): BelongsTo
+    {
+        return $this->belongsTo(SatuanBerat::class, 'id_satuan_berat');
     }
 }

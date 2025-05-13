@@ -20,9 +20,13 @@ class TokoKeCabang extends Model
     protected $fillable = [
         'kode',
         'id_toko',
+        'id_status',
+        'id_kurir',
         'id_cabang',
         'id_barang',
-        'jumlah',
+        'id_satuan_berat',
+        'berat_satuan_barang',
+        'jumlah_barang',
         'tanggal',
         'flag'
     ];
@@ -43,6 +47,24 @@ class TokoKeCabang extends Model
     {
         return $this->belongsTo(Barang::class,
         'id_barang');
+    }
+
+    public function satuanBerat(): BelongsTo
+    {
+        return $this->belongsTo(SatuanBerat::class,
+        'id_satuan_berat');
+    }
+
+    public function status(): BelongsTo
+    {
+        return $this->belongsTo(Status::class,
+        'id_status');
+    }
+
+    public function kurir(): BelongsTo
+    {
+        return $this->belongsTo(Kurir::class,
+        'id_kurir');
     }
 
 }

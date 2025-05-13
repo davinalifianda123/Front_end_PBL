@@ -37,26 +37,26 @@ class PusatKeSupplierController extends Controller
     public function create()
     {
         $barangs = Barang::all();
-        $supplier = GudangDanToko::all();
-        $status = Status::all();
+        $supplier = GudangDanToko::whereIn('id', [6, 7, 8, 9])->get();
+        $status = Status::where('id',1)->get();
         $kurir = Kurir::all();
-        $jenisPenerimaan = JenisPenerimaan::all();
-        $asalBarang = $supplier;
+        $pusat = GudangDanToko::where('id',1)->get();
         $satuanBerat = SatuanBerat::all();
 
         return response()->json([
             'status' => true,
-            'message' => 'Data Barang, Jenis Penerimaan, dan Asal Barang',
+            'message' => 'Data Barang, Jenis Penerimaan tertentu, Supplier, Pusat, dan informasi pendukung lainnya',
             'data' => [
                 'barangs' => $barangs,
-                'jenisPenerimaan' => $jenisPenerimaan,
-                'asalBarang' => $asalBarang,
+                'supplier' => $supplier,
+                'pusat' => $pusat,
                 'satuanBerat' => $satuanBerat,
-                'status'=>$status,
+                'status' => $status,
                 'kurir' => $kurir,
-                'asalBarang'=>$asalBarang,
-            ]    
+            ]
         ]);
+        
+
     }
 
     /**
@@ -104,7 +104,10 @@ class PusatKeSupplierController extends Controller
             $pusatkesupplier = PusatKeSupplier::with([
                 'supplier',
                 'pusat',
-                'barang'
+                'barang',
+                'kurir',
+                'satuanBerat',
+                'status'
             ])->findOrFail($id);
 
             return response()->json([

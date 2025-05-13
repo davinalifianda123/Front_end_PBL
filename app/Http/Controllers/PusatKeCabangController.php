@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kurir;
+use App\Models\Barang;
+use App\Models\Status;
+use App\Models\SatuanBerat;
 use Illuminate\Http\Request;
+use App\Models\GudangDanToko;
 use App\Models\PusatKeCabang;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -14,7 +19,7 @@ class PusatKeCabangController extends Controller
      */
     public function index()
     {
-        $pusatKeCabang = PusatKeCabang::with('pusat', 'cabang', 'barang')->get();
+        $pusatKeCabang = PusatKeCabang::with('pusat', 'cabang', 'barang','kurir', 'satuanBerat', 'status')->get();
 
         return response()->json([
             'status'=> true,
@@ -28,7 +33,25 @@ class PusatKeCabangController extends Controller
      */
     public function create()
     {
-        //
+        $barangs = Barang::all();
+        $pusat = GudangDanToko::all();
+        $cabang = $pusat;
+        $status = Status::all();
+        $kurir = Kurir::all();
+        $satuanBerat = SatuanBerat::all();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Data Barang, Jenis Penerimaan, dan Asal Barang',
+            'data' => [
+                'barangs' => $barangs,
+                'cabang' =>$cabang,
+                'satuanBerat' => $satuanBerat,
+                'status'=>$status,
+                'kurir' => $kurir,
+                'asalBarang'=>$pusat,
+            ]    
+        ]);
     }
 
     /**
@@ -41,8 +64,12 @@ class PusatKeCabangController extends Controller
             'id_pusat' => 'required|exists:gudang_dan_tokos,id',       // sesuaikan nama tabel pusat
             'id_cabang' => 'required|exists:gudang_dan_tokos,id',     // sesuaikan nama tabel cabang
             'id_barang' => 'required|exists:barangs,id',
-            'jumlah' => 'required|integer|min:1',
+            'jumlah_barang' => 'required|integer|min:1',
             'tanggal' => 'required|date',
+            'id_satuan_berat' => 'required|exists:satuan_berats,id',
+            'id_kurir' => 'required|exists:kurirs,id',
+            'id_status' => 'required|exists:statuses,id',
+            'berat_satuan_barang' => 'required|numeric|min:1',
         ]);
         try {
             return DB::transaction(function () use ($validated) {
@@ -68,7 +95,7 @@ class PusatKeCabangController extends Controller
     public function show(string $id)
     {
         try {
-            $pusatKeCabang = PusatKeCabang::with('pusat', 'cabang', 'barang')->findOrFail($id);
+            $pusatKeCabang = PusatKeCabang::with('pusat', 'cabang', 'barang', 'kurir', 'satuanBerat', 'status')->findOrFail($id);
 
             return response()->json([
                 'status' => true,
