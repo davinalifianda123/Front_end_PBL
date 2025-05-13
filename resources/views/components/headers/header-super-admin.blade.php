@@ -96,8 +96,8 @@
                    </li>
              </ul>
           </li>
-         <li>
-            <button type="button" class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group  text-white hover:bg-gray-700" aria-controls="dropdown-manajemen-gudang" data-collapse-toggle="dropdown-manajemen-gudang">
+          <li>
+             <a href="{{ route('gudangs.index') }}" class="flex items-center p-2 rounded-lg text-white  hover:bg-gray-700 group">
                 <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_4719_5450)">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M3.70615 6.8054C2.63684 7.55391 2 8.77707 2 10.0823V19.9997C2 21.1043 2.89543 21.9997 4 21.9997H5.25V18.9997V14.9997V12.9997C5.25 11.4809 6.48122 10.2497 8 10.2497H16C17.5188 10.2497 18.75 11.4809 18.75 12.9997V14.9997V18.9997V21.9997H20C21.1046 21.9997 22 21.1043 22 19.9997V10.0823C22 8.77707 21.3632 7.55391 20.2938 6.80539L14.2938 2.6054C12.9166 1.6413 11.0834 1.6413 9.70615 2.6054L3.70615 6.8054ZM17.25 21.9997V19.7497H6.75V21.9997H17.25ZM6.75 18.2497V15.7497H17.25V18.2497H6.75ZM6.75 14.2497H17.25V12.9997C17.25 12.3093 16.6904 11.7497 16 11.7497H8C7.30964 11.7497 6.75 12.3093 6.75 12.9997V14.2497Z" fill="#F0ECE5"/>
@@ -108,20 +108,18 @@
                     </clipPath>
                     </defs>
                     </svg>
-                  <span class="flex-1 ms-3 text-left rtl:text-right break-words mr-2">Manajemen Gudang & Toko</span>
-                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-                  </svg>
-            </button>
-            <ul id="dropdown-manajemen-gudang" class="hidden py-2 space-y-2">
-                  <li>
-                     <a href="{{ route('gudangs.index') }}" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Gudang</a>
-                  </li>
-                  <li>
-                     <a href="{{ route('tokos.index') }}" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Toko</a>
-                  </li>
-            </ul>
-         </li>
+                    
+                <span class="flex-1 ms-3 mr-5">Manajemen Gudang</span>                
+             </a>
+          </li>
+          <li>
+             <a href="{{ route('tokos.index') }}" class="flex items-center p-2 rounded-lg text-white  hover:bg-gray-700 group">
+               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M7.23146 2H16.7689C18.5863 2 20.2206 3.24475 20.8955 5.14305L21.6535 7.27487C21.8829 7.92019 22.0415 8.61074 21.8742 9.27488C21.4778 10.8478 20.192 12 18.6669 12C16.8259 12 15.3335 10.3211 15.3335 8.25C15.3335 10.3211 13.8412 12 12.0002 12C10.1593 12 8.66687 10.3211 8.66687 8.25C8.66687 10.3211 7.17449 12 5.33354 12C3.80844 12 2.52257 10.8478 2.12622 9.27488C1.95887 8.61074 2.11747 7.92019 2.34692 7.27487L3.1049 5.14305C3.77985 3.24476 5.41411 2 7.23146 2ZM4.00021 13.3005V17.9999C4.00021 20.2091 5.79107 21.9999 8.00021 21.9999H9.00021V20C9.00021 18.3431 10.3434 17 12.0002 17C13.6571 17 15.0002 18.3431 15.0002 20V21.9999H16.0002C18.2093 21.9999 20.0002 20.2091 20.0002 17.9999V13.3005C19.5814 13.4298 19.135 13.4999 18.6669 13.4999C17.3298 13.4999 16.1774 12.9373 15.3336 12.0559C14.4898 12.9373 13.3374 13.4999 12.0003 13.4999C10.6632 13.4999 9.51076 12.9373 8.66695 12.0559C7.82313 12.9373 6.67073 13.4999 5.33361 13.4999C4.86548 13.4999 4.41907 13.4297 4.00021 13.3005Z" fill="#F0ECE5"/>
+                  </svg>                    
+                <span class="flex-1 ms-3 mr-5">Manajemen Pelanggan</span>                
+             </a>
+          </li>
           <li>
              <a href="{{ route('suppliers.index') }}" class="flex items-center p-2 rounded-lg text-white  hover:bg-gray-700 group">
                 <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
