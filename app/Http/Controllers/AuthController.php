@@ -20,7 +20,7 @@ class AuthController extends Controller
             $request->authenticate();
 
             if (auth()->user()->hasRole('SuperAdmin')) {
-                return redirect()->intended(route('users.index'));
+                return view('dashboard.index');
             } else if (auth()->user()->hasRole('Supplier')) {
                 auth()->logout();
                 return back()->withErrors(['email' => 'Akun ini tidak memiliki akses ke website ini.'])->withInput($request->only('email', 'password'));

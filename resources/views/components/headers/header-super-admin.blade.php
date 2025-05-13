@@ -115,15 +115,15 @@
             </button>
             <ul id="dropdown-manajemen-gudang" class="hidden py-2 space-y-2">
                   <li>
-                     <a href="#gudang" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Gudang</a>
+                     <a href="{{ route('gudangs.index') }}" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Gudang</a>
                   </li>
                   <li>
-                     <a href="#toko" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Toko</a>
+                     <a href="{{ route('tokos.index') }}" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Toko</a>
                   </li>
             </ul>
          </li>
           <li>
-             <a href="#manajemen-supplier" class="flex items-center p-2 rounded-lg text-white  hover:bg-gray-700 group">
+             <a href="{{ route('suppliers.index') }}" class="flex items-center p-2 rounded-lg text-white  hover:bg-gray-700 group">
                 <svg class="shrink-0 w-5 h-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M6 3.06201H9.5C11.7091 3.06201 13.5 4.85287 13.5 7.06201V19.062H10.5C10.5 17.129 8.933 15.562 7 15.562C5.34384 15.562 3.95711 16.7117 3.59319 18.2572C2.62551 17.5271 2 16.3676 2 15.062V7.06201C2 4.85287 3.79086 3.06201 6 3.06201ZM9 19.062C9 20.1666 8.10457 21.062 7 21.062C5.89543 21.062 5 20.1666 5 19.062C5 19.02 5.00129 18.9783 5.00384 18.937C5.06838 17.8907 5.93742 17.062 7 17.062C8.10457 17.062 9 17.9574 9 19.062ZM20 19.062C20 20.1666 19.1046 21.062 18 21.062C16.8954 21.062 16 20.1666 16 19.062C16 17.9574 16.8954 17.062 18 17.062C19.1046 17.062 20 17.9574 20 19.062ZM18 15.562C19.7222 15.562 21.1538 16.8058 21.4456 18.4441C21.7891 18.085 22 17.5981 22 17.062V11.6785C22 11.1257 21.7712 10.5975 21.3679 10.2194L18.577 7.60294C18.2063 7.25541 17.7172 7.06201 17.2091 7.06201H15V17.2582C15.6124 16.2418 16.7268 15.562 18 15.562Z" fill="#F0ECE5"/>
                     </svg>

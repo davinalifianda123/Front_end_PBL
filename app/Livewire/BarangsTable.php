@@ -42,4 +42,11 @@ class BarangsTable extends DataTableComponent
                 ->label(fn($row) => view('components.table-actions', ['row' => $row])),
         ];
     }
+
+    public function builder(): Builder
+    {
+        return Barang::query()
+            ->where('flag', 1)
+            ->get(); // Hanya ambil data barang yang aktif
+    }
 }
