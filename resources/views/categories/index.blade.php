@@ -1,3 +1,5 @@
+@section('page-title', 'Manajemen Barang')
+@section('page-subtitle', 'Kategori Barang')
 <x-default-layout>
     <div class="bg-white rounded-lg shadow-md p-6">
         <div class="flex justify-between items-center mb-6 gap-12">

@@ -13,24 +13,30 @@
 <body class="text-[#1b1b18] min-h-screen">
     <!-- Layout Container -->
     <div class="flex flex-col h-screen">
-        <!-- Navbar Fixed (mulai setelah sidebar) -->
-        <header class="fixed top-0 left-64 right-0 h-16 z-50 ">
+        <!-- Navbar -->
+        <header class="fixed top-0 left-68 right-0 h-16 z-50">
             <x-navbar />
         </header>
 
         <!-- Main Content Area -->
-        <div class="flex flex-1 pt-16"> <!-- pt-16 untuk navbar fixed -->
-            <!-- Sidebar Fixed (full height) -->
-            <aside class="fixed left-0 top-0 bottom-0 w-64 bg-white border-r border-gray-200 z-40">
+        <div class="flex flex-1 pt-16">
+            <!-- Sidebar Fixed -->
+            <aside class="fixed left-0 top-0 bottom-0 w-64">
                 @switch(Auth::user()->role->nama_role)
-                    @case("SuperAdmin")<x-headers.header-super-admin />@break
-                    @case("Supervisor")<x-headers.header-supervisor />@break
-                    @case("Admin")<x-headers.header-admin />@break
+                    @case("SuperAdmin")
+                        <x-headers.header-super-admin />
+                    @break
+                    @case("Supervisor")
+                        <x-headers.header-supervisor />
+                    @break
+                    @case("Admin")
+                        <x-headers.header-admin />
+                    @break
                 @endswitch
             </aside>
 
-            <!-- Main Content (offset untuk sidebar) -->
-            <main class="flex-1 ml-64 p-4 overflow-auto">
+            <!-- Main Content -->
+            <main class="flex-1 ml-64 mt-4 overflow-auto">
                 {{ $slot }}
             </main>
         </div>
