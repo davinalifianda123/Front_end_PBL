@@ -33,10 +33,12 @@ class KategoriBarangTable extends DataTableComponent
     {
         return [
             Column::make("ID", "id")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
 
             Column::make("Nama Kategori", "nama_kategori_barang")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
 
             Column::make("Status", "flag")
                 ->format(fn($value, $row, Column $column) => view('components.badge-status')->with("flag", $row->flag)),
