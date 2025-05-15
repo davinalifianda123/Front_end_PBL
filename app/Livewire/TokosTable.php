@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\GudangDanToko;
+use Illuminate\Database\Eloquent\Builder;
 
 class TokosTable extends DataTableComponent
 {
@@ -28,19 +29,12 @@ class TokosTable extends DataTableComponent
                 ->sortable(),
             Column::make("No telepon", "no_telepon")
                 ->sortable(),
-            Column::make("Flag", "flag")
-                ->sortable(),
-            Column::make("Created at", "created_at")
-                ->sortable(),
-            Column::make("Updated at", "updated_at")
-                ->sortable(),
         ];
     }
 
     public function builder(): Builder
     {
         return GudangDanToko::query()
-            ->where('kategori_bangunan', 2)
-            ->get(); // Hanya ambil data toko
+            ->where('kategori_bangunan', 2);
     }
 }

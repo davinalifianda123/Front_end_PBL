@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\GudangDanToko;
+use Illuminate\Database\Eloquent\Builder;
 
 class SuppliersTable extends DataTableComponent
 {
@@ -40,7 +41,6 @@ class SuppliersTable extends DataTableComponent
     public function builder(): Builder
     {
         return GudangDanToko::query()
-            ->where('kategori_bangunan', 1)
-            ->get(); // Hanya ambil data supplier
+            ->where('kategori_bangunan', 1);
     }
 }
