@@ -21,17 +21,9 @@ class TokoController extends Controller
                 ->orderBy('id')
                 ->paginate(10);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Data Toko',
-                'data' => $tokos,
-            ]);
+            return view('tokos.index', compact('tokos'));
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Terjadi kesalahan saat mengambil data toko.',
-                'error' => $e->getMessage(),
-            ], 500);
+            return back()->with('error', 'Terjadi kesalahan saat mengambil data toko: ' . $e->getMessage());
         }
     }
 

@@ -22,6 +22,9 @@ use App\Http\Controllers\PenerimaanDiPusatController;
 use App\Http\Controllers\DetailGudangController;
 use App\Http\Controllers\CabangKeTokoController;
 use App\Http\Controllers\GudangDanTokoController;
+use App\Http\Controllers\GudangController;
+use App\Http\Controllers\SupplierController;
+
 
 Route::middleware('guest')->group(function () {
     Route::get('/', fn() => redirect('/login'));
@@ -74,6 +77,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Routes untuk KategoriBarang - SuperAdmin, Supervisor, Admin, Supplier, Buyer
     Route::resource('kategori-barang', KategoriBarangController::class);
+    Route::resource('gudangs', GudangController::class);
+    Route::resource('tokos', TokoController::class);
 
     Route::resource('barangs.index', DetailGudangController::class);
 

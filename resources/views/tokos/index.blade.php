@@ -23,10 +23,6 @@
                     <div class="overflow-x-auto">
                         <livewire:tokos-table />
                     </div>
-                    
-                    <div class="mt-4">
-                        {{ $tokos->links() }}
-                    </div>
                 </div>
             </div>
         </div>
