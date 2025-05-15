@@ -21,17 +21,9 @@ class GudangController extends Controller
                 ->orderBy('id')
                 ->paginate(10);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Data Gudang',
-                'data' => $gudangs,
-            ]);
+            return view('gudangs.index', compact('gudangs'));
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Terjadi kesalahan saat mengambil data gudang.',
-                'error' => $e->getMessage(),
-            ], 500);
+            return back()->with('error', 'Terjadi kesalahan saat mengambil data gudang: ' . $e->getMessage());
         }
     }
 
