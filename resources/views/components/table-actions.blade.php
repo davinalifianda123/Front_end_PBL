@@ -62,7 +62,4 @@
     </button>
 </form>
 
-</form>
-
-
 </div>
