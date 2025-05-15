@@ -1,3 +1,5 @@
+@section('page-title', 'Manajemen Barang')
+@section('page-subtitle', 'Kategori Barang')
 <x-default-layout>
     <div class="bg-white shadow overflow-hidden sm:rounded-lg m-6">
         <div class="px-4 py-5 sm:px-6 flex justify-between items-center">
@@ -31,9 +33,6 @@
             <div class="border-t border-gray-200">
                 <div class="overflow-x-auto">
                     <livewire:barangs-table />
-                </div>
-                <div class="px-4 py-3 bg-white border-t border-gray-200 sm:px-6">
-                    {{ $barangs->links() }}
                 </div>
             </div>
         </div>

@@ -17,12 +17,12 @@ class DetailGudangController extends Controller
      */
     public function index()
     {
-        $detailGudang = DetailGudang::with('barang', 'gudang', 'satuanBerat')->where('id_gudang', auth()->user()->gudang->id)->get();
-
-        return view('barangs.index', [
-            'detailGudang' => $detailGudang,
-            'message' => 'Data Detail Gudang retrieved successfully',
-        ]);
+        try {
+            $categories = DetailGudang::with('barang', 'gudang', 'satuanBerat')->where('id_gudang', auth()->user()->gudang->id)->get();
+            return view('barangs.index', ['categories' => $categories]);
+        } catch (\Exception $e) {
+            return view('barangs.index', ['message' => 'Terjadi kesalahan saat mengambil data Kategori Barang.', 'error' => $e->getMessage()]);
+        }
     }
 
     /**
