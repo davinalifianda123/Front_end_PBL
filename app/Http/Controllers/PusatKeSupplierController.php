@@ -17,18 +17,15 @@ class PusatKeSupplierController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $pusatKeSuppliers = PusatKeSupplier::with([
-        'supplier',
-        'pusat',
-        'barang',
-        'kurir',
-        'satuanBerat',
-        'status'
-    ])->get();
+    {
+        try {
+            $pusatKeSuppliers = PusatKeSupplier::with(['supplier','pusat','barang','kurir','satuanBerat','status'])->get();
 
-    return response()->json($pusatKeSuppliers);
-}
+            return view('retur_barang.index', compact('pusatKeSuppliers'));
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan saat mengambil data: ' . $e->getMessage());
+        }
+    }
 
 
     /**

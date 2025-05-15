@@ -4,12 +4,11 @@ namespace App\Livewire;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\PenerimaanDiPusat;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\PusatKeSupplier;
 
-class PenerimaanDiPusatTable extends DataTableComponent
+class PusatKeSupplierTable extends DataTableComponent
 {
-    protected $model = PenerimaanDiPusat::class;
+    protected $model = PusatKeSupplier::class;
 
     public function configure(): void
     {
@@ -21,9 +20,15 @@ class PenerimaanDiPusatTable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable(),
-            Column::make("Id jenis penerimaan", "id_jenis_penerimaan")
+            Column::make("Kode", "kode")
                 ->sortable(),
-            Column::make("Id asal barang", "id_asal_barang")
+            Column::make("Id pusat", "id_pusat")
+                ->sortable(),
+            Column::make("Id status", "id_status")
+                ->sortable(),
+            Column::make("Id kurir", "id_kurir")
+                ->sortable(),
+            Column::make("Id supplier", "id_supplier")
                 ->sortable(),
             Column::make("Id barang", "id_barang")
                 ->sortable(),

@@ -24,6 +24,8 @@ use App\Http\Controllers\CabangKeTokoController;
 use App\Http\Controllers\GudangDanTokoController;
 use App\Http\Controllers\GudangController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\PusatKeCabangController;
+use App\Http\Controllers\PusatKeSupplierController;
 
 
 Route::middleware('guest')->group(function () {
@@ -80,7 +82,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('gudangs', GudangController::class);
     Route::resource('tokos', TokoController::class);
     Route::resource('barangs', DetailGudangController::class);
-
+    Route::resource('penerimaan-di-pusat', PenerimaanDiPusatController::class);
+    Route::resource('pusat-ke-cabang', PusatKeCabangController::class);
+    Route::resource('suppliers', SupplierController::class);
+    Route::resource('pusat-ke-supplier', PusatKeSupplierController::class);
 
 
 //     // Routes untuk Gudang - SuperAdmin, Supervisor, Admin

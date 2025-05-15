@@ -29,12 +29,6 @@ class SuppliersTable extends DataTableComponent
                 ->sortable(),
             Column::make("No telepon", "no_telepon")
                 ->sortable(),
-            Column::make("Flag", "flag")
-                ->sortable(),
-            Column::make("Created at", "created_at")
-                ->sortable(),
-            Column::make("Updated at", "updated_at")
-                ->sortable(),
         ];
     }
 

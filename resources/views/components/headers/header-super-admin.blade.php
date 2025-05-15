@@ -89,10 +89,10 @@
                       <a href="{{ route('penerimaan-di-pusat.index') }}" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Penerimaan Barang</a>
                    </li>
                    <li>
-                      <a href="#pengiriman-barang" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Pengiriman Barang</a>
+                      <a href="{{ route('pusat-ke-cabang.index') }}" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Pengiriman Barang</a>
                    </li>
                    <li>
-                      <a href="#retur-barang" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Retur Barang</a>
+                      <a href="{{ route('pusat-ke-supplier.index') }}" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Retur Barang</a>
                    </li>
              </ul>
           </li>

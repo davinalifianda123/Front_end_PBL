@@ -18,17 +18,9 @@ class SupplierController extends Controller
                 ->orderBy('id')
                 ->paginate(10);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Data Supplier',
-                'data' => $suppliers,
-            ]);
+            return view('suppliers.index', compact('suppliers'));
         } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Terjadi kesalahan saat mengambil data supplier.',
-                'error' => $e->getMessage(),
-            ], 500);
+            return view('suppliers.index', ['message' => 'Terjadi kesalahan saat mengambil data Kategori Barang.', 'error' => $e->getMessage()]);
         }
     }
 
