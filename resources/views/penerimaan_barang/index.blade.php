@@ -22,7 +22,7 @@
         @endif
         
         <div class="px-6">
-            <form action="{{ route('penerimaan-barang.index') }}" method="GET">
+            <form action="{{ route('penerimaan-di-pusat.index') }}" method="GET">
                 <div class="flex mb-4">
                     <div class="relative flex-grow">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -45,56 +45,7 @@
         </div>
         
         <div class="overflow-x-auto px-6">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Asal Barang</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tujuan Pengiriman</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Penerimaan</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jumlah Item</th>
-                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    @forelse($penerimaanBarangs as $penerimaan)
-                        <tr class="hover:bg-gray-50">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ $penerimaan->id }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $penerimaan->lokasiAsal->gudang->nama_gudang ?? $penerimaan->lokasiAsal->toko->nama_toko ?? 'N/A' }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $penerimaan->lokasiTujuan->gudang->nama_gudang ??$penerimaan->lokasiTujuan->toko->nama_toko ?? 'N/A' }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $penerimaan->tanggal_penerimaan ? $penerimaan->tanggal_penerimaan->format('d/m/Y') : 'N/A' }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $penerimaan->detailPenerimaanBarang->count() }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <div class="flex justify-end space-x-4">
-                                    <a href="{{ route('penerimaan-barang.show', $penerimaan) }}" class="text-green-600 hover:text-green-900">Detail</a>
-                                    <a href="{{ route('penerimaan-barang.edit', $penerimaan) }}" class="text-amber-600 hover:text-amber-900">Edit</a>
-                                    <form action="{{ route('penerimaan-barang.destroy', $penerimaan) }}" method="POST" class="inline">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Yakin ingin menghapus data ini dan semua detailnya?')">Hapus</button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" class="px-6 py-4 whitespace-nowrap text-sm text-center text-gray-500">Tidak ada data</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        
-        <div class="px-6 py-4">
-            {{ $penerimaanBarangs->withQueryString()->links() }}
+            <livewire:penerimaan-di-pusat-table />
         </div>
     </div>
 </x-default-layout>

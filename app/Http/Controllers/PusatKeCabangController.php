@@ -19,13 +19,15 @@ class PusatKeCabangController extends Controller
      */
     public function index()
     {
-        $pusatKeCabang = PusatKeCabang::with('pusat', 'cabang', 'barang','kurir', 'satuanBerat', 'status')->get();
+        try {
+            $pusatKeCabang = PusatKeCabang::with('pusat', 'cabang', 'barang','kurir', 'satuanBerat', 'status')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
 
-        return response()->json([
-            'status'=> true,
-            'message'=> 'Data Penerimaan Di Cabang',
-            'data'=> $pusatKeCabang,
-        ]);
+            return view('pengiriman_barang.index', compact('pusatKeCabang'));
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan saat mengambil data: ' . $e->getMessage());
+        }
     }
 
     /**

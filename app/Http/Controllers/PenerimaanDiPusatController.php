@@ -17,13 +17,15 @@ class PenerimaanDiPusatController extends Controller
      */
     public function index()
     {
-        $penerimaanDiPusat = PenerimaanDiPusat::with('jenisPenerimaan', 'asalBarang', 'barang', 'satuanBerat')->get();
+        try {
+            $penerimaanDiPusat = PenerimaanDiPusat::with('jenisPenerimaan', 'asalBarang', 'barang', 'satuanBerat')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Data Penerimaan Di Pusat retrieved successfully',
-            'data' => $penerimaanDiPusat
-        ]);
+            return view('penerimaan_barang.index', compact('penerimaanDiPusat'));
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan saat mengambil data: ' . $e->getMessage());
+        }
     }
 
     /**

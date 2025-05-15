@@ -86,7 +86,7 @@
              </button>
              <ul id="dropdown-aktivitas-gudang" class="hidden py-2 space-y-2">
                    <li>
-                      <a href="#penerimaan-barang" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Penerimaan Barang</a>
+                      <a href="{{ route('penerimaan-di-pusat.index') }}" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Penerimaan Barang</a>
                    </li>
                    <li>
                       <a href="#pengiriman-barang" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group  text-white hover:bg-gray-700">Pengiriman Barang</a>
