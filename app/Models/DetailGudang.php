@@ -39,4 +39,9 @@ class DetailGudang extends Model
     {
         return $this->belongsTo(SatuanBerat::class, 'id_satuan_berat');
     }
+
+    public function KategoriBarang(): BelongsTo
+    {
+        return $this->belongsTo(KategoriBarang::class, 'id_kategori_barang');
+    }
 }

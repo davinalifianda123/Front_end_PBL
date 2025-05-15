@@ -79,8 +79,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('kategori-barang', KategoriBarangController::class);
     Route::resource('gudangs', GudangController::class);
     Route::resource('tokos', TokoController::class);
-
-    Route::resource('barangs.index', DetailGudangController::class);
+    Route::resource('barangs', DetailGudangController::class);
 
 
 
