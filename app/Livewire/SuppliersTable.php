@@ -21,9 +21,7 @@ class SuppliersTable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable(),
-            Column::make("Nama gudang toko", "nama_gudang_toko")
-                ->sortable(),
-            Column::make("Kategori bangunan", "kategori_bangunan")
+            Column::make("Nama Supplier", "nama_gudang_toko")
                 ->sortable(),
             Column::make("Alamat", "alamat")
                 ->sortable(),

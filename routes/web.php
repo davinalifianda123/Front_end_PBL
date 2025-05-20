@@ -82,7 +82,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('kategori-barang', KategoriBarangController::class);
     Route::resource('gudangs', GudangController::class);
     Route::resource('tokos', TokoController::class);
-    Route::resource('detail-gudang', DetailGudangController::class);
+    Route::resource('barangs', DetailGudangController::class);
     Route::resource('penerimaan-di-pusat', PenerimaanDiPusatController::class);
     Route::resource('pusat-ke-cabang', PusatKeCabangController::class);
     Route::resource('suppliers', SupplierController::class);
