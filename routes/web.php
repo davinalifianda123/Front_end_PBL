@@ -86,6 +86,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('penerimaan-di-pusat', PenerimaanDiPusatController::class);
     Route::resource('pusat-ke-cabang', PusatKeCabangController::class);
     Route::resource('suppliers', SupplierController::class);
+    Route::patch('/suppliers/{id}/deactivate', [SupplierController::class, 'deactivate'])->name('suppliers.deactivate');
     Route::resource('pusat-ke-supplier', PusatKeSupplierController::class);
     
     // Tambahkan route lain yang kamu perlukan di sini...

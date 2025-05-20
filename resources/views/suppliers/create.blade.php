@@ -9,9 +9,9 @@
                 @csrf
                 
                 <div class="mb-4">
-                    <label for="nama_toko_supplier" class="block text-gray-700 font-medium mb-2">Nama Toko Supplier</label>
-                    <input type="text" name="nama_toko_supplier" id="nama_toko_supplier" value="{{ old('nama_toko_supplier') }}" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 {{ $errors->has('nama_toko_supplier') ? 'border-red-500' : 'border-gray-300' }}" required>
-                    @error('nama_toko_supplier')
+                    <label for="nama_gudang_toko" class="block text-gray-700 font-medium mb-2">Nama Toko Supplier</label>
+                    <input type="text" name="nama_gudang_toko" id="nama_gudang_toko" value="{{ old('nama_gudang_toko') }}" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 {{ $errors->has('nama_gudang_toko') ? 'border-red-500' : 'border-gray-300' }}" required>
+                    @error('nama_gudang_toko')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
@@ -28,22 +28,6 @@
                     <label for="no_telepon" class="block text-gray-700 font-medium mb-2">Nomor Telepon</label>
                     <input type="text" name="no_telepon" id="no_telepon" value="{{ old('no_telepon') }}" class="w-full px-3 py-2 borderrounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 {{ $errors->has('no_telepon') ? 'border-red-500' : 'border-gray-300' }}" required>
                     @error('no_telepon')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                
-                <div class="mb-4">
-                    <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
-                    <input type="email" name="email" id="email" value="{{ old('email') }}" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 {{ $errors->has('email') ? 'border-red-500' : 'border-gray-300' }}" required>
-                    @error('email')
-                        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-                
-                <div class="mb-4">
-                    <label for="contact_person" class="block text-gray-700 font-medium mb-2">Contact Person</label>
-                    <input type="text" name="contact_person" id="contact_person" value="{{ old('contact_person') }}" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 {{ $errors->has('contact_person') ? 'border-red-500' : 'border-gray-300' }}" required>
-                    @error('contact_person')
                         <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>

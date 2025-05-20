@@ -1,5 +1,5 @@
 <x-default-layout>
-    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+    <div class="bg-white shadow-md rounded-lg overflow-hidden px-6 py-4">
         <div class="flex justify-between items-center p-4 border-b">
             <h1 class="text-2xl font-bold text-gray-800">Detail Supplier</h1>
             <div class="space-x-2">
@@ -12,11 +12,11 @@
         <div class="p-4">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="border-b md:border-b-0 md:border-r pb-4 md:pb-0 md:pr-4">
-                    <h2 class="text-xl font-semibold mb-4 text-gray-700">Informasi Toko</h2>
+                    <h2 class="text-xl font-semibold mb-4 text-gray-700">Informasi Supplier</h2>
                     
                     <div class="mb-4">
-                        <span class="block text-gray-500 text-sm">Nama Toko</span>
-                        <span class="block text-lg font-medium">{{ $supplier->nama_toko_supplier }}</span>
+                        <span class="block text-gray-500 text-sm">Nama Supplier</span>
+                        <span class="block text-lg font-medium">{{ $supplier->nama_gudang_toko }}</span>
                     </div>
                     
                     <div class="mb-4">
@@ -34,18 +34,8 @@
                     <h2 class="text-xl font-semibold mb-4 text-gray-700">Kontak</h2>
                     
                     <div class="mb-4">
-                        <span class="block text-gray-500 text-sm">Contact Person</span>
-                        <span class="block text-lg font-medium">{{ $supplier->contact_person }}</span>
-                    </div>
-                    
-                    <div class="mb-4">
                         <span class="block text-gray-500 text-sm">Nomor Telepon</span>
                         <span class="block text-lg">{{ $supplier->no_telepon }}</span>
-                    </div>
-                    
-                    <div class="mb-4">
-                        <span class="block text-gray-500 text-sm">Email</span>
-                        <span class="block text-lg">{{ $supplier->email }}</span>
                     </div>
                 </div>
             </div>

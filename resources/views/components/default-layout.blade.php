@@ -36,7 +36,7 @@
             </aside>
 
             <!-- Main Content -->
-            <main class="flex-1 ml-64 mt-4 overflow-auto">
+            <main class="flex-1 ml-64 mt-4 overflow-auto px-6 py-4">
                 {{ $slot }}
             </main>
         </div>

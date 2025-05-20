@@ -20,19 +20,30 @@ class SuppliersTable extends DataTableComponent
     {
         return [
             Column::make("Id", "id")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Nama Supplier", "nama_gudang_toko")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Alamat", "alamat")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("No telepon", "no_telepon")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
+            Column::make("Action")
+            ->label(fn($row, Column $column) => view('components.table-actions-suppliers')->with([
+                'row' => $row,
+                'rute_lihat' => route('suppliers.show', $row->id),
+                'rute_edit' => route('suppliers.edit', $row->id),
+            ])),
         ];
     }
 
     public function builder(): Builder
     {
         return GudangDanToko::query()
-            ->where('kategori_bangunan', 1);
+            ->where('kategori_bangunan', 1)
+            ->where('flag', 1);
     }
 }
