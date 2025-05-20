@@ -16,7 +16,7 @@
       </div>
 
       <!-- Profile -->
-      <div class="hidden sm:flex absolute inset-y-0 right-0 items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+      <div class="{{ request()->is('profile') || request()->is('profile/edit') || request()->is('profile/update') ? 'hidden' : 'sm:flex hidden md:flex'}} absolute inset-y-0 right-0 items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
         <!-- Profile -->
         <div class="relative ml-3">
           <div>
@@ -49,7 +49,7 @@
                   <p class="text-gray-900 font-medium">{{ Auth::user()->nama_user }}</p>
                   <p class="text-gray-500 text-sm">{{ Auth::user()->role->nama_role }}</p>
                 </div>
-                <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">
+                <a href="/profile" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">
                   <svg class="mr-2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>

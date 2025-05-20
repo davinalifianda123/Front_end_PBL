@@ -27,6 +27,7 @@ use App\Http\Controllers\GudangController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PusatKeCabangController;
 use App\Http\Controllers\PusatKeSupplierController;
+use App\Http\Controllers\ProfileController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/', fn() => redirect('/login'));
@@ -88,6 +89,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('suppliers', SupplierController::class);
     Route::resource('pusat-ke-supplier', PusatKeSupplierController::class);
     
+    Route::get('/profile', function () {return view('profile.show');})->name('profile.show');
+    Route::get('/profile/edit', function () {return view('profile.edit');})->name('profile.edit');
+    Route::put('/profile/update', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     // Tambahkan route lain yang kamu perlukan di sini...
 });
 
