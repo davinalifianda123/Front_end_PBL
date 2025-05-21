@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Gudangku - Login</title>
 
         <!-- Styles / Scripts -->
         @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
@@ -20,21 +20,27 @@
             </style>
         @endif
     </head>
-    <body class="text-[#1b1b18] min-h-screen flex lg:flex-row">
-        <!-- Background IMG -->
-        <div class="hidden h-screen p-6 lg:w-1/2 lg:flex">
-            <div class="w-full h-full overflow-hidden rounded-xl ">
+    <body class="bg-[#FAFAFA] text-[#1b1b18] min-h-screen overflow-x-hidden flex flex-col lg:flex-row">
+        <!-- Background IMG - Visible on all screens, positioned differently -->
+        <div class="lg:hidden w-full p-4">
+            <div class="w-full h-48 overflow-hidden rounded-3xl">
+                <img src="{{ asset('images/login-image.png') }}" alt="Ilustrasi Login" class="w-full h-full object-cover">
+            </div>
+        </div>
+        
+        <div class="hidden h-screen lg:w-1/2 lg:flex p-6">
+            <div class="w-full h-full overflow-hidden rounded-3xl">
                 <img src="{{ asset('images/login-image.png') }}" alt="Ilustrasi Login" class="w-full h-full object-cover">
             </div>
         </div>
 
         <!-- Form login -->
-        <div class="w-full lg:w-1/2 bg-white flex items-center justify-center p-6">
+        <div class="w-full lg:w-1/2 bg-[#FAFAFA] flex items-center justify-center p-6 lg:p-12 overflow-auto">
             {{-- Form --}}
             <div class="w-full max-w-md">
                 {{-- Logo dan Judul --}}
-                <div class="flex items-center space-x-2 mb-8">
-                    <svg width="52" height="50" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div class="flex items-center space-x-3 mb-8">
+                    <svg width="40" height="38" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M25.529 32.7902L8.708 39.9998L24.5555 22.9637L40.2407 20.1333L25.529 32.7902Z" fill="url(#paint0_linear_4719_3880)"/>
                         <path d="M26.0159 5.23365L8.00494 0L24.5555 22.964L40.2407 20.1335L26.0159 5.23365Z" fill="url(#paint1_linear_4719_3880)"/>
                         <path d="M24.6095 22.9105L8.70799 40L0 19.5995L8.00486 0L24.6095 22.9105Z" fill="url(#paint2_radial_4719_3880)"/>
@@ -54,49 +60,85 @@
                             </radialGradient>
                         </defs>
                     </svg>
-                    <h1 class="text-4xl font-extrabold text-[#161A30]">Gudangku</h1>
+                    <h1 class="text-xl font-semibold text-[#1b1b18]">Gudangku</h1>
                 </div>
+                
                 <div class="mb-6">
-                    <h1 class="text-2xl font-medium text-gray-800">Login</h1>
-                    <p class="text-sm text-gray-600">Silahkan masukkan email dan password</p>
+                    <h1 class="text-2xl font-semibold text-gray-800">Login</h1>
+                    <p class="text-sm text-gray-600 mt-1">Silahkan masukkan email dan password</p>
                 </div>
-                <form method="POST" action="{{ route('login') }}">
+                
+                <form method="POST" action="{{ route('login') }}" class="space-y-4">
                     @csrf
-                    <div class="mb-4">
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                        <input type="email" id="email" name="email" value="{{ old('email') }}" required
-                            class="w-full px-3 py-2 outline rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('email') border-red-500 @enderror">
+                    <div>
+                        <div class="relative">
+                            <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="Email Address" required
+                                class="w-full px-4 py-3 bg-gray-100 border-none rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-300 @error('email') border-red-500 @enderror">
+                        </div>
                         @error('email')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="mb-4">
-                        <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                        <input type="password" id="password" name="password" required
-                            class="w-full px-3 py-2 outline rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 @error('password') border-red-500 @enderror">
+                    <div>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" placeholder="Password" required
+                                class="w-full px-4 py-3 bg-gray-100 border-none rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-300 @error('password') border-red-500 @enderror"
+                                autocomplete="new-password">
+                            <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600">
+                                <svg id="eye-show" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                                </svg>
+                                <svg id="eye-hide" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 hidden" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clip-rule="evenodd" />
+                                    <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
+                                </svg>
+                            </button>
+                        </div>
                         @error('password')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
-                    <div class="mb-6 flex items-center">
-                        <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}
-                            class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                        <label for="remember" class="ml-2 block text-sm text-gray-700">Remember Me</label>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}
+                                class="h-4 w-4 text-[#31304D] focus:ring-[#31304D] border-gray-300 rounded">
+                            <label for="remember" class="ml-2 block text-sm text-gray-700">Remember Me</label>
+                        </div>
+                        <a href="#" class="text-sm text-[#31304D] hover:text-[#161A30]">Forgot Password?</a>
                     </div>
+                    
                     <div>
-                    <button type="submit"
-                    class="w-full bg-[#E3E3E3] text-[#777777] py-2 px-4 rounded-md 
-                            hover:bg-[#31304D] hover:text-white 
-                            active:bg-[#161A30] active:text-white 
-                            focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 
-                            transition-colors duration-200">
-                    Login
-                    </button>
+                        <button type="submit"
+                            class="w-full bg-gray-100 text-gray-800 py-3 px-4 rounded-lg
+                                hover:bg-[#161A30] hover:text-white
+                                focus:outline-none focus:ring-1 focus:ring-gray-300
+                                transition-colors duration-200 font-medium">
+                            Login
+                        </button>
                     </div>
                 </form>
             </div>
         </div>
+
+        <script>
+            function togglePasswordVisibility() {
+                const passwordInput = document.getElementById('password');
+                const eyeShow = document.getElementById('eye-show');
+                const eyeHide = document.getElementById('eye-hide');
+                
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    eyeShow.classList.add('hidden');
+                    eyeHide.classList.remove('hidden');
+                } else {
+                    passwordInput.type = 'password';
+                    eyeShow.classList.remove('hidden');
+                    eyeHide.classList.add('hidden');
+                }
+            }
+        </script>
     </body>
 </html>
