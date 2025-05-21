@@ -28,10 +28,17 @@
                         required>
                 </div>
 
-                <div class="mb-6">
+                <div class="mb-4">
                     <label for="alamat" class="block text-gray-700 font-medium mb-2">Alamat</label>
                     <input type="text" name="alamat" id="alamat" 
                         value="{{ old('alamat') }}" 
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="mb-6">
+                    <label for="no_telepon" class="block text-gray-700 font-medium mb-2">No Telepon</label>
+                    <input type="text" name="no_telepon" id="no_telepon" 
+                        value="{{ old('no_telepon') }}" 
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </div>
 
