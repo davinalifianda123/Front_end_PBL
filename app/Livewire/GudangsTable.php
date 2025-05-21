@@ -39,8 +39,6 @@ class GudangsTable extends DataTableComponent
                 'row' => $row,
                 'rute_lihat' => route('gudangs.show', $row->id),
                 'rute_edit' => route('gudangs.edit', $row->id),
-                'rute_deactivate' => route('gudangs.deactivate', $row->id),
-                'rute_activate' => route('gudangs.activate', $row->id),
     ])),
 
 
