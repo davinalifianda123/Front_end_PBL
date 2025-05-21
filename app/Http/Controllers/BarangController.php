@@ -227,7 +227,7 @@ class BarangController extends Controller
                 $barang->update(['flag' => 0]);
             }, 3);
 
-            return response()->json([
+            return view('barangs.index', [
                 'status' => true,
                 'message' => "Barang {$barang->nama_barang} berhasil dinonaktifkan!",
                 'data' => $barang,
@@ -258,7 +258,7 @@ class BarangController extends Controller
                 $barang->update(['flag' => 1]);
             }, 3);
 
-            return response()->json([
+            return view('barangs.index' , [
                 'status' => true,
                 'message' => "Barang {$barang->nama_barang} berhasil diaktifkan!",
                 'data' => $barang,

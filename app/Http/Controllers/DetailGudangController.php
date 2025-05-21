@@ -71,7 +71,7 @@ class DetailGudangController extends Controller
     public function show(string $id)
     {
         try {
-            $detailGudang = DetailGudang::with('barang', 'gudang', 'satuanBerat')->findOrFail($id);
+            $detailGudang = DetailGudang::with('barang','barang.kategoriBarang', 'gudang', 'satuanBerat')->findOrFail($id);
             return view('barangs.show', [
                 'detailGudang' => $detailGudang,
                 'message' => "Data Barang Gudang dengan ID: {$id}",
