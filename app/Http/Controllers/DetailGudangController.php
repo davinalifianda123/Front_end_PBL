@@ -34,11 +34,13 @@ class DetailGudangController extends Controller
         $barangs = Barang::all();
         $gudang = GudangDanToko::all();
         $satuanBerat = SatuanBerat::all();
+        $kategoris = KategoriBarang::all();
 
         return view('barangs.create', [
             'barangs' => $barangs,
             'gudang' => $gudang,
             'satuanBerat' => $satuanBerat,
+            'categories' => $kategoris,
             'message' => 'Form Tambah Barang Gudang',
         ]);
     }

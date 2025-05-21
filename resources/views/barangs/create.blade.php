@@ -13,7 +13,7 @@
         @endif
     
         <div class="border-t border-gray-200">
-            <form action="{{ route('barangs.store') }}" method="POST" class="p-6">
+            <form action="{{ route('barangss.store') }}" method="POST" class="p-6">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -27,25 +27,16 @@
     
                     <div>
                         <label for="id_kategori" class="block text-sm font-medium text-gray-700">Kategori</label>
-                        <select name="id_kategori" id="id_kategori" required
+                        <select name="id_kategori_barang" id="id_kategori_barang" required
                                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             <option value="">Pilih Kategori</option>
                             @foreach($categories as $category)
-                                <option value="{{ $category->id }}" {{ old('id_kategori') == $category->id ? 'selected' : '' }}>
+                                <option value="{{ $category->id }}" {{ old('id_kategori_barang') == $category->id ? 'selected' : '' }}>
                                     {{ $category->nama_kategori_barang }}
                                 </option>
                             @endforeach
                         </select>
                         @error('id_kategori')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-    
-                    <div>
-                        <label for="berat" class="block text-sm font-medium text-gray-700">Berat (gram)</label>
-                        <input type="number" name="berat" id="berat" value="{{ old('berat') }}" required min="0"
-                            class="py-2 px-3 border mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                        @error('berat')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>

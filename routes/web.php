@@ -70,12 +70,12 @@ Route::middleware(['auth'])->group(function () {
 
     // Routes untuk Barang - SuperAdmin, Supervisor, Admin, Supplier, Buyer
     Route::middleware(['role:SuperAdmin,Supervisor,Admin,Supplier,Buyer'])->group(function () {
-        Route::resource('barangs', BarangController::class);
+        Route::resource('barangss', BarangController::class);
 
         // Activate/Deactivate hanya untuk SuperAdmin saja
         Route::middleware(['role:SuperAdmin'])->group(function () {
-            Route::patch('barangs/{barang}/activate', [BarangController::class, 'activate'])->name('barangs.activate');
-            Route::patch('barangs/{barang}/deactivate', [BarangController::class, 'deactivate'])->name('barangs.deactivate');
+            Route::patch('barangss/{barang}/activate', [BarangController::class, 'activate'])->name('barangss.activate');
+            Route::patch('barangss/{barang}/deactivate', [BarangController::class, 'deactivate'])->name('barangss.deactivate');
         });
     });
 
