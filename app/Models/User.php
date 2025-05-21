@@ -24,8 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'id_role',
-        'id_gudang',
-        'id_toko',
+        'id_lokasi',
         'flag'
     ];
 
