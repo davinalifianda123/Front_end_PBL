@@ -23,7 +23,7 @@
                         Nama Barang
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ $detailGudang->nama_barang }}
+                        {{ $detailGudang->barang->nama_barang }}
                     </dd>
                 </div>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -31,7 +31,7 @@
                         Kategori
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ $detailGudang->kategori->nama_kategori_barang ?? 'N/A' }}
+                        {{ $detailGudang->barang->kategoriBarang->nama_kategori_barang}}
                     </dd>
                 </div>
                 @if($detailGudang->toko)
@@ -40,7 +40,7 @@
                             Toko
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {{ $detailGudang->toko->nama_toko ?? 'N/A' }}
+                            {{ $detailGudang->gudang->nama_gudang_toko }}
                         </dd>
                     </div>
                 @endif
@@ -50,7 +50,7 @@
                             Gudang
                         </dt>
                         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {{ $detailGudang->gudang->nama_gudang ?? 'N/A' }}
+                            {{ $detailGudang->gudang->nama_gudang_toko }}
                         </dd>
                     </div>
                 @endif
@@ -60,22 +60,6 @@
                     </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                         {{ number_format($detailGudang->jumlah_stok) }} unit
-                    </dd>
-                </div>
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                        Berat
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ number_format($detailGudang->berat) }} gram
-                    </dd>
-                </div>
-                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">
-                        Harga Jual
-                    </dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                        Rp {{ number_format($detailGudang->harga_jual) }}
                     </dd>
                 </div>
             </dl>

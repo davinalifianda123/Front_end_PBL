@@ -89,7 +89,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('suppliers', SupplierController::class);
     Route::patch('/suppliers/{id}/deactivate', [SupplierController::class, 'deactivate'])->name('suppliers.deactivate');
     Route::resource('pusat-ke-supplier', PusatKeSupplierController::class);
-    
+
+    //resource admin
+    Route::resource('cabang-ke-pusat', CabangKePusatController::class);
+
     Route::get('/profile', function () {return view('profile.show');})->name('profile.show');
     Route::get('/profile/edit', function () {return view('profile.edit');})->name('profile.edit');
     Route::put('/profile/update', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');

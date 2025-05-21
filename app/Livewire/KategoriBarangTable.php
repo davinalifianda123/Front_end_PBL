@@ -46,10 +46,10 @@ class KategoriBarangTable extends DataTableComponent
             Column::make("Action")
                 ->label(fn($row, Column $column) => view('components.table-actions')->with([
                     'row' => $row,
-                    'rute_lihat' => route('kategori-barangs.show', $row->id),
-                    'rute_edit' => route('kategori-barangs.edit', $row->id),
-                    'rute_deactivate' => route('kategori-barangs.deactivate', $row->id),
-                    'rute_activate' => route('kategori-barangs.activate', $row->id),
+                    'rute_lihat' => route('categories.show', $row->id),
+                    'rute_edit' => route('categories.edit', $row->id),
+                    'rute_deactivate' => route('categories.deactivate', $row->id),
+                    'rute_activate' => route('categories.activate', $row->id),
                 ])),
             
             // ButtonGroupColumn::make('Actions')

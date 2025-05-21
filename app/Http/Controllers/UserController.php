@@ -1,9 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\Role;
-use App\Models\Toko;
 use App\Models\User;
-use App\Models\Gudang;
+use App\Models\GudangDanToko;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -45,8 +44,8 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        $gudangs = Gudang::all();
-        $tokos = Toko::all();
+        $gudangs = GudangDanToko::all();
+        $tokos = GudangDanToko::all();
         
         return view('users.create', compact('roles', 'gudangs', 'tokos'));
     }
@@ -155,7 +154,6 @@ class UserController extends Controller
         try {
             DB::transaction(function () use ($user) {
                 $user->update(['flag' => 0]);
-                $user->toko()->update(['flag' => 0]);
             });
 
             return redirect()->back()

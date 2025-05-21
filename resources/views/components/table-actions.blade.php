@@ -33,14 +33,6 @@
     @csrf
     @method('PATCH')
 
-    <form 
-    action="{{ $row->flag == 0 ? route('kategori-barangs.activate', $row->id) : route('kategori-barangs.deactivate', $row->id) }}" 
-    method="post"
-    onsubmit="return confirm('Yakin ingin mengubah status kategori ini?');"
->
-    @csrf
-    @method('PATCH')
-
     <button type="submit" aria-label="Toggle Status" class="relative inline-flex items-center h-8 w-16 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 {{ $row->flag == 1 ? 'bg-green-600' : 'bg-red-300' }}">
         <span class="sr-only">Toggle Status</span>
 
