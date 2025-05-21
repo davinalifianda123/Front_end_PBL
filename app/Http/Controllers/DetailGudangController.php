@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\GudangDanToko;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Models\KategoriBarang;
 
 class DetailGudangController extends Controller
 {
@@ -72,6 +73,7 @@ class DetailGudangController extends Controller
     {
         try {
             $detailGudang = DetailGudang::with('barang','barang.kategoriBarang', 'gudang', 'satuanBerat')->findOrFail($id);
+            
             return view('barangs.show', [
                 'detailGudang' => $detailGudang,
                 'message' => "Data Barang Gudang dengan ID: {$id}",
@@ -87,16 +89,15 @@ class DetailGudangController extends Controller
     public function edit(string $id)
     {
         try {
-            $detailGudang = DetailGudang::findOrFail($id);
-            $barangs = Barang::all();
-            $gudang = GudangDanToko::all();
-            $satuanBerat = SatuanBerat::all();
+            
+            $detailGudang = DetailGudang::with('barang','barang.kategoriBarang', 'gudang', 'satuanBerat')->findOrFail($id);
+            $kategoris = KategoriBarang::all();
+            $barang = Barang::findOrFail($id);
 
             return view('barangs.edit', [
                 'detailGudang' => $detailGudang,
-                'barangs' => $barangs,
-                'gudang' => $gudang,
-                'satuanBerat' => $satuanBerat,
+                'barang' => $barang,
+                'kategoris' => $kategoris,
                 'message' => 'Form Edit Barang Gudang',
             ]);
         } catch (\Throwable $th) {
@@ -109,21 +110,28 @@ class DetailGudangController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $validated = $request->validate([
-            'id_barang' => 'required|exists:barangs,id',
-            'id_gudang' => 'required|exists:gudang_dan_tokos,id',
-            'jumlah_stok' => 'required|integer|min:1',
-            'id_satuan_berat' => 'required|exists:satuan_berats,id',
-            'stok_opname' => 'nullable|integer|min:0|max:1', // Ditambahkan nullable agar tidak selalu wajib diisi
-        ]);
-
+        
         try {
-            $detailGudang = DetailGudang::findOrFail($id);
-            DB::transaction(function () use ($validated, $detailGudang) {
-                $detailGudang->update($validated);
-            }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+            $detailGudang = DetailGudang::with('barang','barang.kategoriBarang', 'gudang')->findOrFail($id);
+            $barang = Barang::findOrFail($id);
+            $barang->id_kategori_barang = $request->id_kategori;
+            // Tapi lupa ini:
+            $barang->save();
 
-            return redirect()->route('barangs.index')->with('success', "Data Barang Gudang dengan ID: {$detailGudang->id} berhasil diperbarui");
+            $validated = $request->validate([
+                'nama_barang' => 'required|string|max:225',
+                'jumlah_stok' => 'required|integer|min:1',
+                'id_kategori' => 'required|integer'
+                ]);
+            $detailGudang->update($validated);
+            $barang->update($validated);
+            
+            return view('barangs.index' , [
+                'status' => true,
+                'message' => "Barang {$detailGudang->nama_barang} berhasil diperbarukan",
+                'data' => $detailGudang,
+            ]);
+
         } catch (ModelNotFoundException $e) {
             return redirect()->route('barangs.index')->with('error', "Data Barang Gudang dengan ID: {$id} tidak ditemukan");
         } catch (\Throwable $th) {
