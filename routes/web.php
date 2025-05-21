@@ -98,9 +98,21 @@ Route::middleware(['auth'])->group(function () {
 
 
 //Route untuk edit pada gudang
+Route::get('/gudang', [GudangController::class, 'index'])->name('gudang.index');
+Route::get('/gudang/create', [GudangController::class, 'create'])->name('gudang.create');
+Route::post('/gudang', [GudangController::class, 'store'])->name('gudang.store');
+
+Route::patch('/gudang/{id}/activate', [GudangController::class, 'activate'])->name('gudang.activate');
+Route::patch('/gudang/{id}/deactivate', [GudangController::class, 'deactivate'])->name('gudang.deactivate');
+
 Route::get('/gudang/{id}/edit', [GudangController::class, 'edit'])->name('gudang.edit');
 Route::put('/gudang/{id}', [GudangController::class, 'update'])->name('gudang.update');
-Route::get('/gudang', [GudangController::class, 'index'])->name('gudang.index');
+Route::get('/gudang/{id}', [GudangController::class, 'show'])->name('gudang.show');
+
+
+
+
+
 //Route untuk edit pada toko
 Route::get('/toko', [TokoController::class, 'index'])->name('toko.index');
 Route::get('/toko/create', [TokoController::class, 'create'])->name('tokos.create');

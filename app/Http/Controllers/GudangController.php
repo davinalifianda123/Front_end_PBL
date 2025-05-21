@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\GudangDanToko;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -37,7 +36,7 @@ class GudangController extends Controller
                 'no_telepon' => 'nullable|string|max:20',
             ]);
 
-            $gudang = GudangDanToko::create(array_merge($validated, ['kategori_bangunan' => 0 ]));
+            $gudang = GudangDanToko::create(array_merge($validated, ['kategori_bangunan' => 0]));
 
             return redirect()->route('gudang.index')->with('success', "Gudang {$gudang->nama_gudang_toko} berhasil ditambahkan.");
         } catch (ValidationException $e) {
@@ -93,21 +92,14 @@ class GudangController extends Controller
             $gudang = GudangDanToko::where('kategori_bangunan', 0)->findOrFail($id);
             $gudang->update(['flag' => 0]);
 
-            return redirect()->route('gudang.index')->with('success', "Gudang {$gudang->nama_gudang_toko} berhasil dinonaktifkan.");
+            return view('gudangs.index', [
+                'status' => true,
+                'message' => "Gudang {$gudang->nama_gudang_toko} berhasil dinonaktifkan!",
+                'data' => $gudang,
+            ]);
         } catch (ModelNotFoundException $e) {
             return back()->with('error', "Data Gudang tidak ditemukan.");
         }
-    }
-
-    public function activate($id)
-    {
-        try {
-            $gudang = GudangDanToko::where('kategori_bangunan', 0)->findOrFail($id);
-            $gudang->update(['flag' => 1]);
-
-            return redirect()->route('gudang.index')->with('success', "Gudang {$gudang->nama_gudang_toko} berhasil diaktifkan.");
-        } catch (ModelNotFoundException $e) {
-            return back()->with('error', "Data Gudang tidak ditemukan.");
-        }
+            
     }
 }

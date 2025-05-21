@@ -25,9 +25,6 @@ class TokosTable extends DataTableComponent
             Column::make("Nama gudang toko", "nama_gudang_toko")
                 ->sortable()
                 ->searchable(),
-            Column::make("Kategori bangunan", "kategori_bangunan")
-                ->sortable()
-                ->searchable(),
             Column::make("Alamat", "alamat")
                 ->sortable()
                 ->searchable(),
