@@ -18,7 +18,7 @@ class KategoriBarangTable extends DataTableComponent
 
         // Tabel
         $this->setTableAttributes([
-            'class' => 'w-full text-sm text-left rtl:text-right text-[#111827] bg-white',
+            'class' => 'w-full text-sm text-left rtl:text-right text-[#111827] bg-blue',
         ]);
 
         // Header kolom

@@ -87,6 +87,17 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('suppliers', SupplierController::class);
     Route::resource('pusat-ke-supplier', PusatKeSupplierController::class);
 
+//Route untuk edit pada gudang
+Route::get('/gudang/{id}/edit', [GudangController::class, 'edit'])->name('gudang.edit');
+Route::put('/gudang/{id}', [GudangController::class, 'update'])->name('gudang.update');
+Route::get('/gudang', [GudangController::class, 'index'])->name('gudang.index');
+//Route untuk edit pada toko
+Route::get('/toko', [TokoController::class, 'index'])->name('toko.index');
+Route::get('/toko/create', [TokoController::class, 'create'])->name('tokos.create');
+Route::post('/toko', [TokoController::class, 'store'])->name('toko.store');
+Route::get('/toko/{id}/edit', [TokoController::class, 'edit'])->name('toko.edit');
+Route::put('/toko/{id}', [TokoController::class, 'update'])->name('toko.update');
+
 
 //     // Routes untuk Gudang - SuperAdmin, Supervisor, Admin
 //     Route::middleware(['role:SuperAdmin,Supervisor,Admin'])->group(function () {
