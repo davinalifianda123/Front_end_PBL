@@ -34,9 +34,6 @@ class GudangsTable extends DataTableComponent
             Column::make("No telepon", "no_telepon")
                 ->sortable()
                 ->searchable(),
-            Column::make("Status", "flag")
-                ->label(fn($row) => view('components.badge-status', ['flag' => $row->flag])),
-
            Column::make("Action")
                 ->label(fn($row, Column $column) => view('components.table-actions-gudang')->with([
                 'row' => $row,
