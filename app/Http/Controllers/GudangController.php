@@ -98,7 +98,16 @@ class GudangController extends Controller
                 'data' => $gudang,
             ]);
         } catch (ModelNotFoundException $e) {
-            return back()->with('error', "Data Gudang tidak ditemukan.");
+            return response()->json([
+                'status' => false,
+                'message' => "Data Gudang dengan ID: {$id} tidak ditemukan.",
+            ], 404);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => "Terjadi kesalahan saat menonaktifkan gudang dengan ID {$id}.",
+                'error' => $e->getMessage(),
+            ], 500);
         }
             
     }

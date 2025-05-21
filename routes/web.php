@@ -82,6 +82,7 @@ Route::middleware(['auth'])->group(function () {
     // Resource lainnya
     Route::resource('kategori-barang', KategoriBarangController::class);
     Route::resource('gudangs', GudangController::class);
+    Route::patch('/gudangs/{id}/deactivate', [GudangController::class, 'deactivate'])->name('gudangs.deactivate');
     Route::resource('tokos', TokoController::class);
     Route::resource('barangs', DetailGudangController::class);
     Route::resource('penerimaan-di-pusat', PenerimaanDiPusatController::class);
@@ -104,9 +105,6 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/gudang', [GudangController::class, 'index'])->name('gudang.index');
 Route::get('/gudang/create', [GudangController::class, 'create'])->name('gudang.create');
 Route::post('/gudang', [GudangController::class, 'store'])->name('gudang.store');
-
-Route::patch('/gudang/{id}/activate', [GudangController::class, 'activate'])->name('gudang.activate');
-Route::patch('/gudang/{id}/deactivate', [GudangController::class, 'deactivate'])->name('gudang.deactivate');
 
 Route::get('/gudang/{id}/edit', [GudangController::class, 'edit'])->name('gudang.edit');
 Route::put('/gudang/{id}', [GudangController::class, 'update'])->name('gudang.update');

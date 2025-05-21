@@ -13,10 +13,9 @@ class GudangsTable extends DataTableComponent
     protected $model = GudangDanToko::class;
 
     public function configure(): void
-{
-    $this->setPrimaryKey('id');
-
-}
+    {
+        $this->setPrimaryKey('id');
+    }
 
 
     public function columns(): array
@@ -36,12 +35,10 @@ class GudangsTable extends DataTableComponent
                 ->searchable(),
            Column::make("Action")
                 ->label(fn($row, Column $column) => view('components.table-actions-gudang')->with([
-                'row' => $row,
-                'rute_lihat' => route('gudangs.show', $row->id),
-                'rute_edit' => route('gudangs.edit', $row->id),
-    ])),
-
-
+                    'row' => $row,
+                    'rute_lihat' => route('gudangs.show', $row->id),
+                    'rute_edit' => route('gudangs.edit', $row->id),
+                ])),
         ];
     }
 
@@ -49,7 +46,6 @@ class GudangsTable extends DataTableComponent
     {
         return GudangDanToko::query()
             ->where('kategori_bangunan', 0)
-            ->where('flag', 1);
-            
+            ->where('flag', 1);   
     }
 }
