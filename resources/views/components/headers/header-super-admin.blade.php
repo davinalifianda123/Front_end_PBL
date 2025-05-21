@@ -1,18 +1,9 @@
-<button data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar" aria-controls="sidebar-multi-level-sidebar" type="button"
-    class="absolute top-2 left-2 p-2 text-sm text-gray-500 rounded-lg md:hidden focus:outline-none focus:ring-4 focus:ring-gray-200  hover:bg-gray-200">
-    <span class="sr-only">Open sidebar</span>
-    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg">
-        <path clip-rule="evenodd" fill-rule="evenodd"
-            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
-        </path>
-    </svg>
-</button>
+
 
 <aside id="sidebar-multi-level-sidebar"
-  class="fixed top-0 left-0 z-40 w-64 shrink-0 h-screen transition-transform -translate-x-full lg:translate-x-0 lg:-translate-x-full"
+  class="fixed top-0 left-0 z-40 w-64 shrink-0 h-screen transition-transform -translate-x-full translate-x-0 "
   aria-label="Sidebar">
-    <div class="ml-5 h-[95%] px-3 py-4 overflow-y-auto bg-[#161A30] rounded-xl shadow-lg mx-auto my-6 w-[95%] flex flex-col">
+    <div class="h-[95%] px-3 py-4 overflow-y-auto bg-[#161A30] rounded-xl shadow-lg mx-auto my-6 w-[95%] flex flex-col">
         <div class="flex items-center mb-4">
             <svg width="41" height="40" viewBox="0 0 41 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M25.529 32.7902L8.708 39.9998L24.5555 22.9637L40.2407 20.1333L25.529 32.7902Z" fill="url(#paint0_linear_4719_3880)"/>
@@ -34,7 +25,6 @@
                 </radialGradient>
                 </defs>
                 </svg>
-                 <!-- Ganti dengan path logo Anda -->
             <span class="text-white text-lg font-semibold pl-1">Gudangku</span> <!-- Judul -->
         </div>
        <ul class="pl-2 flex-grow overflow-y-auto">

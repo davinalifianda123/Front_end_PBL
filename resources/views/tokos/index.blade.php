@@ -28,3 +28,12 @@
         </div>
     </div>
 </x-default-layout>
+@foreach ($tokos as $toko)
+    <tr>
+        <td>{{ $toko->nama_gudang_toko }}</td>
+        <td>{{ $toko->alamat }}</td>
+        <td>
+            <a href="{{ route('toko.edit', $toko->id) }}" class="text-blue-600 hover:underline">Edit</a>
+        </td>
+    </tr>
+@endforeach

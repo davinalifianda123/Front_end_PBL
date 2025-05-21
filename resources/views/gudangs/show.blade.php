@@ -12,7 +12,7 @@
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500">Nama Gudang</dt>
-                    <dd class="mt-1 text-lg text-gray-900">{{ $gudang->nama_gudang }}</dd>
+                    <dd class="mt-1 text-lg text-gray-900">{{ $gudang->nama_gudang_toko }}</dd>
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500">Alamat</dt>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="flex justify-start">
-            <a href="{{ route('gudangs.index') }}" class="text-blue-600 hover:text-blue-800 font-medium">
+            <a href="{{ route('gudang.index') }}" class="text-blue-600 hover:text-blue-800 font-medium">
                 &larr; Kembali ke Daftar Gudang
             </a>
         </div>

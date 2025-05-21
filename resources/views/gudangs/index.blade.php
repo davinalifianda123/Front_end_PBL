@@ -35,3 +35,15 @@
         @endif
     </div>
 </x-default-layout>
+@foreach ($gudangs as $gudang)
+    <tr>
+        <td>{{ $gudang->nama_gudang_toko }}</td>
+        <td>{{ $gudang->alamat }}</td>
+        <td>{{ $gudang->no_telepon }}</td>
+        <td>
+            <a href="{{ route('gudang.edit', $gudang->id) }}" class="btn btn-warning">
+                <i class="fas fa-edit"></i>
+            </a>
+        </td>
+    </tr>
+@endforeach
