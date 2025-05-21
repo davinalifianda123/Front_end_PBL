@@ -23,8 +23,7 @@
             @auth
               <button type="button" class="relative flex items-center rounded-lg bg-[#F9F9F9] px-3 py-2 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-transparent focus:outline-none" @click="open = !open" :aria-expanded="open" aria-haspopup="true">
                 <span class="absolute -inset-1.5"></span>
-                <span class="sr-only">Open user menu</span>
-                <!-- Ikon Profil Default -->
+                  <!-- Ikon Profil Default -->
                 <div class="size-8 rounded-full bg-gray-300 flex items-center justify-center">
                   <svg class="h-5 w-5 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
