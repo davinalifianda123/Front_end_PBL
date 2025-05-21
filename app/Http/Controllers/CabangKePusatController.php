@@ -25,22 +25,15 @@ class CabangKePusatController extends Controller
      */
     public function index()
     {
-        $CabangKePusat = CabangKePusat::with(
-        'pusat',
-        'cabang', 
-        'barang', 
-        'kurir',
-        'satuanBerat',
-        'status'
-        )->get();
+        try {
+            $cabangKePusat = CabangKePusat::with(relations: ['pusat','cabang','barang','kurir','satuanBerat','status'])->get();
 
-
-        return response()->json([
-            'status' => true,
-            'message' => 'Data Cabang Ke Pusat',
-            'data' => $CabangKePusat,
-        ]);
+            return view('retur_barang_cabang.index', compact(var_name: 'cabangKePusat'));
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan saat mengambil data: ' . $e->getMessage());
+        }
     }
+
 
     /**
      * Show the form for creating a new resource.
