@@ -1,3 +1,4 @@
+@section('page-title', 'Management Supplier')
 <x-default-layout>
     <div class="overflow-hidden">
         <div class="flex justify-between items-center px-6 py-4">
