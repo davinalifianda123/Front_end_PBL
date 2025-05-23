@@ -8,7 +8,7 @@
             <div class="flex items-center bg-white p-6 rounded-lg shadow-sm">
                 <div class="flex-1">
                     <h2 class="text-gray-600 text-sm font-medium mb-1">Kategori Barang</h2>
-                    <p class="text-2xl font-bold">{{ $jumlahKategori }}</p>
+                    <p>{{ $dashboard->jumlah_kategori }}</p>
                 </div>
                 <div class="p-3 rounded-full bg-purple-100">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -21,7 +21,7 @@
             <div class="flex items-center bg-white p-5 rounded-lg shadow-sm">
                 <div class="flex-1">
                     <h2 class="text-gray-600 text-sm font-medium mb-1">Barang</h2>
-                    <p class="text-2xl font-bold">{{ $jumlahBarang }}</p>
+                    <p> {{ $dashboard->jumlah_stok_seluruh_gudang }} </p>
                 </div>
                 <div class="p-3 rounded-full bg-yellow-100">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -35,7 +35,7 @@
             <div class="flex items-center bg-white p-6 rounded-lg shadow-sm">
                 <div class="flex-1">
                     <h2 class="text-gray-600 text-sm font-medium mb-1">Supplier</h2>
-                    <p class="text-2xl font-bold">{{ $jumlahSupplier }}</p>
+                    <p></p>
                 </div>
                 <div class="p-3 rounded-full bg-green-100">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -48,7 +48,7 @@
             <div class="flex items-center bg-white p-6 rounded-lg shadow-sm">
                 <div class="flex-1">
                     <h2 class="text-gray-600 text-sm font-medium mb-1">Gudang</h2>
-                    <p class="text-2xl font-bold">{{ $jumlahGudang }}</p>
+                    <p>{{ $dashboard->jumlah_gudang }}</p>
                 </div>
                 <div class="p-3 rounded-full bg-blue-100">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -61,7 +61,7 @@
             <div class="flex items-center bg-white p-6 rounded-lg shadow-sm">
                 <div class="flex-1">
                     <h2 class="text-gray-600 text-sm font-medium mb-1">Toko</h2>
-                    <p class="text-2xl font-bold">{{ $jumlahToko }}</p>
+                    <p>{{ $dashboard->jumlah_toko }}</p>
                 </div>
                 <div class="p-3 rounded-full bg-pink-100">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
