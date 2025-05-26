@@ -12,7 +12,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzQ3OTcxMjE2LCJleHAiOjE3NDc5OTI4MTYsIm5iZiI6MTc0Nzk3MTIxNiwianRpIjoieFA3MzZPNEY4QlNzQXpiQiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6IlN1cGVyQWRtaW4ifQ.Fqkrsh5X__6KgbSFc9zUg4p-RCz5p8CGJpBTvLLbPE4';
+        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzQ4MjM4NTg3LCJleHAiOjE3NDgyNjAxODcsIm5iZiI6MTc0ODIzODU4NywianRpIjoiRGxhdURjY0pDWFRGelpoWCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6IlN1cGVyQWRtaW4ifQ.sHUgqL3DVKEVVtSVRBBLHrTOmHAkoqnVC2udOQx5l4Q';
         $url = "http://localhost:8001/api/dashboard";
         $res = Http::withToken($token)->get($url);
 
