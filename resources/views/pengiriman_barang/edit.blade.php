@@ -5,7 +5,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div class="flex justify-between items-center mb-6">
                         <h1 class="text-2xl font-semibold text-gray-800">Edit Pengiriman Barang</h1>
-                        <a href="{{ route('pengiriman-barang.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Kembali</a>
+                        <a href="{{ route('pusat-ke-cabang.index') }}" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Kembali</a>
                     </div>
     
                     @if(session('error'))
@@ -14,7 +14,7 @@
                         </div>
                     @endif
                     
-                    <form action="{{ route('pengiriman-barang.update', $pengirimanBarang->id) }}" method="POST">
+                    <form action="{{ route('pusat-ke-cabang.update', $pengirimanBarang->id) }}" method="POST">
                         @csrf
                         @method('PUT')
                         

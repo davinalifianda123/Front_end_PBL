@@ -1,17 +1,26 @@
+@section('page-title', 'Aktivitas Gudang')
+@section('page-subtitle', 'Pengiriman Barang')
+
 <x-default-layout>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
         <div class="p-6 bg-white border-b border-gray-200">
-            <div class="flex justify-between items-center mb-6 gap-12">
-                @php
-                    $title = '';
 
-                    if (auth()->user()->hasRole('Buyer')) {
-                        $title = 'Orderan saya';
-                    } else {
-                        $title = 'Pengiriman Barang';
-                    }
-                @endphp
-                <h2 class="text-2xl font-semibold text-gray-800">{{ $title }}</h2>
+            {{-- ✅ Pesan Feedback --}}
+            @if (session('success'))
+                <div class="mb-4 text-green-700 bg-green-100 border border-green-300 px-4 py-3 rounded-md">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="mb-4 text-red-700 bg-red-100 border border-red-300 px-4 py-3 rounded-md">
+                    {{ session('error') }}
+                </div>
+            @endif
+
+            <div class="flex justify-between items-center mb-6 gap-12">
+                <h2 class="text-2xl font-bold text-gray-800">{{ $title ?? 'Daftar Pengiriman Barang' }}</h2>
+
                 @if(auth()->user()->hasRole('Admin', 'Staff'))
                     <a href="{{ route('pengiriman-barang.create') }}" class="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">
                         Tambah Pengiriman

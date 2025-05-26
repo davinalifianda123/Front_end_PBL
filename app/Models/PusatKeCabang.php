@@ -55,4 +55,5 @@ class PusatKeCabang extends Model
     {
         return $this->belongsTo(Status::class, 'id_status');
     }
+    
 }

@@ -99,10 +99,9 @@ class PusatKeCabangController extends Controller
         try {
             $pusatKeCabang = PusatKeCabang::with('pusat', 'cabang', 'barang', 'kurir', 'satuanBerat', 'status')->findOrFail($id);
 
-            return response()->json([
-                'status' => true,
-                'message' => "Data Pusat Ke Cabang dengan ID: {$id}",
-                'data' => $pusatKeCabang,
+           return view('pengiriman_barang.show', [
+                'pengirimanBarang' => $pusatKeCabang,
+                'message' => "Data Barang Gudang dengan ID: {$id}",
             ]);
         } catch (\Throwable $th) {
             return response()->json([
@@ -115,10 +114,11 @@ class PusatKeCabangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+   public function edit($id)
     {
-        //
+    
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -131,30 +131,25 @@ class PusatKeCabangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+   public function destroy(string $id)  
     {
         try {
             $pusatKeCabang = PusatKeCabang::findOrFail($id);
 
             if ($pusatKeCabang->flag == 0) {
-                return response()->json([
-                    'status' => false,
-                    'message' => "Data Penerimaan Di Cabang dengan ID: {$id} sudah dihapus sebelumnya.",
-                ]);
+                return redirect()->back()->with('error', "Data dengan ID: {$id} sudah dihapus sebelumnya.");
             }
-            return DB::transaction(function () use ($id, $pusatKeCabang) {
-                $pusatKeCabang->update(['flag' => 0]);
 
-                return response()->json([
-                    'status' => true,
-                    'message' => "Berhasil menghapus Data Penerimaan Di Cabang dengan ID: {$id}",
-                ]);
-            }, 3); // Maksimal 3 percobaan jika terjadi deadlock
+            DB::transaction(function () use ($pusatKeCabang) {
+                $pusatKeCabang->update(['flag' => 0]);
+            }, 3);
+
+            return redirect()->route('pusat-ke-cabang.index')->with('success', "Berhasil menghapus data pengiriman dengan ID: {$id}");
         } catch (\Throwable $th) {
-            return response()->json([
-                'status' => false,
-                'message' => "Gagal menghapus Data Penerimaan Di Cabang dengan ID: {$id}",
-            ]);
+            return redirect()->back()->with('error', "Gagal menghapus data pengiriman dengan ID: {$id}");
         }
     }
+
+
+    
 }
