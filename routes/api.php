@@ -24,7 +24,9 @@ use App\Http\Controllers\SupplierKePusatController;
 use App\Http\Controllers\TokoKeCabangController;
 use App\Http\Controllers\CabangKeTokoController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\DashboardController;
 Route::resource('barangs', BarangController::class);
+
 Route::patch('barangs/{id}/activate', [BarangController::class, 'activate'])->name('barangs.activate');
 Route::patch('barangs/{id}/deactivate', [BarangController::class, 'deactivate'])->name('barangs.deactivate');
 

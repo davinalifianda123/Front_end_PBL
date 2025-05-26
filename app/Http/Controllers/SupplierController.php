@@ -27,9 +27,8 @@ class SupplierController extends Controller
     public function create()
     {
         try {
-            return response()->json([
-                'status' => true,
-                'message' => 'Form Tambah Suppliers',
+            return view('suppliers.create', [
+                'message' => 'Form Tambah Supplier',
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -44,11 +43,9 @@ class SupplierController extends Controller
     {
        try {
             $supplier = GudangDanToko::where('kategori_bangunan', 1)->findOrFail($id);
-
-            return response()->json([
-                'status' => true,
-                'message' => "Detail Data Supplier dengan ID: {$id}",
-                'data' => $supplier,
+            return view('suppliers.show', [
+                'supplier' => $supplier,
+                'message' => "Data Supplier dengan ID: {$id}",
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json([
@@ -79,11 +76,11 @@ class SupplierController extends Controller
 
             $supplier = GudangDanToko::create(array_merge($validated, ['kategori_bangunan' => 1]));
 
-            return response()->json([
+            return view('suppliers.index', [
                 'status' => true,
-                'message' => "Toko {$supplier->nama_gudang_toko} berhasil ditambahkan!",
+                'message' => "Supplier {$supplier->nama_gudang_toko} berhasil ditambahkan!",
                 'data' => $supplier,
-            ], 201);
+            ]);
         } catch (ValidationException $e) {
             return response()->json([
                 'status' => false,
@@ -104,10 +101,9 @@ class SupplierController extends Controller
         try {
             $supplier = GudangDanToko::where('kategori_bangunan', 1)->findOrFail($id);
 
-            return response()->json([
-                'status' => true,
-                'message' => 'Data untuk Form Edit Toko',
-                'data' => $supplier,
+            return view('suppliers.edit', [
+                'supplier' => $supplier,
+                'message' => "Data Supplier dengan ID: {$id}",
             ]);
         } catch (ModelNotFoundException $e) {
             return response()->json([
@@ -136,7 +132,7 @@ class SupplierController extends Controller
 
             $supplier->update($validated);
 
-            return response()->json([
+            return view('suppliers.index', [
                 'status' => true,
                 'message' => "Supplier {$supplier->nama_gudang_toko} berhasil diperbarui!",
                 'data' => $supplier,
@@ -168,7 +164,7 @@ class SupplierController extends Controller
 
             $supplier->update(['flag' => 0]);
 
-            return response()->json([
+            return view('suppliers.index', [
                 'status' => true,
                 'message' => "Supplier {$supplier->nama_gudang_toko} berhasil dinonaktifkan!",
                 'data' => $supplier,
@@ -182,35 +178,6 @@ class SupplierController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => "Terjadi kesalahan saat menonaktifkan supplier dengan ID {$id}.",
-                'error' => $e->getMessage(),
-            ], 500);
-        }
-    }
-
-    /**
-     * Activate the specified toko from storage.
-     */
-    public function activate(string $id)
-    {
-        try {
-            $supplier = GudangDanToko::where('kategori_bangunan', 1)->findOrFail($id);
-
-            $supplier->update(['flag' => 1]);
-
-            return response()->json([
-                'status' => true,
-                'message' => "Supplier {$supplier->nama_gudang_toko} berhasil diaktifkan!",
-                'data' => $supplier,
-            ]);
-        } catch (ModelNotFoundException $e) {
-            return response()->json([
-                'status' => false,
-                'message' => "Data Supplier dengan ID: {$id} tidak ditemukan.",
-            ], 404);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => "Terjadi kesalahan saat mengaktifkan supplier dengan ID {$id}.",
                 'error' => $e->getMessage(),
             ], 500);
         }

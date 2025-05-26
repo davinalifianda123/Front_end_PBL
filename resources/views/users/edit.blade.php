@@ -17,7 +17,7 @@
                         <!-- Nama -->
                         <div class="mb-4">
                             <label for="nama" class="block text-sm font-medium text-gray-700">Nama</label>
-                            <input type="text" name="nama" id="nama" value="{{ old('nama', $user->nama) }}" class="p-2 block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
+                            <input type="text" name="nama" id="nama" value="{{ old('nama', $user->nama_user) }}" class="p-2 block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" required>
                             @error('nama')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror

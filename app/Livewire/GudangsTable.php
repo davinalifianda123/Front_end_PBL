@@ -17,25 +17,35 @@ class GudangsTable extends DataTableComponent
         $this->setPrimaryKey('id');
     }
 
+
     public function columns(): array
     {
         return [
             Column::make("Id", "id")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Nama gudang toko", "nama_gudang_toko")
-                ->sortable(),
-            Column::make("Kategori bangunan", "kategori_bangunan")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Alamat", "alamat")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("No telepon", "no_telepon")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
+           Column::make("Action")
+                ->label(fn($row, Column $column) => view('components.table-actions-gudang')->with([
+                    'row' => $row,
+                    'rute_lihat' => route('gudangs.show', $row->id),
+                    'rute_edit' => route('gudangs.edit', $row->id),
+                ])),
         ];
     }
 
     public function builder(): Builder
     {
         return GudangDanToko::query()
-            ->where('kategori_bangunan', 0);
+            ->where('kategori_bangunan', 0)
+            ->where('flag', 1);   
     }
 }

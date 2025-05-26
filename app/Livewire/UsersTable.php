@@ -4,12 +4,12 @@ namespace App\Livewire;
 
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use App\Models\GudangDanToko;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 
-class SuppliersTable extends DataTableComponent
+class UsersTable extends DataTableComponent
 {
-    protected $model = GudangDanToko::class;
+    protected $model = User::class;
 
     public function configure(): void
     {
@@ -22,28 +22,30 @@ class SuppliersTable extends DataTableComponent
             Column::make("Id", "id")
                 ->sortable()
                 ->searchable(),
-            Column::make("Nama Supplier", "nama_gudang_toko")
+            Column::make("Nama user", "nama_user")
                 ->sortable()
                 ->searchable(),
-            Column::make("Alamat", "alamat")
+            Column::make("Email", "email")
                 ->sortable()
                 ->searchable(),
-            Column::make("No telepon", "no_telepon")
+            Column::make("Id role", "id_role")
+                ->sortable()
+                ->searchable(),
+            Column::make("Id lokasi", "id_lokasi")
                 ->sortable()
                 ->searchable(),
             Column::make("Action")
-            ->label(fn($row, Column $column) => view('components.table-actions-suppliers')->with([
+            ->label(fn($row, Column $column) => view('components.table-actions-user')->with([
                 'row' => $row,
-                'rute_lihat' => route('suppliers.show', $row->id),
-                'rute_edit' => route('suppliers.edit', $row->id),
+                'rute_lihat' => route('users.show', $row->id),
+                'rute_edit' => route('users.edit', $row->id),
             ])),
         ];
     }
 
-    public function builder(): Builder
+     public function builder(): Builder
     {
-        return GudangDanToko::query()
-            ->where('kategori_bangunan', 1)
+        return User::query()
             ->where('flag', 1);
     }
 }

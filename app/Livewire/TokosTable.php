@@ -20,15 +20,26 @@ class TokosTable extends DataTableComponent
     {
         return [
             Column::make("Id", "id")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Nama gudang toko", "nama_gudang_toko")
-                ->sortable(),
-            Column::make("Kategori bangunan", "kategori_bangunan")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("Alamat", "alamat")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
             Column::make("No telepon", "no_telepon")
-                ->sortable(),
+                ->sortable()
+                ->searchable(),
+            Column::make("Action")
+                 ->label(fn($row, Column $column) => view('components.table-actions-barang')->with([
+                    'row' => $row,
+                    'rute_lihat' => route('tokos.show', $row->id),
+                    'rute_edit' => route('tokos.edit', $row->id),
+                    'rute_deactivate' => route('tokos.deactivate', $row->id),
+                    'rute_activate' => route('tokos.activate', $row->id),
+                ])),
+            
         ];
     }
 

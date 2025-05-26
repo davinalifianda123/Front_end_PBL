@@ -13,7 +13,7 @@
         @endif
     
         <div class="border-t border-gray-200">
-            <form action="{{ route('barangs.update', $barang->id) }}" method="POST" class="p-6">
+            <form action="{{ route('barangs.update', $detailGudang->id) }}" method="POST" class="p-6">
                 @csrf
                 @method('PUT')
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -32,7 +32,7 @@
                                 class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                             <option value="">Pilih Kategori</option>
                             @foreach($kategoris as $kategori)
-                                <option value="{{ $kategori->id }}" {{ old('id_kategori', $barang->id_kategori) == $kategori->id ? 'selected' : '' }}>
+                                <option value="{{ $kategori->id }}" {{ old('id_kategori', $barang->id_kategori_barang) == $kategori->id ? 'selected' : '' }}>
                                     {{ $kategori->nama_kategori_barang }}
                                 </option>
                             @endforeach
@@ -44,35 +44,13 @@
     
                     <div>
                         <label for="jumlah_stok" class="block text-sm font-medium text-gray-700">Jumlah Stok</label>
-                        <input type="number" name="jumlah_stok" id="jumlah_stok" value="{{ old('jumlah_stok', $barang->jumlah_stok) }}" required min="0"
+                        <input type="number" name="jumlah_stok" id="jumlah_stok" value="{{ old('jumlah_stok', $detailGudang->jumlah_stok) }}" required min="0"
                             class="py-2 px-3 border mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
                         @error('jumlah_stok')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
     
-                    <div>
-                        <label for="berat" class="block text-sm font-medium text-gray-700">Berat (gram)</label>
-                        <input type="number" name="berat" id="berat" value="{{ old('berat', $barang->berat) }}" required min="0"
-                            class="py-2 px-3 border mt-1 focus:ring-blue-500 focus:border-blue-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
-                        @error('berat')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-    
-                    <div>
-                        <label for="harga_jual" class="block text-sm font-medium text-gray-700">Harga Jual</label>
-                        <div class="mt-1 relative rounded-md shadow-sm">
-                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <span class="text-gray-500 sm:text-sm">Rp</span>
-                            </div>
-                            <input type="number" name="harga_jual" id="harga_jual" value="{{ old('harga_jual', $barang->harga_jual) }}" required min="0"
-                                class="py-2 px-3 border focus:ring-blue-500 focus:border-blue-500 block w-full pl-12 sm:text-sm border-gray-300 rounded-md">
-                        </div>
-                        @error('harga_jual')
-                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
                 </div>
     
                 <div class="mt-6 flex items-center justify-end space-x-3">

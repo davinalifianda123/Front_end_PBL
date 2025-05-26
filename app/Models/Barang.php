@@ -24,7 +24,7 @@ class Barang extends Model
         'flag'
     ];
 
-    public function kategori(): BelongsTo
+    public function kategoriBarang(): BelongsTo
     {
         return $this->belongsTo(KategoriBarang::class, 'id_kategori_barang');
     }

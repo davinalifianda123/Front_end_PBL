@@ -1,22 +1,31 @@
-<nav class="bg-white absolute w-full z-50 mb-4 py-4" x-data="{ open: false }">
-  <div class="mx-auto max-w-7xl pr-8">
-    <div class="relative flex h-16 items-center justify-between">
-      <!-- Menu -->
-      <div class="flex flex-1 items-center justify-start">
-        <div class="flex flex-col shrink-0 pl-4">
-          <span class="text-black text-xl font-semibold">
-            @yield('page-title', 'Judul Pagenya') 
-          </span>
-          @hasSection('page-subtitle')
-            <span class="text-gray-500 text-sm font-normal mt-1">
-              @yield('page-subtitle') 
-            </span>
-          @endif
-        </div>
+<header class="bg-gray-50 z-10">
+  <div class="flex items-center justify-between h-16 px-4 md:px-6">
+      <!-- Mobile menu button -->
+      <div class="sm:hidden">
+          <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500">
+              <span class="sr-only">Open main menu</span>
+              <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+          </button>
+      </div>
+      
+      <!-- Page title -->
+      <div class="flex-1">
+          <div class="flex flex-col">
+              <h1 class="text-black text-xl font-semibold">
+                  @yield('page-title', 'Dashboard')
+              </h1>
+              @hasSection('page-subtitle')
+                  <p class="text-gray-500 text-sm font-normal mt-1">
+                      @yield('page-subtitle')
+                  </p>
+              @endif
+          </div>
       </div>
 
       <!-- Profile -->
-      <div class="hidden sm:flex absolute inset-y-0 right-0 items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+      <div class="{{ request()->is('profile') || request()->is('profile/edit') || request()->is('profile/update') ? 'hidden' : 'sm:flex hidden md:flex'}} absolute inset-y-0 right-0 items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0" x-data="{ open: false }">
         <!-- Profile -->
         <div class="relative ml-3">
           <div>
@@ -49,7 +58,7 @@
                   <p class="text-gray-900 font-medium">{{ Auth::user()->nama_user }}</p>
                   <p class="text-gray-500 text-sm">{{ Auth::user()->role->nama_role }}</p>
                 </div>
-                <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">
+                <a href="/profile" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem" tabindex="-1">
                   <svg class="mr-2 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
@@ -69,6 +78,5 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
-</nav>
+</header>

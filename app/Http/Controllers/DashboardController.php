@@ -3,20 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Http;use App\Models\Barang;
+use App\Models\GudangDanToko;
+use App\Models\KategoriBarang;
+use App\Models\SupplierKePusat;
+use App\Models\TokoKeCabang;
 class DashboardController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
-    }
+        $token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDEvYXBpL2xvZ2luIiwiaWF0IjoxNzQ3OTcxMjE2LCJleHAiOjE3NDc5OTI4MTYsIm5iZiI6MTc0Nzk3MTIxNiwianRpIjoieFA3MzZPNEY4QlNzQXpiQiIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3Iiwicm9sZSI6IlN1cGVyQWRtaW4ifQ.Fqkrsh5X__6KgbSFc9zUg4p-RCz5p8CGJpBTvLLbPE4';
+        $url = "http://localhost:8001/api/dashboard";
+        $res = Http::withToken($token)->get($url);
 
-    /**
-     * Show the form for creating a new resource.
-     */
+        $dashboard = json_decode($res->body());
+        $dashboard = $dashboard->data;
+
+        return view('dashboard.index', compact('dashboard'));
+    }
     public function create()
     {
         //

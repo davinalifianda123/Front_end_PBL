@@ -19,12 +19,12 @@ class BarangController extends Controller
     public function index()
     {
         try {
-            $barangs = Barang::with(['kategori'])->orderBy('id')->paginate(10);
+            $barangss = Barang::with(['kategori'])->orderBy('id')->paginate(10);
 
             return response()->json([
                 'status' => true,
                 'message' => 'Data Barang',
-                'data' => $barangs,
+                'data' => $barangss,
             ]);
         } catch (\Exception $e) {
             return response()->json([
@@ -62,7 +62,7 @@ class BarangController extends Controller
     /**
      * Store a newly created product in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function store(Request $request)
     {
         try {
             $validated = $request->validate([
@@ -82,22 +82,9 @@ class BarangController extends Controller
                 Barang::create($validated);
             }, 3);
 
-            return response()->json([
-                'status' => true,
-                'message' => "Barang {$request->input('nama_barang')} berhasil ditambahkan!",
-            ]);
-        } catch (ValidationException $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Data yang diberikan tidak valid.',
-                'errors' => $e->errors(),
-            ], 422);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Terjadi kesalahan saat menyimpan barang.',
-                'error' => $e->getMessage(),
-            ], 500);
+            return redirect()->route('barangs.index')->with('success', 'Data Detail Gudang berhasil ditambahkan');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Gagal menambahkan Data Barang Gudang. Silakan coba lagi.');
         }
     }
 
@@ -227,7 +214,7 @@ class BarangController extends Controller
                 $barang->update(['flag' => 0]);
             }, 3);
 
-            return response()->json([
+            return view('barangs.index', [
                 'status' => true,
                 'message' => "Barang {$barang->nama_barang} berhasil dinonaktifkan!",
                 'data' => $barang,
@@ -258,7 +245,7 @@ class BarangController extends Controller
                 $barang->update(['flag' => 1]);
             }, 3);
 
-            return response()->json([
+            return view('barangs.index' , [
                 'status' => true,
                 'message' => "Barang {$barang->nama_barang} berhasil diaktifkan!",
                 'data' => $barang,
