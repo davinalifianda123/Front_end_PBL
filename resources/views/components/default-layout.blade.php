@@ -7,30 +7,18 @@
     <!-- Fonts & Scripts -->
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @livewireStyles
     @endif
 </head>
 <body class="text-[#1b1b18] bg-gray-50">
     <!-- Main Layout -->
     <div class="flex h-screen overflow-hidden">
     <!-- Sidebar selain supervisor-->
-    @php $role = Auth::user()->role->nama_role; @endphp
-
-    @if($role !== 'Supervisor')
         <aside class="hidden md:flex md:flex-col md:w-64 bg-white border-r border-gray-200 h-screen">            
             <!-- Sidebar content -->
             <div class="flex-1 overflow-y-auto py-4">
-                @switch($role)
-                    @case("SuperAdmin")
-                        <x-headers.header-super-admin />
-                    @break
-                    @case("Admin")
-                        <x-headers.header-admin />
-                    @break
-                @endswitch
+                <x-headers.header-super-admin />    
             </div>          
         </aside>
-    @endif
 
         <!-- Main Content Area - Flexible width, full height -->
         <div class="flex flex-col flex-1 w-0 overflow-hidden">
@@ -38,7 +26,6 @@
             <x-navbar/>
 
             <!-- Mobile Sidebar Modal (hidden by default) -->
-            @if($role !== 'Supervisor')
             <div id="mobile-sidebar" class="fixed inset-0 flex z-40 md:hidden transform -translate-x-full transition-transform duration-300 ease-in-out">
                 <div class="fixed inset-0 bg-opacity-20" id="sidebar-overlay"></div>
                 
@@ -55,14 +42,7 @@
                     <div class="flex-1 h-0 overflow-y-auto">
 
                         <div class="pt-4">
-                            @switch($role)
-                                @case("SuperAdmin")
-                                    <x-headers.header-super-admin />
-                                @break
-                                @case("Admin")
-                                    <x-headers.header-admin />
-                                @break
-                            @endswitch
+                            <x-headers.header-super-admin />
                         </div>
                     </div>
                     
@@ -73,7 +53,6 @@
                     
                 </div>
             </div>
-            @endif
 
             <!-- Main Content -->
             <main class="flex-1 relative overflow-y-auto focus:outline-none">
@@ -85,7 +64,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-    @livewireScripts
 
     <script>
         // JavaScript for mobile sidebar toggle

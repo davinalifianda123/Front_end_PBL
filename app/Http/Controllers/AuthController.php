@@ -3,42 +3,53 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\Auth\LoginRequest;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
-    public function showLoginForm()
+    public function login(Request $request)
     {
-        return view('auth.login');
-    }   
+        // Validasi input
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
 
-    public function login(LoginRequest $request)
-    {
         try {
-            $request->authenticate();
+            // Kirim POST ke backend API login
+            $response = Http::post('http://localhost:8001/api/login', [
+                'email' => $request->email,
+                'password' => $request->password,
+            ]);
 
-            if (auth()->user()->hasRole('SuperAdmin')) {
-                return redirect()->route('dashboard.index');
-            } else if (auth()->user()->hasRole('Supplier')) {
-                auth()->logout();
-                return back()->withErrors(['email' => 'Akun ini tidak memiliki akses ke website ini.'])->withInput($request->only('email', 'password'));
-            } else {
-                return redirect()->route('dashboard.index');
+            $data = json_decode($response->getBody(), true);
+
+            if (isset($data['access_token']) && isset($data['refresh_token'])) {
+                // Set access token (misalnya 15 menit = 15)
+                $accessCookie = cookie('jwt_token', $data['access_token'], 15);
+
+                // Set refresh token (misalnya 7 hari = 60 * 24 * 7 = 10080 menit)
+                $refreshCookie = cookie('refresh_token', $data['refresh_token'], 10080);
+
+                return redirect(route('dashboard.index'))
+                    ->withCookie($accessCookie)
+                    ->withCookie($refreshCookie)
+                    ->with('success', 'Login berhasil!');
             }
-        } catch (ValidationException $exception) {
-            return back()->withErrors($exception->errors())->withInput($request->only('email', 'password'));
+
+            return back()->withErrors(['login' => 'Login gagal, token tidak diterima.']);
+        } catch (\Exception $e) {
+            return back()->withErrors(['login' => 'Login gagal: ' . $e->getMessage()]);
         }
     }
 
     public function logout(Request $request)
     {
-        Auth::logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return redirect('/login');
+        // Hapus kedua cookie: jwt_token dan refresh_token
+        return redirect('/login')
+            ->withCookie(Cookie::forget('jwt_token'))
+            ->withCookie(Cookie::forget('refresh_token'))
+            ->with('success', 'Logout berhasil!');
     }
 }
