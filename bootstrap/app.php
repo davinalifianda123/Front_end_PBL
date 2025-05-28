@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\JwtAuthenticate;
 use App\Http\Middleware\JwtGuest;
 use Illuminate\Foundation\Application;
 use App\Http\Middleware\RoleMiddleware;
@@ -17,7 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'role' => RoleMiddleware::class,
-            'jwt.auth' => JwtAuthMiddleware::class,
+            'jwt.auth' => JwtAuthenticate::class,
             'jwt.guest' => JwtGuest::class,
         ]);
     })
