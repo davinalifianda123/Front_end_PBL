@@ -75,57 +75,44 @@
         </div>
 
         <!-- Main content -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Activities -->
-            <div class="lg:col-span-2 max-w-full bg-white rounded-lg shadow-sm dark:bg-white p-4 md:p-6">
-                <!-- Header -->
-                <div class="flex justify-between mb-5">
-                    <div>
-                        <h2 class="leading-none text-lg font-semibold text-black pb-1">Activities</h2>
-                        <p class="text-base font-normal text-gray-500 dark:text-gray-400">Barang Masuk & Keluar</p>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span class="text-sm text-gray-500 dark:text-gray-400">29/03/2025</span>
-                        <button
-                            id="dropdownDefaultButton"
-                            data-dropdown-toggle="lastDaysdropdown"
-                            data-dropdown-placement="bottom"
-                            class="px-2.5 py-1.5 border border-gray-300 dark:border-gray-600 text-sm rounded-lg flex items-center text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
-                            Hari ini
-                            <svg class="w-3 h-3 ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                            </svg>
-                        </button>
-                        <!-- Dropdown -->
-                        <div id="lastDaysdropdown"
-                            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
-                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Last 7 days</a></li>
-                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600">Last 30 days</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Activities -->
+    <div class="lg:col-span-2 max-w-full bg-white rounded-lg shadow-sm dark:bg-white p-4 md:p-6">
+        <!-- Header -->
+        <div class="flex justify-between mb-5">
+            <div>
+                <h2 class="leading-none text-lg font-semibold text-black pb-1">Activities</h2>
+                <p class="text-base font-normal text-gray-500 dark:text-gray-400">Barang Masuk & Keluar</p>
+            </div>
+            <div class="flex items-center space-x-2">
+                <select id="filterDurasi"
+                    class="px-2.5 py-1.5 border border-gray-300 dark:border-gray-600 text-sm rounded-lg flex items-center text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition">
+                    <option value="Hari ini">Hari ini</option>
+                    <option value="1 minggu yang lalu">1 minggu yang lalu</option>
+                    <option value="1 bulan yang lalu">1 bulan yang lalu</option>
+                </select>
+            </div>
+        </div>
 
-                <!-- Chart -->
-                <div class="h-64 w-full">
-                    <div id="labels-chart" class="w-full h-full"></div>
-                </div>
+        <!-- Chart -->
+        <div class="h-64 w-full">
+            <canvas id="laporanChart" class="w-full h-full"></canvas>
+        </div>
 
-                <div class="flex justify-between items-center border-t border-gray-200 dark:border-gray-700 pt-5 mt-5">
-                    <div class="flex items-center space-x-6">
-                        <div class="flex items-center">
-                            <span class="w-3 h-3 rounded-full mr-2" style="background-color: #1A56DB;"></span>
-                            <span class="text-sm text-gray-600 dark:text-gray-300">Barang Masuk</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="w-3 h-3 rounded-full mr-2" style="background-color: #7E3BF2;"></span>
-                            <span class="text-sm text-gray-600 dark:text-gray-300">Barang Keluar</span>
-                        </div>
-                    </div>
+        <div class="flex justify-between items-center border-t border-gray-200 dark:border-gray-700 pt-5 mt-5">
+            <div class="flex items-center space-x-6">
+                <div class="flex items-center">
+                    <span class="w-3 h-3 rounded-full mr-2" style="background-color: rgba(54, 162, 235, 1);"></span>
+                    <span class="text-sm text-gray-600 dark:text-gray-300">Barang Masuk</span>
+                </div>
+                <div class="flex items-center">
+                    <span class="w-3 h-3 rounded-full mr-2" style="background-color: rgba(255, 99, 132, 1);"></span>
+                    <span class="text-sm text-gray-600 dark:text-gray-300">Barang Keluar</span>
                 </div>
             </div>
+        </div>
+    </div>
+
 
             <!-- Stock Running Low -->
             <div class="bg-white rounded-lg shadow-sm p-6">
@@ -145,103 +132,6 @@
                     <a href="#" class="text-blue-500 text-sm hover:underline flex justify-center">Lihat Stock Barang</a>
                 </div>
             </div>
-        </div>
-
-        <!-- JS Graf -->
-        <!-- Tambahkan di akhir halaman -->
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-        <script>
-            const options = {
-                xaxis: {
-                    show: true,
-                    categories: ['01 Feb', '02 Feb', '03 Feb', '04 Feb', '05 Feb', '06 Feb', '07 Feb'],
-                    labels: {
-                        show: true,
-                        style: {
-                            fontFamily: "Inter, sans-serif",
-                            cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
-                        }
-                    },
-                    axisBorder: {
-                        show: false,
-                    },
-                    axisTicks: {
-                        show: false,
-                    },
-                },
-                yaxis: {
-                    show: true,
-                    labels: {
-                        show: true,
-                        style: {
-                            fontFamily: "Inter, sans-serif",
-                            cssClass: 'text-xs font-normal fill-gray-500 dark:fill-gray-400'
-                        },
-                        formatter: function (value) {
-                            return + value;
-                        }
-                    }
-                },
-                series: [
-                    {
-                        name: "Barang Masuk",
-                        data: [150, 141, 145, 152, 135, 125],
-                        color: "#1A56DB",
-                    },
-                    {
-                        name: "Barang Keluar",
-                        data: [43, 13, 65, 12, 42, 73],
-                        color: "#7E3BF2",
-                    },
-                ],
-                chart: {
-                    sparkline: {
-                        enabled: false
-                    },
-                    height: "100%",
-                    width: "100%",
-                    type: "area",
-                    fontFamily: "Inter, sans-serif",
-                    dropShadow: {
-                        enabled: false,
-                    },
-                    toolbar: {
-                        show: false,
-                    },
-                },
-                tooltip: {
-                    enabled: true,
-                    x: {
-                        show: false,
-                    },
-                },
-                fill: {
-                    type: "gradient",
-                    gradient: {
-                        opacityFrom: 0.55,
-                        opacityTo: 0,
-                        shade: "#1C64F2",
-                        gradientToColors: ["#1C64F2"],
-                    },
-                },
-                dataLabels: {
-                    enabled: false,
-                },
-                stroke: {
-                    width: 6,
-                },
-                legend: {
-                    show: false
-                },
-                grid: {
-                    show: false,
-                },
-            };
-
-            if (document.getElementById("labels-chart") && typeof ApexCharts !== 'undefined') {
-                const chart = new ApexCharts(document.getElementById("labels-chart"), options);
-                chart.render();
-            }
-        </script>
+        </div>        
     </div>
 </x-default-layout>
